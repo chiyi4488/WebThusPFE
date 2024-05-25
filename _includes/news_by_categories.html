@@ -1,0 +1,18 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>標題</th>
+            <th>日期</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in site.categories[page.categories_list] %}
+        <tr class="tr_hover">
+            <td><a href="{{ post.url }}" alt="{{ post.title }}: {{ post.excerpt | strip_html }}"
+                    style="color: var(--bs-primary);overflow: hidden;text-overflow: ellipsis;text-decoration: none;">{{
+                    post.title }}</a></td>
+            <td>{{ post.date | date: "%Y-%m-%d" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

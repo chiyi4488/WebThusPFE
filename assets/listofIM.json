@@ -1,0 +1,826 @@
+﻿[
+    {
+        "schoolName": "大同大學",
+        "majorAdmin": "高有成",
+        "majorName": "資訊經營系",
+        "majorURL": "http://mis2.ttu.edu.tw/bin/home.php",
+        "majorTEL": "(02)21822928#6787",
+        "majorAddr": "104 台北市中山區中山北路三段40號"
+    },
+    {
+        "schoolName": "敏實科技大學",
+        "majorAdmin": "李培育",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.tust.edu.tw/",
+        "majorTEL": "(03)5927700#2751",
+        "majorAddr": "307 新竹縣芎林鄉大華路1號"
+    },
+    {
+        "schoolName": "大葉大學",
+        "majorAdmin": "林清同",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.dyu.edu.tw/",
+        "majorTEL": "(04)8511888#3131",
+        "majorAddr": "515 彰化縣大村鄉學府路168號"
+    },
+    {
+        "schoolName": "中山醫學大學(醫療產業科技管理學系)",
+        "majorAdmin": "邱政元",
+        "majorName": "醫療資訊管理學系",
+        "majorURL": "https://health.csmu.edu.tw/",
+        "majorTEL": "(04)24730022#11713",
+        "majorAddr": "40201 台中市南區建國北路一段110號"
+    },
+    {
+        "schoolName": "中州技術學院",
+        "majorAdmin": "廖基堯",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.ccut.edu.tw/adminSection/front/news.asp?site_id=im",
+        "majorTEL": "(04)8359000#3201",
+        "majorAddr": "510 彰化縣員林市山腳路三段2巷6號"
+    },
+    {
+        "schoolName": "中原大學",
+        "majorAdmin": "廖秀莉",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.cycu.edu.tw/",
+        "majorTEL": "(03)2655401 (大學)、(03)2655403(碩士、碩專)",
+        "majorAddr": "320 桃園市中壢區中北路200號"
+    },
+    {
+        "schoolName": "中國文化大學",
+        "majorAdmin": "杜淑芬",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.pccu.edu.tw/bin/home.php",
+        "majorTEL": "(02)28610511、28611801#35906(資管系) 、#35905(資管所)",
+        "majorAddr": "台北市111陽明山華岡路55號"
+    },
+    {
+        "schoolName": "中國科技大學",
+        "majorAdmin": "羅勇夫",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mis.cute.edu.tw/",
+        "majorTEL": "(02)29313416#2352(台北校區)；(03)6991111#1360(新竹校區)",
+        "majorAddr": "116 台北市文山區興隆路三段56號(台北校區)；303 新竹縣湖口鄉中山路三段530號(新竹校區)"
+    },
+    {
+        "schoolName": "中華大學",
+        "majorAdmin": "柯宇謙",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mis.chu.edu.tw/",
+        "majorTEL": "(03)5374281#6524",
+        "majorAddr": "300 新竹市香山區五福路二段707號"
+    },
+    {
+        "schoolName": "中華科技大學",
+        "majorAdmin": "洪志評",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.cust.edu.tw/",
+        "majorTEL": "(02)26546420",
+        "majorAddr": "115 台北市南港區研究院路三段245號"
+    },
+    {
+        "schoolName": "中華醫事科技大學(數位設計與資訊管理系)",
+        "majorAdmin": "曾雅芬",
+        "majorName": "資訊管理系",
+        "majorURL": "https://ddim.hwai.edu.tw/index.php",
+        "majorTEL": "(06)2674567#550",
+        "majorAddr": "717 台南市仁德區文華一街89號"
+    },
+    {
+        "schoolName": "中臺科技大學",
+        "majorAdmin": "林宣宏",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mgis2.ctust.edu.tw/bin/home.php",
+        "majorTEL": "(04)22391647#7701",
+        "majorAddr": "40601 台中市北屯區?子路666號"
+    },
+    {
+        "schoolName": "元培醫事科技大學",
+        "majorAdmin": "何順全",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.ypu.edu.tw/",
+        "majorTEL": "(03)6102361",
+        "majorAddr": "300 新竹市香山區元培街306號"
+    },
+    {
+        "schoolName": "元智大學",
+        "majorAdmin": "禹良治",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.mis.yzu.edu.tw/index.aspx?lang=cht",
+        "majorTEL": "(03)463-8800#2601",
+        "majorAddr": "320 桃園市中壢區遠東路135號"
+    },
+    {
+        "schoolName": "文藻外語大學(數位內容應用與管理系)",
+        "majorAdmin": "蘇彥衍",
+        "majorName": "數位內容設計系",
+        "majorURL": "https://c028.wzu.edu.tw/",
+        "majorTEL": "(07)3426031#6302、6303",
+        "majorAddr": "80793 高雄市三民區民族一路900號"
+    },
+    {
+        "schoolName": "世新大學",
+        "majorAdmin": "劉立民",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.wp.shu.edu.tw/",
+        "majorTEL": "(02)22368225#63360",
+        "majorAddr": "116 台北市文山區木柵路一段17巷1號"
+    },
+    {
+        "schoolName": "臺北城市科技大學",
+        "majorAdmin": "黃大炎",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.tpcu.edu.tw/bin/home.php",
+        "majorTEL": "(02)28927154#7701、7702",
+        "majorAddr": "112 台北市北投區學園路2號"
+    },
+    {
+        "schoolName": "國立臺北科技大學",
+        "majorAdmin": "陳育威",
+        "majorName": "資訊與財金管理學系",
+        "majorURL": "https://ifm.ntut.edu.tw/app/home.php",
+        "majorTEL": "(02)27712171#5900",
+        "majorAddr": "10608 台北市大安區忠孝東路三段1號"
+    },
+    {
+        "schoolName": "台南應用科技大學",
+        "majorAdmin": "劉育釧",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.tut.edu.tw/",
+        "majorTEL": "(06)2532106#333、361",
+        "majorAddr": "710 台南市永康區中正路529號"
+    },
+    {
+        "schoolName": "台灣首府大學(資訊與多媒體設計學系)",
+        "majorAdmin": "楊振銘",
+        "majorName": "資訊多媒體應用學系",
+        "majorURL": "http://csmd.tsu.edu.tw/bin/home.php",
+        "majorTEL": "(06)5718888#861、862",
+        "majorAddr": "72153 台南市麻豆區168號"
+    },
+    {
+        "schoolName": "弘光科技大學",
+        "majorAdmin": "黃建基",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.csim.hk.edu.tw/main.php",
+        "majorTEL": "(04)26318652#5401~5403",
+        "majorAddr": "433 台中市沙鹿區台灣大道六段1018號"
+    },
+    {
+        "schoolName": "正修科技大學",
+        "majorAdmin": "夏自立",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.csu.edu.tw/wSite/mp?mp=10204",
+        "majorTEL": "(07)7358800#5302、5303",
+        "majorAddr": "833 高雄市鳥松區澄清路840號"
+    },
+    {
+        "schoolName": "玄奘大學",
+        "majorAdmin": "蔡耀弘",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.hcu.edu.tw/itd/zh-tw/?sh=",
+        "majorTEL": "(03)5302255#5341",
+        "majorAddr": "300 新竹市香山區玄奘路48號"
+    },
+    {
+        "schoolName": "育達商業科技大學",
+        "majorAdmin": "張毓騰",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.im.ydu.edu.tw/",
+        "majorTEL": "(037)651188#5521、5522",
+        "majorAddr": "361 苗栗縣造橋鄉學府路168號"
+    },
+    {
+        "schoolName": "國立中央大學",
+        "majorAdmin": "蘇雅惠",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.mgt.ncu.edu.tw/",
+        "majorTEL": "(03)4227151#66500、66501、66536、66559",
+        "majorAddr": "320 桃園市中壢區中大路300號"
+    },
+    {
+        "schoolName": "東海大學",
+        "majorAdmin": "陳澤雄",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.thu.edu.tw/",
+        "majorTEL": "(04)23590121#35900",
+        "majorAddr": "407224 台中市西屯區台灣大道四段1727號"
+    },
+    {
+        "schoolName": "國立中央警察大學",
+        "majorAdmin": "廖有祿",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.cpu.edu.tw/bin/home.php",
+        "majorTEL": "(03)3282321",
+        "majorAddr": "333 桃園市龜山區樹人路56號"
+    },
+    {
+        "schoolName": "國立台北大學",
+        "majorAdmin": "江義平",
+        "majorName": "資訊管理所",
+        "majorURL": "http://www.mis.ntpu.edu.tw/#/",
+        "majorTEL": "(02)86741111#66894",
+        "majorAddr": "237 新北市三峽區大學路151號"
+    },
+    {
+        "schoolName": "國立台灣大學",
+        "majorAdmin": "陳建錦",
+        "majorName": "資訊管理系",
+        "majorURL": "https://management.ntu.edu.tw/IM",
+        "majorTEL": "(02)33663366",
+        "majorAddr": "10617 台北市大安區羅斯福路四段1號"
+    },
+    {
+        "schoolName": "國立交通大學",
+        "majorAdmin": "蔡銘箴",
+        "majorName": "資訊管理所",
+        "majorURL": "https://www.iim.nctu.edu.tw/zh",
+        "majorTEL": "(03)5712121#57401",
+        "majorAddr": "30010 新竹市東區大學路1001號"
+    },
+    {
+        "schoolName": "國立交通大學(資訊管理與財務金融學系)",
+        "majorAdmin": "梁婉麗",
+        "majorName": "資訊與財金管理學系",
+        "majorURL": "https://imf.nctu.edu.tw/",
+        "majorTEL": "(03)5712121#57051",
+        "majorAddr": "30010 新竹市東區大學路1001號"
+    },
+    {
+        "schoolName": "國立東華大學",
+        "majorAdmin": "侯佳利",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.ndhu.edu.tw/bin/home.php",
+        "majorTEL": "(03)8903000#3102",
+        "majorAddr": "974 花蓮縣壽豐鄉大學路二段1號"
+    },
+    {
+        "schoolName": "國立空中大學(管理與資訊學系)",
+        "majorAdmin": "林俊裕",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mi.nou.edu.tw/",
+        "majorTEL": "(02)22829355#7655",
+        "majorAddr": "247 新北市蘆洲區中正路172號"
+    },
+    {
+        "schoolName": "國立政治大學",
+        "majorAdmin": "洪為璽",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis2.nccu.edu.tw/",
+        "majorTEL": "(02)29393091#89055~89057、 63681",
+        "majorAddr": "116 台北市文山區指南路二段64號"
+    },
+    {
+        "schoolName": "國立國防大學",
+        "majorAdmin": "蘇品長",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.ndmc.ndu.edu.tw/",
+        "majorTEL": "(03)3801120",
+        "majorAddr": "112 台北市北投區中央北路二段70號"
+    },
+    {
+        "schoolName": "國立臺北護理健康大學",
+        "majorAdmin": "徐建業",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.ntunhs.edu.tw/",
+        "majorTEL": "(02)28227101#3919",
+        "majorAddr": "112 台北市北投區明德路365號"
+    },
+    {
+        "schoolName": "東吳大學",
+        "majorAdmin": "鄭為民",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.csim.scu.edu.tw/",
+        "majorTEL": "(02)23111531",
+        "majorAddr": "100 台北市中正區貴陽街一段56號"
+    },
+    {
+        "schoolName": "長庚大學",
+        "majorAdmin": "廖耕億",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.cgu.edu.tw/",
+        "majorTEL": "(03)2118800#5812",
+        "majorAddr": "333 桃園市龜山區文化一路259號"
+    },
+    {
+        "schoolName": "真理大學",
+        "majorAdmin": "黃啟誠",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.au.edu.tw/index.php?Lang=zh-tw",
+        "majorTEL": "(02)26212121#6301、6302",
+        "majorAddr": "251 新北市淡水區真理街32號"
+    },
+    {
+        "schoolName": "淡江大學",
+        "majorAdmin": "魏世杰",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.tku.edu.tw/tw/",
+        "majorTEL": "(02)26215656#2645、2648",
+        "majorAddr": "251 新北市淡水區英專路151號"
+    },
+    {
+        "schoolName": "華梵大學",
+        "majorAdmin": "嚴建和",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mis.hfu.edu.tw/main.php",
+        "majorTEL": "(02)26632102#4351",
+        "majorAddr": "223 新北市石碇區華梵路1號"
+    },
+    {
+        "schoolName": "開南大學",
+        "majorAdmin": "許榮隆",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.knu.edu.tw/",
+        "majorTEL": "(03)3412500#3503",
+        "majorAddr": "338 桃園市蘆竹區開南路1號"
+    },
+    {
+        "schoolName": "實踐大學",
+        "majorAdmin": "鄭王駿",
+        "majorName": "資訊科技與管理學系",
+        "majorURL": "https://itm.usc.edu.tw/",
+        "majorTEL": "(02)25381111#8811、8813",
+        "majorAddr": "10462 台北市中山區大直街70號"
+    },
+    {
+        "schoolName": "輔仁大學",
+        "majorAdmin": "蔡明志",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.fju.edu.tw/site/",
+        "majorTEL": "(02)29052000",
+        "majorAddr": "242 新北市新莊區中正路510號"
+    },
+    {
+        "schoolName": "銘傳大學",
+        "majorAdmin": "李永山",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.mcu.edu.tw/main.php",
+        "majorTEL": "(03)3507001#3318、3528",
+        "majorAddr": "333 桃園市龜山區德明路5號"
+    },
+    {
+        "schoolName": "國立中興大學",
+        "majorAdmin": "林詠章",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mis.nchu.edu.tw/",
+        "majorTEL": "(04)22840864",
+        "majorAddr": "402 台中市南區興大路145號"
+    },
+    {
+        "schoolName": "國立彰化師範大學",
+        "majorAdmin": "施穎偉",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.ncue.edu.tw/",
+        "majorTEL": "(04)7232105#7605、7606",
+        "majorAddr": "500 彰化縣彰化市師大路2號"
+    },
+    {
+        "schoolName": "國立暨南國際大學",
+        "majorAdmin": "戴榮賦",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.im.ncnu.edu.tw/",
+        "majorTEL": "(049)2910960#4541~4545",
+        "majorAddr": "54561 南投縣埔里鎮大學路1號"
+    },
+    {
+        "schoolName": "國立聯合大學",
+        "majorAdmin": "黃貞芬",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.nuu.edu.tw/",
+        "majorTEL": "(037)381501",
+        "majorAddr": "36003 苗栗縣苗栗市聯大1號"
+    },
+    {
+        "schoolName": "亞洲大學(行動商務與多媒體應用學系)",
+        "majorAdmin": "廖岳祥",
+        "majorName": "資訊多媒體應用學系",
+        "majorURL": "https://mcma.asia.edu.tw/",
+        "majorTEL": "(04)23323456#6122",
+        "majorAddr": "41354 台中市霧峰區柳豐路500號"
+    },
+    {
+        "schoolName": "明道大學(資訊傳播學系)",
+        "majorAdmin": "張冀青",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.dic.mdu.edu.tw/",
+        "majorTEL": "(04)8876660#8111",
+        "majorAddr": "523 彰化縣埤頭鄉文化路369號"
+    },
+    {
+        "schoolName": "靜宜大學",
+        "majorAdmin": "莊育維",
+        "majorName": "資訊管理系",
+        "majorURL": "https://csim.pu.edu.tw/",
+        "majorTEL": "(04)26328001#18011~18013",
+        "majorAddr": "433 台中市沙鹿區台灣大道七段200號"
+    },
+    {
+        "schoolName": "國立中山大學",
+        "majorAdmin": "林芬慧",
+        "majorName": "資訊管理系",
+        "majorURL": "https://web.mis.nsysu.edu.tw/",
+        "majorTEL": "(07)5252000#4701",
+        "majorAddr": "804 高雄市鼓山區蓮海路70號"
+    },
+    {
+        "schoolName": "國立中正大學",
+        "majorAdmin": "阮金聲",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.mis.ccu.edu.tw/",
+        "majorTEL": "(05)2720411",
+        "majorAddr": "62102 嘉義縣民雄鄉大學路一段168號"
+    },
+    {
+        "schoolName": "國立台東大學",
+        "majorAdmin": "陳宜檉",
+        "majorName": "資訊管理系",
+        "majorURL": "https://isms.nttu.edu.tw/",
+        "majorTEL": "(089)517636",
+        "majorAddr": "950 台東縣台東市大學路二段369號"
+    },
+    {
+        "schoolName": "國立成功大學(工業與資訊管理學系)",
+        "majorAdmin": "翁慈宗",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.iim.ncku.edu.tw/",
+        "majorTEL": "(06)2757575#53100",
+        "majorAddr": "701 台南市東區大學路1號"
+    },
+    {
+        "schoolName": "中華民國海軍軍官學校",
+        "majorAdmin": "龔榮源",
+        "majorName": "資訊管理系",
+        "majorURL": "NA",
+        "majorTEL": "(07)5850347",
+        "majorAddr": "811 高雄市左營區軍校路669號"
+    },
+    {
+        "schoolName": "國立高雄大學",
+        "majorAdmin": "丁一賢",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.nuk.edu.tw/",
+        "majorTEL": "(07)5919326",
+        "majorAddr": "811 高雄市楠梓區高雄大學路700號"
+    },
+    {
+        "schoolName": "國立嘉義大學",
+        "majorAdmin": "董和昇",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.ncyu.edu.tw/mis/",
+        "majorTEL": "(05)2732892",
+        "majorAddr": "600 嘉義市西區新民路580號"
+    },
+    {
+        "schoolName": "國立臺南大學",
+        "majorAdmin": "林豪鏘",
+        "majorName": "數位學習科技學系",
+        "majorURL": "http://ilt.nutn.edu.tw/",
+        "majorTEL": "(06)2133111#771",
+        "majorAddr": "70005 台南市中西區樹林街二段33號"
+    },
+    {
+        "schoolName": "長榮大學",
+        "majorAdmin": "柯志鴻",
+        "majorName": "資訊管理系",
+        "majorURL": "http://dweb.cjcu.edu.tw/im?lang=zh-TW",
+        "majorTEL": "(06)2785123#6051",
+        "majorAddr": "711 台南市歸仁區長大路1號"
+    },
+    {
+        "schoolName": "南華大學",
+        "majorAdmin": "陳信良",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im3.nhu.edu.tw/",
+        "majorTEL": "?(05)2721001#2611",
+        "majorAddr": "622 嘉義縣大林鎮南華路一段55號"
+    },
+    {
+        "schoolName": "義守大學",
+        "majorAdmin": "吳傳春",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.isu.edu.tw/2018/homepage_v01.php?dept_mno=652",
+        "majorTEL": "(07)6577711",
+        "majorAddr": "840 高雄市大樹區學城路一段1號"
+    },
+    {
+        "schoolName": "國立台中科技大學",
+        "majorAdmin": "范敏玄",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.nutc.edu.tw/bin/home.php",
+        "majorTEL": "(04)22196310",
+        "majorAddr": "404 台中市北區三民路三段129號"
+    },
+    {
+        "schoolName": "亞東技術學院",
+        "majorAdmin": "洪維強",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mi.oit.edu.tw/index.php",
+        "majorTEL": "(02)77388000",
+        "majorAddr": "220 新北市板橋區四川路二段58號"
+    },
+    {
+        "schoolName": "南亞技術學院",
+        "majorAdmin": "董炳信",
+        "majorName": "資訊管理系",
+        "majorURL": "http://im.nanya.edu.tw/",
+        "majorTEL": "(03)4361070",
+        "majorAddr": "320 桃園市中壢區中山東路三段414號"
+    },
+    {
+        "schoolName": "致理科技大學",
+        "majorAdmin": "呂崇富",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im100.chihlee.edu.tw/",
+        "majorTEL": "(02)22576167#1313",
+        "majorAddr": "220 新北市板橋區文化路一段313號"
+    },
+    {
+        "schoolName": "華夏科技大學",
+        "majorAdmin": "許莉莆",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.hwh.edu.tw/bin/home.php",
+        "majorTEL": "(02)89415100#4102",
+        "majorAddr": "235 新北市中和區工專路111號"
+    },
+    {
+        "schoolName": "黎明技術學院",
+        "majorAdmin": "陳林宏",
+        "majorName": "資訊管理系",
+        "majorURL": "http://192.192.75.66/mis/",
+        "majorTEL": "(02)29097811#2101",
+        "majorAddr": "243 新北市泰山區泰林路三段22號"
+    },
+    {
+        "schoolName": "醒吾科技大學",
+        "majorAdmin": "陳慶忠",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.hwu.edu.tw/",
+        "majorTEL": "(02)26015310#2460~2463",
+        "majorAddr": "244 新北市林口區粉寮路一段101號"
+    },
+    {
+        "schoolName": "蘭陽技術學院",
+        "majorAdmin": "黃素珍",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www2.fit.edu.tw/department/cont?did=17",
+        "majorTEL": "(03)9771997",
+        "majorAddr": "261 宜蘭縣頭城鎮復興路79號"
+    },
+    {
+        "schoolName": "國立勤益科技大學",
+        "majorAdmin": "張定原",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mis.web2.ncut.edu.tw/bin/home.php",
+        "majorTEL": "(04)23924505#7911、7912",
+        "majorAddr": "41170 台中市太平區中山路二段57號"
+    },
+    {
+        "schoolName": "和春技術學院",
+        "majorAdmin": "NA",
+        "majorName": "資訊管理系",
+        "majorURL": "http://commerce.fotech.edu.tw/files/11-1005-252.php?Lang=zh-tw",
+        "majorTEL": "(07)2621941",
+        "majorAddr": "831 高雄市大寮區至學路288號"
+    },
+    {
+        "schoolName": "國立台灣科技大學",
+        "majorAdmin": "羅乃維",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.cs.ntust.edu.tw/index.php/zh/",
+        "majorTEL": "(02)27333141#7901",
+        "majorAddr": "106 台北市大安區基隆路四段43號"
+    },
+    {
+        "schoolName": "明新科技大學",
+        "majorAdmin": "葉慈章",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.must.edu.tw/",
+        "majorTEL": "(03)5593142#3431~3433",
+        "majorAddr": "304 新竹縣新豐鄉新興路1號"
+    },
+    {
+        "schoolName": "健行科技大學",
+        "majorAdmin": "林孟文",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.uch.edu.tw/",
+        "majorTEL": "(03)4581196#7301",
+        "majorAddr": "320 桃園市中壢區健行路229號"
+    },
+    {
+        "schoolName": "景文科技大學(行動商務與多媒體應用系)",
+        "majorAdmin": "方鎮良",
+        "majorName": "資訊管理系",
+        "majorURL": "http://mm.just.edu.tw/home/",
+        "majorTEL": "(02)82122000#2300、2335",
+        "majorAddr": "231 新北市新店區安忠路99號"
+    },
+    {
+        "schoolName": "聖約翰科技大學",
+        "majorAdmin": "詹景旭",
+        "majorName": "資訊管理系",
+        "majorURL": "https://sites.google.com/mail.sju.edu.tw/mis",
+        "majorTEL": "(02)28013131#6802",
+        "majorAddr": "251 新北市淡水區淡金路四段499號"
+    },
+    {
+        "schoolName": "萬能科技大學",
+        "majorAdmin": "施伯勳",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.im.vnu.edu.tw/",
+        "majorTEL": "(03)4515811#66000",
+        "majorAddr": "320 桃園市中壢區萬能路1號"
+    },
+    {
+        "schoolName": "德明財經科技大學",
+        "majorAdmin": "劉崑義?",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.takming.edu.tw/cht/indexmis.asp",
+        "majorTEL": "(02)26585801#2761",
+        "majorAddr": "114 台北市內湖區環山路一段56號"
+    },
+    {
+        "schoolName": "龍華科技大學",
+        "majorAdmin": "尤昌筧",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.lhu.edu.tw/",
+        "majorTEL": "02-82093211#6301",
+        "majorAddr": "333 桃園市龜山區萬壽路一段300號"
+    },
+    {
+        "schoolName": "南開科技大學",
+        "majorAdmin": "李孟度",
+        "majorName": "資訊管理系",
+        "majorURL": "http://nkmis.nkut.edu.tw/main.php",
+        "majorTEL": "(049)2563489#2862",
+        "majorAddr": "542 南投縣草屯鎮中正路568號"
+    },
+    {
+        "schoolName": "建國科技大學",
+        "majorAdmin": "黃士哲",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.ctu.edu.tw/",
+        "majorTEL": "(04)7111111#3600~3602",
+        "majorAddr": "500 彰化縣彰化市介壽北路1號"
+    },
+    {
+        "schoolName": "修平科技大學",
+        "majorAdmin": "王仁澤",
+        "majorName": "資訊管理系",
+        "majorURL": "https://im.hust.edu.tw/",
+        "majorTEL": "(04)23692136",
+        "majorAddr": "412 台中市大里區工業路11號"
+    },
+    {
+        "schoolName": "朝陽科技大學",
+        "majorAdmin": "呂慈純",
+        "majorName": "資訊管理系",
+        "majorURL": "https://webim.cyut.edu.tw/",
+        "majorTEL": "(04)23323000#7124",
+        "majorAddr": "413310 台中市霧峰區吉峰東路168號"
+    },
+    {
+        "schoolName": "僑光科技大學",
+        "majorAdmin": "程榮祥",
+        "majorName": "資訊管理系",
+        "majorURL": "https://imtech.ocu.edu.tw/",
+        "majorTEL": "(04)27016855",
+        "majorAddr": "407 台中市西屯區僑光路100號"
+    },
+    {
+        "schoolName": "嶺東科技大學",
+        "majorAdmin": "黃國華",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.teach.ltu.edu.tw/Home/Index?gpid=30",
+        "majorTEL": "(04)23892088#3732",
+        "majorAddr": "408 台中市南屯區嶺東路1號"
+    },
+    {
+        "schoolName": "國立雲林科技大學",
+        "majorAdmin": "莊煥銘",
+        "majorName": "資訊管理系",
+        "majorURL": "https://www.mis.yuntech.edu.tw/",
+        "majorTEL": "(05)5342601#5302~5304",
+        "majorAddr": "64002 雲林縣斗六市大學路三段123號"
+    },
+    {
+        "schoolName": "國立虎尾科技大學",
+        "majorAdmin": "吳純慧",
+        "majorName": "資訊管理系",
+        "majorURL": "http://nfuim.nfu.edu.tw/zh/",
+        "majorTEL": "(05)6315000",
+        "majorAddr": "632 雲林縣虎尾鎮文化路64號"
+    },
+    {
+        "schoolName": "國立屏東大學",
+        "majorAdmin": "戴逸民",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.nptu.edu.tw/bin/home.php?Lang=zh-tw",
+        "majorTEL": "(08)7663800",
+        "majorAddr": "900 屏東縣屏東市民生東路51號"
+    },
+    {
+        "schoolName": "國立高雄科技大學",
+        "majorAdmin": "蘇國瑋",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.nkust.edu.tw/app/index.php",
+        "majorTEL": "(07)6011000#34102",
+        "majorAddr": "824 高雄市燕巢區大學路1號"
+    },
+    {
+        "schoolName": "國立澎湖科技大學",
+        "majorAdmin": "林永清",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.npu.edu.tw/",
+        "majorTEL": "(06)9264115#3402",
+        "majorAddr": "880 澎湖縣馬公市六合路300號"
+    },
+    {
+        "schoolName": "南台科技大學",
+        "majorAdmin": "汪美香",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.stust.edu.tw/",
+        "majorTEL": "(06)2533131#4301",
+        "majorAddr": "71005 台南市永康區南台街1號"
+    },
+    {
+        "schoolName": "美和科技大學",
+        "majorAdmin": "苑梅俊",
+        "majorName": "資訊管理系",
+        "majorURL": "http://dim.meiho.edu.tw/",
+        "majorTEL": "(08)7799821#8661",
+        "majorAddr": "912 屏東縣內埔鄉屏光路23號"
+    },
+    {
+        "schoolName": "高苑科技大學",
+        "majorAdmin": "史浩文",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.kyu.edu.tw/",
+        "majorTEL": "(07)6077090",
+        "majorAddr": "82146 高雄市路竹區中山路1821號"
+    },
+    {
+        "schoolName": "崑山科技大學",
+        "majorAdmin": "曾生元",
+        "majorName": "資訊管理系",
+        "majorURL": "https://web.ksu.edu.tw/DTMAIMD/bulletin/",
+        "majorTEL": "(06)2727175",
+        "majorAddr": "710 台南市永康區崑大路195號"
+    },
+    {
+        "schoolName": "嘉南藥理科技大學",
+        "majorAdmin": "陳瑞甫",
+        "majorName": "資訊管理系",
+        "majorURL": "https://mis.cnu.edu.tw/",
+        "majorTEL": "(06)2664911#5300",
+        "majorAddr": "71710 台南市仁德區二仁路一段60號"
+    },
+    {
+        "schoolName": "輔英科技大學",
+        "majorAdmin": "葉富豪",
+        "majorName": "資訊科技與管理學系",
+        "majorURL": "http://eitm.fy.edu.tw/?Lang=zh-tw",
+        "majorTEL": "(07)7811151#6480",
+        "majorAddr": "831 高雄市大寮區進學路151號"
+    },
+    {
+        "schoolName": "遠東科技大學",
+        "majorAdmin": "何瑞峰",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.feu.edu.tw/edu/mis/101new/index.asp",
+        "majorTEL": "(06)5979566",
+        "majorAddr": "744 台南市新市區中華路49號???"
+    },
+    {
+        "schoolName": "樹德科技大學",
+        "majorAdmin": "蔡旭昇",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.mis.stu.edu.tw/",
+        "majorTEL": "(07)6158000#3002",
+        "majorAddr": "824 高雄市燕巢區橫山路59號"
+    },
+    {
+        "schoolName": "環球科技大學(資訊與電子商務管理系)",
+        "majorAdmin": "盧盈光",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.iecm.twu.edu.tw/showindex.php",
+        "majorTEL": "(05)5370988#4351",
+        "majorAddr": "640 雲林縣斗六市鎮南路1221號"
+    },
+    {
+        "schoolName": "康寧大學(健康數位科技學系)",
+        "majorAdmin": "陳國偉",
+        "majorName": "資訊管理系",
+        "majorURL": "http://da.ukn.edu.tw/bin/home.php",
+        "majorTEL": "(06)2552500#33300",
+        "majorAddr": "709 台南市安南區安中路五段188號"
+    },
+    {
+        "schoolName": "樹人醫護管理專校",
+        "majorAdmin": "楊媚靜",
+        "majorName": "資訊管理系",
+        "majorURL": "http://www.szmc.edu.tw/Information/",
+        "majorTEL": "?(07)6979392",
+        "majorAddr": "821 高雄市路竹區環球路452號"
+    }
+]
