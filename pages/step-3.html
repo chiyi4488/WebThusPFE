@@ -53,15 +53,3 @@ permalink: /step-2/
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const timeSlots = document.querySelectorAll('#timeSlotList .list-group-item');
-
-        timeSlots.forEach(slot => {
-            slot.addEventListener('click', function (event) {
-                event.preventDefault();
-                this.classList.toggle('active');
-            });
-        });
-    });
-</script>
