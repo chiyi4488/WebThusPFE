@@ -1,14 +1,20 @@
 body {
-    background-color: $gray-300;
+    background-color: #f1f1f1;
     font-family: 'Noto Sans TC', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 400;
-    color: $indigo-900;
+    font-weight: 500;
+    color: $primary;
     // opacity: 0.1;
     // background: repeating-linear-gradient(-45deg, #444cf7, #444cf7 2px, #e5e5f7 2px, #e5e5f7 10px);
 }
 
 .navbar-brand {
     font-weight: 500;
+    // font-family: 'Noto Serif TC', 'Times New Roman', Times, serif;
+    color: $primary;
+}
+.navbar-brand:hover, .navbar-brand:active{
+    color: $primary;
+    font-weight: 400;
 }
 
 .fc-toolbar-title {
@@ -19,7 +25,7 @@ body {
 .block {
     border-radius: 10px 10px 10px 10px;
     background-color: $white;
-    box-shadow: 0px 4px 10px $gray-400;
+    box-shadow: 0px 4px 8px $gray-400;
     // padding: 40px 70px 20px 70px;
     // box-shadow: 0px 0px 0px 10px $gray-700 blur;
 }
@@ -50,6 +56,7 @@ h4 {
 
 .toc {
     counter-reset: chapter;
+    color: $warning;
 }
 
 .toc>ul {
@@ -72,11 +79,30 @@ h4 {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 3px solid $gray-500;
+    border: 3px solid $warning;
     text-align: center;
-    color: $black;
+    color: $warning;
 }
 
 .card-header {
-    color: $black;
+    color: $primary;
+}
+
+.list-group-item[disabled] {
+    position: relative;
+    color: #000000; /* Disabled text color */
+    pointer-events: none; /* Disable pointer events */
+}
+
+.list-group-item[disabled]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e080; /* Gray overlay color */
+    z-index: 1;
+    border-radius: 7px;
+    pointer-events: none; /* Ensure the overlay itself does not intercept clicks */
 }
