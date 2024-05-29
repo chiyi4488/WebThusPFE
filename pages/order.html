@@ -7,54 +7,53 @@ permalink: /order/
 <h3 style="font-weight: 700;">租借資訊
     <hr>
 </h3>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">租借日期</th>
-                        <th scope="col">租借時段</th>
-                        <th scope="col">項目</th>
-                        <th scope="col">狀態</th>
-                        <th scope="col">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2024-05-25</td>
-                        <td>09:00-10:00, 10:00-11:00</td>
-                        <td>高階13色流式細胞儀</td>
-                        <td><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
-                        <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                                data-mdb-target="#exampleModal">取消預約</button></td>
-                    </tr>
-                    <tr>
-                        <td>2024-05-25</td>
-                        <td>09:00-10:00, 10:00-11:00</td>
-                        <td>高階13色流式細胞儀</td>
-                        <td><span class="badge badge-warning" style="font-size: 14px;"><a class="link-warning" href="/payment">尚未繳費</a></span></td>
-                        <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                                data-mdb-target="#exampleModal">取消預約</button></td>
-                    </tr>
-                    <tr>
-                        <td>2024-05-25</td>
-                        <td>09:00-10:00, 10:00-11:00</td>
-                        <td>高階13色流式細胞儀</td>
-                        <td><span class="badge badge-danger" style="font-size: 14px;">繳費逾期</span></td>
-                        <td><a class="btn btn-warning btn-sm" href="/payment/">立即繳費</a></td>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">租借日期</th>
+                    <th scope="col">租借時段</th>
+                    <th scope="col">項目</th>
+                    <th scope="col">狀態</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
+                    <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal">取消預約</button></td>
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-warning" style="font-size: 14px;"><a class="link-warning"
+                                href="/payment">尚未繳費</a></span></td>
+                    <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal">取消預約</button></td>
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-danger" style="font-size: 14px;">繳費逾期</span></td>
+                    <td><a class="btn btn-warning btn-sm" href="/payment/">立即繳費</a></td>
 
-                    </tr>
-                    <tr>
-                        <td>2024-05-25</td>
-                        <td>09:00-10:00, 10:00-11:00</td>
-                        <td>高階13色流式細胞儀</td>
-                        <td><span class="badge badge-danger" style="font-size: 14px;">已經取消</span></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-danger" style="font-size: 14px;">已經取消</span></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <!-- Modal -->
@@ -62,17 +61,17 @@ permalink: /order/
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">取消預約</h5>
-            <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
-                aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">取消預約</h5>
+                <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。</p>
                 <p>確定要繼續執行嗎？</p>
-                
+
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-danger mx-auto" data-mdb-ripple-init>確定取消</button>
+                <button type="button" class="btn btn-danger mx-auto" data-mdb-ripple-init>確定取消</button>
             </div>
         </div>
     </div>

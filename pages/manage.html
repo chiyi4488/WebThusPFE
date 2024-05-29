@@ -1,0 +1,109 @@
+---
+layout: default
+title: 管理租借
+permalink: /manage/
+---
+
+<h3 style="font-weight: 700;">管理租借
+    <hr>
+</h3>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">租借日期</th>
+                    <th scope="col">租借時段</th>
+                    <th scope="col">項目</th>
+                    <th scope="col">狀態</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
+                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i>
+                        </button></td>
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-warning link-warning" style="font-size: 14px;">尚未繳費</span></td>
+                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-danger" style="font-size: 14px;">繳費逾期</span></td>
+                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
+
+                </tr>
+                <tr>
+                    <td>2024-05-25</td>
+                    <td>09:00-10:00, 10:00-11:00</td>
+                    <td>高階13色流式細胞儀</td>
+                    <td><span class="badge badge-danger" style="font-size: 14px;">已經取消</span></td>
+                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
+                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">詳細資訊</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">項目</th>
+                            <th scope="col">內容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>姓名</td>
+                            <td>王大明</td>
+                        </tr>
+                        <tr>
+                            <td>教師／學生證號</td>
+                            <td>412401000</td>
+                        </tr>
+                        <tr>
+                            <td>聯絡電話</td>
+                            <td>0900000000</td>
+                        </tr>
+                        <tr>
+                            <td>租借日期</td>
+                            <td>2024-05-25</td>
+                        </tr>
+                        <tr>
+                            <td>租借時間</td>
+                            <td>09:00-10:00, 10:00-11:00</td>
+                        </tr>
+                        <tr>
+                            <td>租借事由</td>
+                            <td>做實驗。</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-danger" data-mdb-ripple-init>取消預約</button>
+                        <button type="button" class="btn btn-warning" data-mdb-ripple-init>編輯資訊</button>
+                        <button type="button" class="btn btn-primary" data-mdb-ripple-init>寄通知信</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
