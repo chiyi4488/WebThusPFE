@@ -12,11 +12,11 @@ permalink: /step-2/
         <div class="col-lg">
             <h4 class="mb-3">個人資料</h4>
             <div class="form-outline my-2" data-mdb-input-init>
-                <input type="text" id="form12" class="form-control form-control-lg" />
+                <input type="text" value="王大明" disabled id="form12" class="form-control form-control-lg" />
                 <label class="form-label" for="form12">姓名</label>
             </div>
             <div class="form-outline my-2" data-mdb-input-init>
-                <input type="text" id="form12" class="form-control form-control-lg" />
+                <input type="text" value="412401000" disabled id="form12" class="form-control form-control-lg" />
                 <label class="form-label" for="form12">教師／學生證號</label>
             </div>
             <div class="form-outline my-3" data-mdb-input-init>
@@ -24,28 +24,88 @@ permalink: /step-2/
                 <label class="form-label" for="form12">聯絡電話</label>
             </div>
             <div class="form-outline my-3" data-mdb-input-init>
-                <input type="text" id="form12" class="form-control form-control-lg" />
-                <label class="form-label" for="form12">租借時間</label>
+                <input type="date" id="form12" class="form-control form-control-lg" />
+                <label class="form-label" for="form12">租借日期</label>
+            </div>
+            <div class="form-outline" data-mdb-input-init>
+                <textarea class="form-control form-control-lg" id="textAreaExample" rows="4"></textarea>
+                <label class="form-label" for="textAreaExample">租借事由</label>
             </div>
 
         </div>
         <div class="col-lg mt-2 mt-lg-0">
-            <h4 class="mb-3">租借事由</h4>
-            <div class="form-outline" data-mdb-input-init>
-                <textarea class="form-control form-control-lg" id="textAreaExample" rows="6"></textarea>
-                <label class="form-label" for="textAreaExample">租借事由</label>
+            <h4 class="mb-3">租借時段</h4>
+            <div class="list-group list-group-light" id="timeSlotList">
+                <div class="row">
+                    <div class="col">
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0 active"
+                            data-mdb-ripple-init aria-current="true">06:00-07:00</button>
+                        <button disabled class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>07:00-08:00</button>
+                        <button  class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>08:00-09:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>09:00-10:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>10:00-11:00</button>
+                        <button class="list-group-item list-group-item-action px-3 border-0"
+                            data-mdb-ripple-init>11:00-12:00</button>
+                    </div>
+                    <div class="col">
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>12:00-13:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>13:00-14:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>14:00-15:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>15:00-16:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>16:00-17:00</button>
+                        <button class="list-group-item list-group-item-action px-3 border-0"
+                            data-mdb-ripple-init>17:00-18:00</button>
+                    </div>
+                    <div class="col">
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>18:00-19:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>19:00-20:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>20:00-21:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>21:00-22:00</button>
+                        <button class="list-group-item list-group-item-action px-3 mb-1 border-0"
+                            data-mdb-ripple-init>22:00-23:00</button>
+                        <button class="list-group-item list-group-item-action px-3 border-0"
+                            data-mdb-ripple-init>23:00-24:00</button>
+                    </div>
+                </div>
             </div>
-            
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div id='calendar'></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col center mx-auto">
-            <a href="/step-2/" class="btn btn-primary btn-lg mt-4" data-mdb-ripple-init>下一步</a>
-        </div>
+        <!-- <div id='calendar'></div> -->
     </div>
 </div>
+<div class="row">
+    <div class="col">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col center mx-auto">
+        <a href="/step-3/" class="btn btn-primary btn-lg mt-4" data-mdb-ripple-init>下一步</a>
+    </div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const timeSlots = document.querySelectorAll('#timeSlotList .list-group-item');
+
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', function (event) {
+                event.preventDefault();
+                this.classList.toggle('active');
+            });
+        });
+    });
+</script>

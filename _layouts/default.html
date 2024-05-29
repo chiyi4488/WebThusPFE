@@ -10,24 +10,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
+
+            // 預約事件資料（這應該從伺服器端取得）
             var events = [
                 {
                     title: '已預約',
                     start: '2024-05-25',
-                    end: '2024-05-26', // 注意這裡是下一天的開始日期，FullCalendar 會處理區間
+                    end: '2024-05-25',
                     backgroundColor: 'red', // 用紅色標示已預約
                     rendering: 'background' // 使其不可選取
-                },
-                // 添加更多已預約事件
-            ];
-
-            var events = [
-                {
-                    title: '已預約',
-                    start: '2024-05-25',
-                    end: '2024-05-26',
-                    backgroundColor: 'red',
-                    rendering: 'background'
                 },
                 // 添加更多已預約事件
             ];
@@ -35,70 +26,59 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 selectable: true,
-                selectOverlap: false,
-                selectConstraint: {
-                    start: '00:00',
-                    end: '24:00'
-                },
                 events: events,
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 select: function (info) {
-                    var selectedStartDate = info.startStr;
-                    var selectedEndDate = new Date(info.end);
-
-                    // 修正結束日期的顯示
-                    if (info.endStr === selectedStartDate) {
-                        selectedEndDate = selectedStartDate;
-                    } else {
-                        selectedEndDate.setDate(selectedEndDate.getDate() - 1);
-                        selectedEndDate = selectedEndDate.toISOString().split('T')[0];
-                    }
-
-                    var isDateAvailable = true;
-
-                    // 檢查選取區間是否有已預約的事件
-                    events.forEach(event => {
-                        var eventStart = new Date(event.start);
-                        var eventEnd = new Date(event.end);
-
-                        if ((new Date(selectedStartDate) <= eventEnd) && (new Date(selectedEndDate) >= eventStart)) {
-                            isDateAvailable = false;
-                        }
-                    });
-
-                    if (!isDateAvailable) {
-                        alert('選取的日期範圍內包含已預約的日期，請選擇其他日期範圍。');
+                    var selectedDate = info.startStr;
+                    var existingEvent = events.find(event => event.start === selectedDate);
+                    if (existingEvent) {
+                        alert('該日期已被預約，請選擇其他日期。');
                         calendar.unselect();
                     } else {
-                        // 使用者選取日期範圍處理
-                        var formStartDateInput = document.getElementById('selectedStartDate');
-                        var formEndDateInput = document.getElementById('selectedEndDate');
-
-                        if (!formStartDateInput) {
-                            formStartDateInput = document.createElement('input');
-                            formStartDateInput.type = 'hidden';
-                            formStartDateInput.id = 'selectedStartDate';
-                            document.body.appendChild(formStartDateInput);
+                        // 使用者選取日期處理
+                        var formDateInput = document.getElementById('selectedDate');
+                        if (!formDateInput) {
+                            formDateInput = document.createElement('input');
+                            formDateInput.type = 'hidden';
+                            formDateInput.id = 'selectedDate';
+                            formDateInput.value = selectedDate;
+                            document.body.appendChild(formDateInput);
+                        } else {
+                            formDateInput.value = selectedDate;
                         }
-                        formStartDateInput.value = selectedStartDate;
-
-                        if (!formEndDateInput) {
-                            formEndDateInput = document.createElement('input');
-                            formEndDateInput.type = 'hidden';
-                            formEndDateInput.id = 'selectedEndDate';
-                            document.body.appendChild(formEndDateInput);
-                        }
-                        formEndDateInput.value = selectedEndDate;
-
-                        alert('您選取的日期範圍是：' + selectedStartDate + ' 至 ' + selectedEndDate);
+                        alert('您選取的日期是：' + selectedDate);
                     }
                 },
                 locale: 'zh-TW'
             });
 
-
-
             calendar.render();
+
+            document.getElementById('submitBtn').addEventListener('click', function () {
+                var selectedDateInput = document.getElementById('selectedDate');
+                if (selectedDateInput) {
+                    var selectedDate = selectedDateInput.value;
+                    var name = document.getElementById('name').value;
+                    var idNumber = document.getElementById('idNumber').value;
+                    var phone = document.getElementById('phone').value;
+                    var reason = document.getElementById('reason').value;
+
+                    // 提交資料
+                    console.log({
+                        name: name,
+                        idNumber: idNumber,
+                        phone: phone,
+                        selectedDate: selectedDate,
+                        reason: reason
+                    });
+
+                    // 可以在這裡發送 AJAX 請求到伺服器以保存預約資料
+
+                    alert('您的預約已提交！');
+                } else {
+                    alert('請先選取一個日期！');
+                }
+            });
         });
     </script>
 </head>

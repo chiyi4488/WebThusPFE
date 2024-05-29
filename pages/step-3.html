@@ -1,0 +1,53 @@
+---
+layout: default
+title: 填寫申請事由
+permalink: /step-2/
+---
+
+<h3 style="font-weight: 700;">步驟三：檢核資料
+    <hr>
+</h3>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h4 class="mb-3">個人資料</h4>
+            <div class="form-outline my-2" data-mdb-input-init>
+                <input type="text" value="王大明" disabled id="form12" class="form-control form-control-lg" />
+                <label class="form-label" for="form12">姓名</label>
+            </div>
+            <div class="form-outline my-2" data-mdb-input-init>
+                <input type="text" value="412401000" disabled id="form12" class="form-control form-control-lg" />
+                <label class="form-label" for="form12">教師／學生證號</label>
+            </div>
+            <div class="form-outline my-3" data-mdb-input-init>
+                <input type="text" id="form12" class="form-control form-control-lg" />
+                <label class="form-label" for="form12">聯絡電話</label>
+            </div>
+            <div class="form-outline my-3" data-mdb-input-init>
+                <input type="date" id="form12" class="form-control form-control-lg" />
+                <label class="form-label" for="form12">租借日期</label>
+            </div>
+            <div class="form-outline" data-mdb-input-init>
+                <textarea class="form-control form-control-lg" id="textAreaExample" rows="4"></textarea>
+                <label class="form-label" for="textAreaExample">租借事由</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col center mx-auto">
+            <a href="/step-2/" class="btn btn-primary btn-lg mt-4" data-mdb-ripple-init>下一步</a>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const timeSlots = document.querySelectorAll('#timeSlotList .list-group-item');
+
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', function (event) {
+                event.preventDefault();
+                this.classList.toggle('active');
+            });
+        });
+    });
+</script>

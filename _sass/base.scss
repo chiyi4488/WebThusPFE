@@ -11,6 +11,11 @@ body {
     font-weight: 500;
 }
 
+.fc-toolbar-title {
+    font-size: 1.5em!important; /* 相當於 h4 的字體大小 */
+    font-weight: bold;
+}
+
 .block {
     border-radius: 10px 10px 10px 10px;
     background-color: $white;
@@ -28,6 +33,10 @@ footer {
     padding: 50px 30px 50px 30px;
     background-color: $gray-700;
     color: $white;
+}
+
+h2 {
+    font-weight: 700;
 }
 
 h3 {
