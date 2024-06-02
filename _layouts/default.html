@@ -12,87 +12,15 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
         integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            // 預約事件資料（這應該從伺服器端取得）
-            var events = [
-                {
-                    title: '已預約',
-                    start: '2024-05-25',
-                    end: '2024-05-25',
-                    backgroundColor: 'red', // 用紅色標示已預約
-                    rendering: 'background' // 使其不可選取
-                },
-                // 添加更多已預約事件
-            ];
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                selectable: true,
-                events: events,
-                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                select: function (info) {
-                    var selectedDate = info.startStr;
-                    var existingEvent = events.find(event => event.start === selectedDate);
-                    if (existingEvent) {
-                        alert('該日期已被預約，請選擇其他日期。');
-                        calendar.unselect();
-                    } else {
-                        // 使用者選取日期處理
-                        var formDateInput = document.getElementById('selectedDate');
-                        if (!formDateInput) {
-                            formDateInput = document.createElement('input');
-                            formDateInput.type = 'hidden';
-                            formDateInput.id = 'selectedDate';
-                            formDateInput.value = selectedDate;
-                            document.body.appendChild(formDateInput);
-                        } else {
-                            formDateInput.value = selectedDate;
-                        }
-                        alert('您選取的日期是：' + selectedDate);
-                    }
-                },
-                locale: 'zh-TW'
-            });
-
-            calendar.render();
-
-            document.getElementById('submitBtn').addEventListener('click', function () {
-                var selectedDateInput = document.getElementById('selectedDate');
-                if (selectedDateInput) {
-                    var selectedDate = selectedDateInput.value;
-                    var name = document.getElementById('name').value;
-                    var idNumber = document.getElementById('idNumber').value;
-                    var phone = document.getElementById('phone').value;
-                    var reason = document.getElementById('reason').value;
-
-                    // 提交資料
-                    console.log({
-                        name: name,
-                        idNumber: idNumber,
-                        phone: phone,
-                        selectedDate: selectedDate,
-                        reason: reason
-                    });
-
-                    // 可以在這裡發送 AJAX 請求到伺服器以保存預約資料
-
-                    alert('您的預約已提交！');
-                } else {
-                    alert('請先選取一個日期！');
-                }
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-transparent py-lg-0 py-md-2">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img class="me-3" src="/assets/img/logo.89321b3d.svg"/>
+                <img class="me-3" src="/assets/img/logo.89321b3d.svg" />
                 <span style="margin-bottom: 6px;">貴重儀器預約系統</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -161,6 +89,8 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/main.js"></script>
 </body>
 
 </html>
