@@ -55,6 +55,32 @@ $(document).ready(function () {
 
 });
 
+// step-3
+$(document).ready(function () {
+    // 從 localStorage 中讀取資料
+    const contactPhone = localStorage.getItem('step2phone');
+    const selectedRentDate = localStorage.getItem('step2Date');
+    const rentReason = localStorage.getItem('step2Reason');
+    const rentItem = localStorage.getItem('step1Item');
+    const selectedTimeSlots = JSON.parse(localStorage.getItem('step2Time')) || [];
+
+    // 將資料顯示在表格中
+    if (contactPhone) {
+        $('#contactPhoneCell').text(contactPhone);
+    }
+    if (selectedRentDate) {
+        $('#rentDateCell').text(selectedRentDate);
+    }
+    if (rentReason) {
+        $('#rentReasonCell').text(rentReason);
+    }
+    if (rentItem) {
+        $('#rentItemCell').text(rentItem);
+    }
+    if (selectedTimeSlots.length > 0) {
+        $('#timeSlotsCell').text(selectedTimeSlots.join(', '));
+    }
+});
 
 function saveData(key, value) {
     if (value == "" || value == null) {
