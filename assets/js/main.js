@@ -175,7 +175,7 @@ $(document).ready(function () {
         const rentInfoKey = 'rentInfoList';
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const orderIndex = rentInfoList.findIndex(info => info.date === timeParam);
-
+        console.log(orderIndex)
         if (orderIndex !== -1) {
             const order = rentInfoList[orderIndex];
             if (order.status === '尚未繳費') {
@@ -202,7 +202,7 @@ $(document).ready(function () {
                     // 更新訂單狀態為預約成功
                     rentInfoList[orderIndex].status = '預約成功';
                     localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-                    window.location.href = '/payment/';
+                    window.location.href = '/order/';
                 });
             } else {
                 const row = `
