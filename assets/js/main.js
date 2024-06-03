@@ -1,3 +1,16 @@
+// 儲存資料到 localStorage
+function saveData(key, value) {
+    if (value) {
+        localStorage.setItem(key, value);
+    } 
+}
+
+// 清除資料從 localStorage
+function clearData(keys) {
+    keys.forEach(key => localStorage.removeItem(key));
+}
+
+// step-1
 function step1Chosen(id) {
     saveData("step1Item", id);
     window.location.href = '/step-2/';
@@ -5,10 +18,10 @@ function step1Chosen(id) {
 
 // step-2
 $(document).ready(function () {
-    //  模擬不可預約時間
+    // 模擬不可預約時間
     $('#rentDate').change(function () {
         const timeSlots = $('#timeSlotList .list-group-item');
-        timeSlots.removeAttr('disabled'); // 先移除所有disabled屬性
+        timeSlots.removeAttr('disabled');
         const randomSlots = [];
         while (randomSlots.length < 3) {
             const randomIndex = Math.floor(Math.random() * timeSlots.length);
@@ -23,11 +36,13 @@ $(document).ready(function () {
         saveData('step2Date', selectedDate);
     });
 
+    // 變更租借事由
     $('#rentReason').change(function () {
         const rentReason = $(this).val();
         saveData('step2Reason', rentReason);
     });
 
+    // 變更聯絡電話
     $('#phone').change(function () {
         const phone = $(this).val();
         saveData('step2phone', phone);
@@ -35,7 +50,6 @@ $(document).ready(function () {
 
     // 儲存預約時段
     const timeSlots = document.querySelectorAll('#timeSlotList .list-group-item');
-
     timeSlots.forEach(slot => {
         slot.addEventListener('click', function (event) {
             event.preventDefault();
@@ -51,20 +65,17 @@ $(document).ready(function () {
         });
         saveData('step2Time', JSON.stringify(selectedSlots));
     }
-
-
 });
 
 // step-3
 $(document).ready(function () {
-    // 從 localStorage 中讀取資料
     const contactPhone = localStorage.getItem('step2phone');
     const selectedRentDate = localStorage.getItem('step2Date');
     const rentReason = localStorage.getItem('step2Reason');
     const rentItem = localStorage.getItem('step1Item');
     const selectedTimeSlots = JSON.parse(localStorage.getItem('step2Time')) || [];
 
-    // 將資料顯示在表格中
+    // 顯示資料
     if (contactPhone) {
         $('#contactPhoneCell').text(contactPhone);
     }
@@ -80,15 +91,81 @@ $(document).ready(function () {
     if (selectedTimeSlots.length > 0) {
         $('#timeSlotsCell').text(selectedTimeSlots.join(', '));
     }
+
+    $('#confirmButton').click(function () {
+        const selectedRentDate = $('#rentDateCell').text();
+        const selectedTimeSlots = $('#timeSlotsCell').text().split(', ');
+        const rentReason = $('#rentReasonCell').text();
+        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason);
+    });
+
+    const rentInfoKey = 'rentInfoList';
+
+    function saveRentInfo(date, timeSlots, reason) {
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        const newRentInfo = {
+            date: date,
+            timeSlots: timeSlots,
+            item: '高階13色流式細胞儀', // 預設項目名稱
+            status: '尚未繳費', // 預設狀態
+        };
+        rentInfoList.push(newRentInfo);
+        saveData(rentInfoKey, JSON.stringify(rentInfoList));
+        clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time']);
+        window.location.href = '/payment/';
+    }
 });
 
-function saveData(key, value) {
-    if (value == "" || value == null) {
-        // localStorage.removeItem(key);
-    } else {
-        localStorage.setItem(key, value);
+// order
+$(document).ready(function () {
+    const rentInfoKey = 'rentInfoList';
+
+    function loadRentInfo() {
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        const tbody = $('#rentInfoTableBody');
+        tbody.empty();
+        rentInfoList.forEach(info => {
+            const statusBadge = getStatusBadge(info.status);
+            const row = `
+                <tr>
+                    <td>${info.date}</td>
+                    <td>${info.timeSlots.join(', ')}</td>
+                    <td>${info.item}</td>
+                    <td>${statusBadge}</td>
+                    <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">取消預約</button></td>
+                </tr>
+            `;
+            tbody.append(row);
+        });
     }
-}
+
+    function getStatusBadge(status) {
+        let badgeClass = '';
+        let badgeText = '';
+        switch (status) {
+            case '尚未繳費':
+                badgeClass = 'badge-warning';
+                badgeText = `<a class="link-warning" href="/payment">尚未繳費</a>`;
+                break;
+            case '預約成功':
+                badgeClass = 'badge-primary';
+                badgeText = '預約成功';
+                break;
+            case '繳費逾期':
+                badgeClass = 'badge-danger';
+                badgeText = '繳費逾期';
+                break;
+            case '已經取消':
+                badgeClass = 'badge-secondary';
+                badgeText = '已經取消';
+                break;
+        }
+        return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
+    }
+
+    loadRentInfo();
+});
+
 
 
 // document.addEventListener('DOMContentLoaded', function () {
