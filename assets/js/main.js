@@ -2,7 +2,7 @@
 function saveData(key, value) {
     if (value) {
         localStorage.setItem(key, value);
-    } 
+    }
 }
 
 // 清除資料從 localStorage
@@ -100,7 +100,6 @@ $(document).ready(function () {
     });
 
     const rentInfoKey = 'rentInfoList';
-
     function saveRentInfo(date, timeSlots, reason) {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const newRentInfo = {
@@ -112,7 +111,7 @@ $(document).ready(function () {
         rentInfoList.push(newRentInfo);
         saveData(rentInfoKey, JSON.stringify(rentInfoList));
         clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time']);
-        window.location.href = '/payment/';
+        window.location.href = '/payment/?time=' + encodeURIComponent(date);
     }
 });
 
@@ -125,7 +124,7 @@ $(document).ready(function () {
         const tbody = $('#rentInfoTableBody');
         tbody.empty();
         rentInfoList.forEach(info => {
-            const statusBadge = getStatusBadge(info.status);
+            const statusBadge = getStatusBadge(info.status, info.date);
             const row = `
                 <tr>
                     <td>${info.date}</td>
@@ -139,13 +138,13 @@ $(document).ready(function () {
         });
     }
 
-    function getStatusBadge(status) {
+    function getStatusBadge(status, timeParam) {
         let badgeClass = '';
         let badgeText = '';
         switch (status) {
             case '尚未繳費':
                 badgeClass = 'badge-warning';
-                badgeText = `<a class="link-warning" href="/payment">尚未繳費</a>`;
+                badgeText = `<a class="link-warning" href="/payment?time=${encodeURIComponent(timeParam)}">尚未繳費</a>`;
                 break;
             case '預約成功':
                 badgeClass = 'badge-primary';
@@ -165,6 +164,75 @@ $(document).ready(function () {
 
     loadRentInfo();
 });
+
+// payment
+$(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const timeParam = urlParams.get('time');
+    const tableBody = $('#paymentTableBody');
+
+    if (timeParam) {
+        const rentInfoKey = 'rentInfoList';
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        const orderIndex = rentInfoList.findIndex(info => info.date === timeParam);
+
+        if (orderIndex !== -1) {
+            const order = rentInfoList[orderIndex];
+            if (order.status === '尚未繳費') {
+                let totalPrice = 0;
+                order.timeSlots.forEach(timeSlot => {
+                    const row = `
+                        <tr>
+                            <td>${timeSlot}</td>
+                            <td style="text-align: right;">$300</td>
+                        </tr>
+                    `;
+                    tableBody.append(row);
+                    totalPrice += 300;
+                });
+
+                const totalRow = `
+                    <tr>
+                        <td colspan="2" style="text-align: right;">共計 ${totalPrice} 圓整</td>
+                    </tr>
+                `;
+                tableBody.append(totalRow);
+
+                $('#paymentButton').click(function () {
+                    // 更新訂單狀態為預約成功
+                    rentInfoList[orderIndex].status = '預約成功';
+                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                    window.location.href = '/payment/';
+                });
+            } else {
+                const row = `
+                    <tr>
+                        <td colspan="2" style="text-align: center; font-weight: bold;">訂單已經繳費</td>
+                    </tr>
+                `;
+                tableBody.append(row);
+                $('#paymentButton').hide();
+            }
+        } else {
+            const row = `
+                <tr>
+                    <td colspan="2" style="text-align: center; font-weight: bold;">找不到相應的訂單</td>
+                </tr>
+            `;
+            tableBody.append(row);
+            $('#paymentButton').hide();
+        }
+    } else {
+        const row = `
+            <tr>
+                <td colspan="2" style="text-align: center; font-weight: bold;">缺少時間參數</td>
+            </tr>
+        `;
+        tableBody.append(row);
+        $('#paymentButton').hide();
+    }
+});
+
 
 
 

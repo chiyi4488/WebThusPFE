@@ -17,22 +17,15 @@ permalink: /payment/
                         <th scope="col" style="text-align: right;">價格</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>租借費</td>
-                        <td style="text-align: right;">$300</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: right;">共計 300 圓整</td>
-                    </tr>
-                   
+                <tbody id="paymentTableBody">
+                    <!-- 訂單資訊將在這裡顯示 -->
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
         <div class="col center mx-auto">
-            <a href="/payment/" class="btn btn-success btn-lg mt-4" data-mdb-ripple-init>立即繳費</a>
+            <button class="btn btn-success btn-lg mt-4" id="paymentButton" data-mdb-ripple-init>立即繳費</button>
         </div>
     </div>
 </div>
