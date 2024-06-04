@@ -18,43 +18,30 @@ function step1Chosen(id) {
 
 // step-2
 $(document).ready(function () {
-    // 模擬不可預約時間
+    const name = localStorage.getItem('loginName');
+    const phone = localStorage.getItem('step2phone');
+    const idNumber = localStorage.getItem('loginID');
+
+    if (name) {
+        $('#name').val(name);
+    }
+    if (phone) {
+        $('#phone').val(phone);
+    }
+    if (idNumber) {
+        $('#idNumber').val(idNumber);
+    }
+
     $('#rentDate').change(function () {
-        const timeSlots = $('#timeSlotList .list-group-item');
-        timeSlots.removeAttr('disabled');
-        const randomSlots = [];
-        while (randomSlots.length < 3) {
-            const randomIndex = Math.floor(Math.random() * timeSlots.length);
-            if (!randomSlots.includes(randomIndex)) {
-                randomSlots.push(randomIndex);
-            }
-        }
-        randomSlots.forEach(index => {
-            timeSlots.eq(index).attr('disabled', 'disabled');
-        });
         const selectedDate = $('#rentDate').val();
-        saveData('step2Date', selectedDate);
+        localStorage.setItem('step2Date', selectedDate);
     });
 
-    // 變更教師／學生證號
-    $('#idNumber').change(function () {
-        const idNumber = $(this).val();
-        saveData('step2IDNumber', idNumber);
-    });
-
-    // 變更聯絡電話
-    $('#phone').change(function () {
-        const phone = $(this).val();
-        saveData('step2phone', phone);
-    });
-
-    // 變更租借事由
     $('#rentReason').change(function () {
-        const rentReason = $(this).val();
-        saveData('step2Reason', rentReason);
+        const rentReason = $('#rentReason').val();
+        localStorage.setItem('step2Reason', rentReason);
     });
 
-    // 儲存預約時段
     const timeSlots = document.querySelectorAll('#timeSlotList .list-group-item');
     timeSlots.forEach(slot => {
         slot.addEventListener('click', function (event) {
@@ -69,20 +56,26 @@ $(document).ready(function () {
         $('#timeSlotList .list-group-item.active').each(function () {
             selectedSlots.push($(this).text().trim());
         });
-        saveData('step2Time', JSON.stringify(selectedSlots));
+        localStorage.setItem('step2Time', JSON.stringify(selectedSlots));
     }
 });
 
 // step-3
 $(document).ready(function () {
+    const name = localStorage.getItem('loginName');
+    const idNumber = localStorage.getItem('loginID');
     const contactPhone = localStorage.getItem('step2phone');
     const selectedRentDate = localStorage.getItem('step2Date');
     const rentReason = localStorage.getItem('step2Reason');
     const rentItem = localStorage.getItem('step1Item');
     const selectedTimeSlots = JSON.parse(localStorage.getItem('step2Time')) || [];
-    const idNumber = localStorage.getItem('step2IDNumber');
 
-    // 顯示資料
+    if (name) {
+        $('#nameCell').text(name);
+    }
+    if (idNumber) {
+        $('#idNumberCell').text(idNumber);
+    }
     if (contactPhone) {
         $('#contactPhoneCell').text(contactPhone);
     }
@@ -98,19 +91,16 @@ $(document).ready(function () {
     if (selectedTimeSlots.length > 0) {
         $('#timeSlotsCell').text(selectedTimeSlots.join(', '));
     }
-    if (idNumber) {
-        $('#idNumberCell').text(idNumber);
-    }
 
     $('#confirmButton').click(function () {
         const selectedRentDate = $('#rentDateCell').text();
         const selectedTimeSlots = $('#timeSlotsCell').text().split(', ');
         const rentReason = $('#rentReasonCell').text();
-        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone);
+        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone, name);
     });
 
     const rentInfoKey = 'rentInfoList';
-    function saveRentInfo(date, timeSlots, reason, idNumber, phone) {
+    function saveRentInfo(date, timeSlots, reason, idNumber, phone, name) {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const newRentInfo = {
             date: date,
@@ -118,13 +108,19 @@ $(document).ready(function () {
             item: '高階13色流式細胞儀', // 預設項目名稱
             status: '尚未繳費', // 預設狀態
             id: idNumber,
+            name: name,
             phone: phone,
             reason: reason
         };
         rentInfoList.push(newRentInfo);
-        saveData(rentInfoKey, JSON.stringify(rentInfoList));
+        localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+        
         clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
-        window.location.href = '/payment/?time=' + encodeURIComponent(date);
+        window.location.href = '/payment?time=' + encodeURIComponent(date);
+    }
+
+    function clearData(keys) {
+        keys.forEach(key => localStorage.removeItem(key));
     }
 });
 
@@ -198,10 +194,62 @@ $(document).ready(function () {
     }
 });
 
+// register
+$(document).ready(function () {
+    $('#registerForm').on('submit', function (e) {
+        e.preventDefault();
+        const name = $('#name').val();
+        const idNumber = $('#idNumber').val();
+        const email = $('#email').val();
+        const phone = $('#phone').val();
+        const password = $('#password').val();
+        const confirmPassword = $('#confirmPassword').val();
 
+        if (password !== confirmPassword) {
+            alert('密碼與確認密碼不符');
+            return;
+        }
 
+        const userData = {
+            name: name,
+            idNumber: idNumber,
+            email: email,
+            phone: phone,
+            password: password
+        };
 
+        // 將userData存儲到localStorage中（僅為示範，請勿在實際應用中使用此方法儲存密碼）
+        localStorage.setItem('userData', JSON.stringify(userData));
+        alert('註冊成功');
+        window.location.href = '/';
+    });
+});
 
+// login.html
+$(document).ready(function () {
+    $('#loginForm').on('submit', function (e) {
+        e.preventDefault();
+        const email = $('#email').val();
+        const password = $('#password').val();
+
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            const userData = JSON.parse(storedUserData);
+            if (userData.email === email && userData.password === password) {
+                alert('登入成功');
+                saveData("loginName", userData.name);
+                saveData("loginID", userData.idNumber);
+                saveData("step2phone", userData.phone);
+                // 可以在此處重定向到儀器預約系統的首頁
+                window.location.href = '/step-0';
+            } else {
+                alert('電子郵件或密碼不正確');
+            }
+        } else {
+            alert('沒有找到註冊資料，請先註冊');
+        }
+    });
+});
 // document.addEventListener('DOMContentLoaded', function () {
 //     var calendarEl = document.getElementById('calendar');
 

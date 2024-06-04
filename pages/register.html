@@ -1,0 +1,44 @@
+---
+layout: default
+title: 註冊
+permalink: /register/
+---
+<h3 style="font-weight: 700;">註冊
+    <hr>
+</h3>
+<div class="container my-5">
+    <div class="register-form" data-mdb-input-init>
+        <form id="registerForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">姓名</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="idNumber" class="form-label">教師／學生證號</label>
+                <input type="text" class="form-control" id="idNumber" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">電子郵件</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">聯絡電話</label>
+                <input type="tel" class="form-control" id="phone" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">密碼</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">確認密碼</label>
+                <input type="password" class="form-control" id="confirmPassword" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">註冊</button>
+            </div>
+        </form>
+        <p class="text-center mt-3">
+            已經有帳號了嗎？ <a href="/">登入</a>
+        </p>
+    </div>
+</div>

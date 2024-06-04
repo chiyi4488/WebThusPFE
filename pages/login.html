@@ -12,19 +12,21 @@ permalink: /
         <h2 class="pb-2">歡迎使用</h2>
         <div class="row justify-content-center align-items-center">
             <div class="col-10">
-                <form>
+                <form id="loginForm">
                     <div class="form-outline mb-3" data-mdb-input-init>
-                        <input type="text" id="formControlLg" class="form-control form-control-lg" />
-                        <label class="form-label" for="formControlLg">使用者名稱</label>
+                        <input type="email" class="form-control form-control-lg" id="email" required>
+                        <label for="email" class="form-label">電子郵件</label>
+                
                     </div>
                     <div class="form-outline mb-3" data-mdb-input-init>
-                        <input type="password" id="formControlLg" class="form-control form-control-lg" />
-                        <label class="form-label" for="formControlLg">密碼</label>
+                        <input type="password" class="form-control form-control-lg" id="password" required>
+                        <label for="password" class="form-label">密碼</label>
                     </div>
-                    <a href="/step-0/" class="btn btn-primary btn-lg" data-mdb-input-init>登入</a>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">登入</button>
+                    </div>
                 </form>
             </div>
         </div>
-
     </div>
 </div>

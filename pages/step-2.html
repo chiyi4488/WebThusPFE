@@ -11,15 +11,15 @@ permalink: /step-2/
     <div class="col-lg">
         <h4 class="mb-3">租借資料</h4>
         <div class="form-outline my-2" data-mdb-input-init>
-            <input type="text" value="王大明" disabled id="form12" class="form-control form-control-lg" />
-            <label class="form-label" for="form12">姓名</label>
+            <input type="text" id="name" value="載入中..." class="form-control form-control-lg" disabled />
+            <label class="form-label" for="name">姓名</label>
         </div>
         <div class="form-outline my-2" data-mdb-input-init>
-            <input type="text" value="412401000" disabled id="form12" class="form-control form-control-lg" />
-            <label class="form-label" for="form12">教師／學生證號</label>
+            <input type="text" id="idNumber" value="載入中..." class="form-control form-control-lg" disabled />
+            <label class="form-label" for="idNumber">教師／學生證號</label>
         </div>
         <div class="form-outline my-3" data-mdb-input-init>
-            <input type="text" id="phone" class="form-control form-control-lg" />
+            <input type="text" id="phone" value="載入中..." class="form-control form-control-lg" disabled/>
             <label class="form-label" for="phone">聯絡電話</label>
         </div>
         <div class="form-outline my-3" data-mdb-input-init>
@@ -30,7 +30,6 @@ permalink: /step-2/
             <textarea class="form-control form-control-lg" id="rentReason" rows="4"></textarea>
             <label class="form-label" for="rentReason">租借事由</label>
         </div>
-
     </div>
     <div class="col-lg mt-2 mt-lg-0">
         <h4 class="mb-3">租借時段</h4>
@@ -81,10 +80,9 @@ permalink: /step-2/
             </div>
         </div>
     </div>
-    <!-- <div id='calendar'></div> -->
 </div>
 <div class="row">
     <div class="col center mx-auto">
-        <a href="/step-3/" class="btn btn-primary btn-lg mt-4" data-mdb-ripple-init>下一步</a>
+        <a href="/step-3" class="btn btn-primary btn-lg mt-4" data-mdb-ripple-init>下一步</a>
     </div>
 </div>
