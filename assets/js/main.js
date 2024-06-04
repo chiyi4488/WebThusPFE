@@ -123,28 +123,48 @@ $(document).ready(function () {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const tbody = $('#rentInfoTableBody');
         tbody.empty();
-        rentInfoList.forEach(info => {
+        rentInfoList.forEach((info, index) => {
             const statusBadge = getStatusBadge(info.status, info.date);
+            const actionButton = getActionButton(info.status, info.date, index);
             const row = `
-                <tr>
+                <tr data-index="${index}">
                     <td>${info.date}</td>
                     <td>${info.timeSlots.join(', ')}</td>
                     <td>${info.item}</td>
                     <td>${statusBadge}</td>
-                    <td><button class="btn btn-danger btn-sm" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">取消預約</button></td>
+                    <td>${actionButton}</td>
                 </tr>
             `;
             tbody.append(row);
         });
     }
 
-    function getStatusBadge(status, timeParam) {
+    function getActionButton(status, date, index) {
+        let actionButton = '';
+        switch (status) {
+            case '尚未繳費':
+                actionButton = `<button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord(${index})" data-mdb-ripple-init>取消預約</button>`;
+                break;
+            case '預約成功':
+                actionButton = `<button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord(${index})" data-mdb-ripple-init>取消預約</button>`;
+                break;
+            case '繳費逾期':
+                actionButton = `<button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/payment?time=${date}'" data-mdb-ripple-init>立即繳費</button>`;
+                break;
+            case '已經取消':
+                actionButton = '';
+                break;
+        }
+        return actionButton;
+    }
+
+    function getStatusBadge(status, date) {
         let badgeClass = '';
         let badgeText = '';
         switch (status) {
             case '尚未繳費':
                 badgeClass = 'badge-warning';
-                badgeText = `<a class="link-warning" href="/payment?time=${encodeURIComponent(timeParam)}">尚未繳費</a>`;
+                badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
                 break;
             case '預約成功':
                 badgeClass = 'badge-primary';
@@ -162,8 +182,18 @@ $(document).ready(function () {
         return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
     }
 
+    window.deleteRecord = function (index) {
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。\n\n如未付款，則逕行取消。確定要繼續執行嗎？')) {
+            rentInfoList[index].status = '已經取消';
+            localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+            loadRentInfo();
+        }
+    };
+
     loadRentInfo();
 });
+
 
 // payment
 $(document).ready(function () {
