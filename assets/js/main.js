@@ -36,16 +36,22 @@ $(document).ready(function () {
         saveData('step2Date', selectedDate);
     });
 
-    // 變更租借事由
-    $('#rentReason').change(function () {
-        const rentReason = $(this).val();
-        saveData('step2Reason', rentReason);
+    // 變更教師／學生證號
+    $('#idNumber').change(function () {
+        const idNumber = $(this).val();
+        saveData('step2IDNumber', idNumber);
     });
 
     // 變更聯絡電話
     $('#phone').change(function () {
         const phone = $(this).val();
         saveData('step2phone', phone);
+    });
+
+    // 變更租借事由
+    $('#rentReason').change(function () {
+        const rentReason = $(this).val();
+        saveData('step2Reason', rentReason);
     });
 
     // 儲存預約時段
@@ -74,6 +80,7 @@ $(document).ready(function () {
     const rentReason = localStorage.getItem('step2Reason');
     const rentItem = localStorage.getItem('step1Item');
     const selectedTimeSlots = JSON.parse(localStorage.getItem('step2Time')) || [];
+    const idNumber = localStorage.getItem('step2IDNumber');
 
     // 顯示資料
     if (contactPhone) {
@@ -91,108 +98,36 @@ $(document).ready(function () {
     if (selectedTimeSlots.length > 0) {
         $('#timeSlotsCell').text(selectedTimeSlots.join(', '));
     }
+    if (idNumber) {
+        $('#idNumberCell').text(idNumber);
+    }
 
     $('#confirmButton').click(function () {
         const selectedRentDate = $('#rentDateCell').text();
         const selectedTimeSlots = $('#timeSlotsCell').text().split(', ');
         const rentReason = $('#rentReasonCell').text();
-        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason);
+        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone);
     });
 
     const rentInfoKey = 'rentInfoList';
-    function saveRentInfo(date, timeSlots, reason) {
+    function saveRentInfo(date, timeSlots, reason, idNumber, phone) {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const newRentInfo = {
             date: date,
             timeSlots: timeSlots,
             item: '高階13色流式細胞儀', // 預設項目名稱
             status: '尚未繳費', // 預設狀態
+            id: idNumber,
+            phone: phone,
+            reason: reason
         };
         rentInfoList.push(newRentInfo);
         saveData(rentInfoKey, JSON.stringify(rentInfoList));
-        clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time']);
+        clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
         window.location.href = '/payment/?time=' + encodeURIComponent(date);
     }
 });
 
-// order
-$(document).ready(function () {
-    const rentInfoKey = 'rentInfoList';
-
-    function loadRentInfo() {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const tbody = $('#rentInfoTableBody');
-        tbody.empty();
-        rentInfoList.forEach((info, index) => {
-            const statusBadge = getStatusBadge(info.status, info.date);
-            const actionButton = getActionButton(info.status, info.date, index);
-            const row = `
-                <tr data-index="${index}">
-                    <td>${info.date}</td>
-                    <td>${info.timeSlots.join(', ')}</td>
-                    <td>${info.item}</td>
-                    <td>${statusBadge}</td>
-                    <td>${actionButton}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
-    }
-
-    function getActionButton(status, date, index) {
-        let actionButton = '';
-        switch (status) {
-            case '尚未繳費':
-                actionButton = `<button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord(${index})" data-mdb-ripple-init>取消預約</button>`;
-                break;
-            case '預約成功':
-                actionButton = `<button type="button" class="btn btn-danger btn-sm" onclick="deleteRecord(${index})" data-mdb-ripple-init>取消預約</button>`;
-                break;
-            case '繳費逾期':
-                actionButton = `<button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/payment?time=${date}'" data-mdb-ripple-init>立即繳費</button>`;
-                break;
-            case '已經取消':
-                actionButton = '';
-                break;
-        }
-        return actionButton;
-    }
-
-    function getStatusBadge(status, date) {
-        let badgeClass = '';
-        let badgeText = '';
-        switch (status) {
-            case '尚未繳費':
-                badgeClass = 'badge-warning';
-                badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
-                break;
-            case '預約成功':
-                badgeClass = 'badge-primary';
-                badgeText = '預約成功';
-                break;
-            case '繳費逾期':
-                badgeClass = 'badge-danger';
-                badgeText = '繳費逾期';
-                break;
-            case '已經取消':
-                badgeClass = 'badge-secondary';
-                badgeText = '已經取消';
-                break;
-        }
-        return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
-    }
-
-    window.deleteRecord = function (index) {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。\n\n如未付款，則逕行取消。確定要繼續執行嗎？')) {
-            rentInfoList[index].status = '已經取消';
-            localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-            loadRentInfo();
-        }
-    };
-
-    loadRentInfo();
-});
 
 
 // payment
@@ -262,6 +197,7 @@ $(document).ready(function () {
         $('#paymentButton').hide();
     }
 });
+
 
 
 

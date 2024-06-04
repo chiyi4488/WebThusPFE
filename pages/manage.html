@@ -19,41 +19,8 @@ permalink: /manage/
                     <th scope="col">操作</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>2024-05-25</td>
-                    <td>09:00-10:00, 10:00-11:00</td>
-                    <td>高階13色流式細胞儀</td>
-                    <td><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
-                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i>
-                        </button></td>
-                </tr>
-                <tr>
-                    <td>2024-05-25</td>
-                    <td>09:00-10:00, 10:00-11:00</td>
-                    <td>高階13色流式細胞儀</td>
-                    <td><span class="badge badge-warning link-warning" style="font-size: 14px;">尚未繳費</span></td>
-                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
-                </tr>
-                <tr>
-                    <td>2024-05-25</td>
-                    <td>09:00-10:00, 10:00-11:00</td>
-                    <td>高階13色流式細胞儀</td>
-                    <td><span class="badge badge-danger" style="font-size: 14px;">繳費逾期</span></td>
-                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
-
-                </tr>
-                <tr>
-                    <td>2024-05-25</td>
-                    <td>09:00-10:00, 10:00-11:00</td>
-                    <td>高階13色流式細胞儀</td>
-                    <td><span class="badge badge-secondary" style="font-size: 14px;">已經取消</span></td>
-                    <td><button class="btn btn-secondary btn-sm" data-mdb-ripple-init data-mdb-modal-init
-                            data-mdb-target="#exampleModal"><i class="bi bi-eye-fill"></i></button></td>
-                </tr>
+            <tbody id="rentInfoTableBody">
+                <!-- 這裡會動態生成租借資訊 -->
             </tbody>
         </table>
     </div>
@@ -69,36 +36,36 @@ permalink: /manage/
                             <th scope="col">內容</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="detailsTableBody">
                         <tr>
                             <td>姓名</td>
-                            <td>王大明</td>
+                            <td id="detailsName">王大明</td>
                         </tr>
                         <tr>
                             <td>教師／學生證號</td>
-                            <td>412401000</td>
+                            <td id="detailsID">412401000</td>
                         </tr>
                         <tr>
                             <td>聯絡電話</td>
-                            <td>0900000000</td>
+                            <td id="detailsPhone">0900000000</td>
                         </tr>
                         <tr>
                             <td>租借日期</td>
-                            <td>2024-05-25</td>
+                            <td id="detailsDate">2024-05-25</td>
                         </tr>
                         <tr>
                             <td>租借時間</td>
-                            <td>09:00-10:00, 10:00-11:00</td>
+                            <td id="detailsTime">09:00-10:00, 10:00-11:00</td>
                         </tr>
                         <tr>
                             <td>租借事由</td>
-                            <td>做實驗。</td>
+                            <td id="detailsReason">做實驗。</td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-danger" data-mdb-ripple-init>取消預約</button>
+                        <button type="button" class="btn btn-danger" id="cancelReservationButton" data-mdb-ripple-init>取消預約</button>
                         <button type="button" class="btn btn-warning" data-mdb-ripple-init>編輯資訊</button>
                         <button type="button" class="btn btn-primary" data-mdb-ripple-init>寄通知信</button>
                     </div>
@@ -107,3 +74,92 @@ permalink: /manage/
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+    const rentInfoKey = 'rentInfoList';
+
+    function loadRentInfo() {
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        const tbody = $('#rentInfoTableBody');
+        tbody.empty();
+        rentInfoList.forEach((info, index) => {
+            const statusBadge = getStatusBadge(info.status, info.date);
+            const actionButton = getActionButton(info.status, index);
+            const row = `
+                <tr data-index="${index}">
+                    <td>${info.date}</td>
+                    <td>${info.timeSlots.join(', ')}</td>
+                    <td>${info.item}</td>
+                    <td>${statusBadge}</td>
+                    <td>${actionButton}</td>
+                </tr>
+            `;
+            tbody.append(row);
+        });
+    }
+
+    function getActionButton(status, index) {
+        let actionButton = '';
+        switch (status) {
+            case '尚未繳費':
+            case '預約成功':
+                actionButton = `<button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init><i class="bi bi-eye-fill"></i></button>`;
+                break;
+            case '繳費逾期':
+                actionButton = `<button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/payment?time=${date}'" data-mdb-ripple-init>立即繳費</button>`;
+                break;
+            case '已經取消':
+                actionButton = '';
+                break;
+        }
+        return actionButton;
+    }
+
+    function getStatusBadge(status, date) {
+        let badgeClass = '';
+        let badgeText = '';
+        switch (status) {
+            case '尚未繳費':
+                badgeClass = 'badge-warning';
+                badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
+                break;
+            case '預約成功':
+                badgeClass = 'badge-primary';
+                badgeText = '預約成功';
+                break;
+            case '繳費逾期':
+                badgeClass = 'badge-danger';
+                badgeText = '繳費逾期';
+                break;
+            case '已經取消':
+                badgeClass = 'badge-secondary';
+                badgeText = '已經取消';
+                break;
+        }
+        return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
+    }
+
+    window.viewDetails = function (index) {
+        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+        const info = rentInfoList[index];
+        $('#detailsName').text(info.name || 'N/A');
+        $('#detailsID').text(info.id || 'N/A');
+        $('#detailsPhone').text(info.phone || 'N/A');
+        $('#detailsDate').text(info.date);
+        $('#detailsTime').text(info.timeSlots.join(', '));
+        $('#detailsReason').text(info.reason || 'N/A');
+
+        $('#cancelReservationButton').off('click').on('click', function () {
+            if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。確定要繼續執行嗎？')) {
+                rentInfoList[index].status = '已經取消';
+                localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                loadRentInfo();
+            }
+        });
+    };
+
+    loadRentInfo();
+});
+</script>
