@@ -89,6 +89,7 @@ $(document).ready(function () {
 
 
 // step-3
+// step-3
 $(document).ready(function () {
     const name = localStorage.getItem('loginName');
     const idNumber = localStorage.getItem('loginID');
@@ -124,16 +125,16 @@ $(document).ready(function () {
         const selectedRentDate = $('#rentDateCell').text();
         const selectedTimeSlots = $('#timeSlotsCell').text().split(', ');
         const rentReason = $('#rentReasonCell').text();
-        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone, name);
+        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone, name, rentItem);
     });
 
     const rentInfoKey = 'rentInfoList';
-    function saveRentInfo(date, timeSlots, reason, idNumber, phone, name) {
+    function saveRentInfo(date, timeSlots, reason, idNumber, phone, name, item) {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const newRentInfo = {
             date: date,
             timeSlots: timeSlots,
-            item: '高階13色流式細胞儀', // 預設項目名稱
+            item: item, // 租借項目
             status: '尚未繳費', // 預設狀態
             id: idNumber,
             name: name,
