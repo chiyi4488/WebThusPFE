@@ -21,6 +21,7 @@ $(document).ready(function () {
     const name = localStorage.getItem('loginName');
     const phone = localStorage.getItem('step2phone');
     const idNumber = localStorage.getItem('loginID');
+    let isTimeSlotVisible = false;
 
     if (name) {
         $('#name').val(name);
@@ -35,6 +36,15 @@ $(document).ready(function () {
     $('#rentDate').change(function () {
         const selectedDate = $('#rentDate').val();
         localStorage.setItem('step2Date', selectedDate);
+
+        // 隨機選取三個時段設置為 disabled
+        disableRandomTimeSlots();
+
+        // 顯示租借時段，並淡入效果，僅第一次輸入時
+        if (!isTimeSlotVisible) {
+            $('#timeSlotContainer').fadeIn(800);
+            isTimeSlotVisible = true;
+        }
     });
 
     $('#rentReason').change(function () {
@@ -46,8 +56,10 @@ $(document).ready(function () {
     timeSlots.forEach(slot => {
         slot.addEventListener('click', function (event) {
             event.preventDefault();
-            this.classList.toggle('active');
-            saveSelectedTimeSlots();
+            if (!this.classList.contains('disabled')) {
+                this.classList.toggle('active');
+                saveSelectedTimeSlots();
+            }
         });
     });
 
@@ -58,7 +70,23 @@ $(document).ready(function () {
         });
         localStorage.setItem('step2Time', JSON.stringify(selectedSlots));
     }
+
+    function disableRandomTimeSlots() {
+        const timeSlots = $('#timeSlotList .list-group-item');
+        timeSlots.removeAttr('disabled'); // 先移除所有disabled屬性
+        const randomSlots = [];
+        while (randomSlots.length < 3) {
+            const randomIndex = Math.floor(Math.random() * timeSlots.length);
+            if (!randomSlots.includes(randomIndex)) {
+                randomSlots.push(randomIndex);
+            }
+        }
+        randomSlots.forEach(index => {
+            timeSlots.eq(index).attr('disabled', 'disabled');
+        });
+    }
 });
+
 
 // step-3
 $(document).ready(function () {
@@ -114,7 +142,7 @@ $(document).ready(function () {
         };
         rentInfoList.push(newRentInfo);
         localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-        
+
         clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
         window.location.href = '/payment?time=' + encodeURIComponent(date);
     }
