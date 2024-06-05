@@ -66,9 +66,12 @@ permalink: /manage/
                 <div class="text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-danger" id="cancelReservationButton" data-mdb-ripple-init>取消預約</button>
-                        <button type="button" class="btn btn-warning" data-mdb-ripple-init>編輯資訊</button>
+                        <button type="button" class="btn btn-warning" id="editButton" data-mdb-ripple-init>編輯資訊</button>
                         <button type="button" class="btn btn-primary" data-mdb-ripple-init>寄通知信</button>
                     </div>
+                </div>
+                <div class="text-center mt-3" id="saveButtonContainer" style="display: none;">
+                    <button type="button" class="btn btn-success" id="saveButton" data-mdb-ripple-init>儲存</button>
                 </div>
             </div>
         </div>
@@ -78,88 +81,141 @@ permalink: /manage/
 
 <script>
     $(document).ready(function () {
-    const rentInfoKey = 'rentInfoList';
+        const rentInfoKey = 'rentInfoList';
+        let currentEditIndex = null;
+        let isEditing = false;
 
-    function loadRentInfo() {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const tbody = $('#rentInfoTableBody');
-        tbody.empty();
-        rentInfoList.forEach((info, index) => {
-            const statusBadge = getStatusBadge(info.status, info.date);
-            const actionButton = getActionButton(info.status, index);
-            const row = `
-                <tr data-index="${index}">
-                    <td>${info.date}</td>
-                    <td>${info.timeSlots.join(', ')}</td>
-                    <td>${info.item}</td>
-                    <td>${statusBadge}</td>
-                    <td>${actionButton}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
-    }
-
-    function getActionButton(status, index) {
-        let actionButton = '';
-        switch (status) {
-            case '尚未繳費':
-            case '預約成功':
-                actionButton = `<button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init><i class="bi bi-eye-fill"></i></button>`;
-                break;
-            case '繳費逾期':
-                actionButton = `<button type="button" class="btn btn-warning btn-sm" onclick="window.location.href='/payment?time=${date}'" data-mdb-ripple-init>立即繳費</button>`;
-                break;
-            case '已經取消':
-                actionButton = '';
-                break;
+        function loadRentInfo() {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const tbody = $('#rentInfoTableBody');
+            tbody.empty();
+            rentInfoList.forEach((info, index) => {
+                const statusBadge = getStatusBadge(info.status, info.date);
+                const actionButton = getActionButton(info.status, index);
+                const row = `
+                    <tr data-index="${index}">
+                        <td>${info.date}</td>
+                        <td>${info.timeSlots.join(', ')}</td>
+                        <td>${info.item}</td>
+                        <td>${statusBadge}</td>
+                        <td>${actionButton}</td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
         }
-        return actionButton;
-    }
 
-    function getStatusBadge(status, date) {
-        let badgeClass = '';
-        let badgeText = '';
-        switch (status) {
-            case '尚未繳費':
-                badgeClass = 'badge-warning';
-                badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
-                break;
-            case '預約成功':
-                badgeClass = 'badge-primary';
-                badgeText = '預約成功';
-                break;
-            case '繳費逾期':
-                badgeClass = 'badge-danger';
-                badgeText = '繳費逾期';
-                break;
-            case '已經取消':
-                badgeClass = 'badge-secondary';
-                badgeText = '已經取消';
-                break;
+        function getActionButton(status, index) {
+            const disabled = isEditing ? 'disabled' : '';
+            return `<button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${disabled}><i class="bi bi-eye-fill"></i></button>`;
         }
-        return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
-    }
 
-    window.viewDetails = function (index) {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const info = rentInfoList[index];
-        $('#detailsName').text(info.name || 'N/A');
-        $('#detailsID').text(info.id || 'N/A');
-        $('#detailsPhone').text(info.phone || 'N/A');
-        $('#detailsDate').text(info.date);
-        $('#detailsTime').text(info.timeSlots.join(', '));
-        $('#detailsReason').text(info.reason || 'N/A');
-
-        $('#cancelReservationButton').off('click').on('click', function () {
-            if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。確定要繼續執行嗎？')) {
-                rentInfoList[index].status = '已經取消';
-                localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-                loadRentInfo();
+        function getStatusBadge(status, date) {
+            let badgeClass = '';
+            let badgeText = '';
+            switch (status) {
+                case '尚未繳費':
+                    badgeClass = 'badge-warning';
+                    badgeText = `<a class="link-warning" href="/payment.html?time=${date}">尚未繳費</a>`;
+                    break;
+                case '預約成功':
+                    badgeClass = 'badge-primary';
+                    badgeText = '預約成功';
+                    break;
+                case '繳費逾期':
+                    badgeClass = 'badge-danger';
+                    badgeText = '繳費逾期';
+                    break;
+                case '已經取消':
+                    badgeClass = 'badge-secondary';
+                    badgeText = '已經取消';
+                    break;
             }
-        });
-    };
+            return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
+        }
 
-    loadRentInfo();
-});
+        window.viewDetails = function (index) {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const info = rentInfoList[index];
+            $('#detailsName').text(info.name || 'N/A');
+            $('#detailsID').text(info.id || 'N/A');
+            $('#detailsPhone').text(info.phone || 'N/A');
+            $('#detailsDate').text(info.date);
+            $('#detailsTime').text(info.timeSlots.join(', '));
+            $('#detailsReason').text(info.reason || 'N/A');
+            currentEditIndex = index;
+
+            $('#cancelReservationButton').off('click').on('click', function () {
+                if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。確定要繼續執行嗎？')) {
+                    rentInfoList[index].status = '已經取消';
+                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                    loadRentInfo();
+                }
+            });
+
+            $('#editButton').off('click').on('click', function () {
+                editDetails(info);
+            });
+        };
+
+        function editDetails(info) {
+            isEditing = true;
+            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${info.name || ''}">`);
+            $('#detailsID').html(`<input type="text" class="form-control form-control-sm" id="editID" value="${info.id || ''}">`);
+            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${info.phone || ''}">`);
+            $('#detailsDate').html(`<input type="text" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
+            $('#detailsTime').html(`
+                <select class="form-control form-control-sm" id="editTime" multiple>
+                    <option value="06:00-07:00" ${info.timeSlots.includes('06:00-07:00') ? 'selected' : ''}>06:00-07:00</option>
+                    <option value="07:00-08:00" ${info.timeSlots.includes('07:00-08:00') ? 'selected' : ''}>07:00-08:00</option>
+                    <option value="08:00-09:00" ${info.timeSlots.includes('08:00-09:00') ? 'selected' : ''}>08:00-09:00</option>
+                    <option value="09:00-10:00" ${info.timeSlots.includes('09:00-10:00') ? 'selected' : ''}>09:00-10:00</option>
+                    <option value="10:00-11:00" ${info.timeSlots.includes('10:00-11:00') ? 'selected' : ''}>10:00-11:00</option>
+                    <option value="11:00-12:00" ${info.timeSlots.includes('11:00-12:00') ? 'selected' : ''}>11:00-12:00</option>
+                    <option value="12:00-13:00" ${info.timeSlots.includes('12:00-13:00') ? 'selected' : ''}>12:00-13:00</option>
+                    <option value="13:00-14:00" ${info.timeSlots.includes('13:00-14:00') ? 'selected' : ''}>13:00-14:00</option>
+                    <option value="14:00-15:00" ${info.timeSlots.includes('14:00-15:00') ? 'selected' : ''}>14:00-15:00</option>
+                    <option value="15:00-16:00" ${info.timeSlots.includes('15:00-16:00') ? 'selected' : ''}>15:00-16:00</option>
+                    <option value="16:00-17:00" ${info.timeSlots.includes('16:00-17:00') ? 'selected' : ''}>16:00-17:00</option>
+                    <option value="17:00-18:00" ${info.timeSlots.includes('17:00-18:00') ? 'selected' : ''}>17:00-18:00</option>
+                    <option value="18:00-19:00" ${info.timeSlots.includes('18:00-19:00') ? 'selected' : ''}>18:00-19:00</option>
+                    <option value="19:00-20:00" ${info.timeSlots.includes('19:00-20:00') ? 'selected' : ''}>19:00-20:00</option>
+                    <option value="20:00-21:00" ${info.timeSlots.includes('20:00-21:00') ? 'selected' : ''}>20:00-21:00</option>
+                    <option value="21:00-22:00" ${info.timeSlots.includes('21:00-22:00') ? 'selected' : ''}>21:00-22:00</option>
+                    <option value="22:00-23:00" ${info.timeSlots.includes('22:00-23:00') ? 'selected' : ''}>22:00-23:00</option>
+                    <option value="23:00-24:00" ${info.timeSlots.includes('23:00-24:00') ? 'selected' : ''}>23:00-24:00</option>
+                </select>
+            `);
+            $('#detailsReason').html(`<input type="text" class="form-control form-control-sm" id="editReason" value="${info.reason || ''}">`);
+            $('.btn-group').hide();
+            $('#saveButtonContainer').show();
+
+            loadRentInfo();  // Disable all view buttons
+
+            $('#saveButton').off('click').on('click', function () {
+                saveDetails();
+            });
+        }
+
+        function saveDetails() {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            if (currentEditIndex !== null) {
+                rentInfoList[currentEditIndex].name = $('#editName').val();
+                rentInfoList[currentEditIndex].id = $('#editID').val();
+                rentInfoList[currentEditIndex].phone = $('#editPhone').val();
+                rentInfoList[currentEditIndex].date = $('#editDate').val();
+                rentInfoList[currentEditIndex].timeSlots = $('#editTime').val();
+                rentInfoList[currentEditIndex].reason = $('#editReason').val();
+
+                localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                isEditing = false;
+                loadRentInfo();
+                viewDetails(currentEditIndex);
+                $('#saveButtonContainer').hide();
+                $('.btn-group').show();
+            }
+        }
+
+        loadRentInfo();
+    });
 </script>
