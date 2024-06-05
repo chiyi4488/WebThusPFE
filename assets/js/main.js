@@ -13,6 +13,12 @@ function saveData(key, value) {
     }
 }
 
+function logout(){
+    clearData(['loginName', 'loginID', 'step2phone']);
+    alert("登出成功");
+    window.location.href = '/';
+}
+
 // 清除資料從 localStorage
 function clearData(keys) {
     keys.forEach(key => localStorage.removeItem(key));
@@ -22,14 +28,17 @@ function clearData(keys) {
 $(document).ready(function () {
     const loginID = localStorage.getItem('loginID');
     const dynamicButton = $('#dynamicButton');
+    const dynamicLogout = $('#dynamicLogout');
     if (loginID) {
         dynamicButton.text('檢視預約');
         dynamicButton.attr('href', '/order/');
         dynamicButton.addClass('btn-secondary').removeClass('btn-outline-dark');
+        dynamicLogout.show();
     } else {
         dynamicButton.text('註冊');
         dynamicButton.attr('href', '/register/');
         dynamicButton.addClass('btn-warning').removeClass('btn-secondary');
+        dynamicLogout.hide();
     }
 });
 
@@ -294,7 +303,7 @@ $(document).ready(function () {
                 // 可以在此處重定向到儀器預約系統的首頁
                 window.location.href = '/step-0';
             } else {
-                alert('電子郵件或密碼不正確');
+                alert('教師／學生證號或密碼不正確');
             }
         } else {
             alert('沒有找到註冊資料，請先註冊');
