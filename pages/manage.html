@@ -78,11 +78,8 @@ permalink: /manage/
                 </table>
                 <div class="text-center d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-danger btn-lg" id="cancelReservationButton"
-                            data-mdb-ripple-init>取消預約</button>
                         <button type="button" class="btn btn-warning btn-lg" id="editButton"
                             data-mdb-ripple-init>編輯資訊</button>
-                        <button type="button" class="btn btn-primary btn-lg" data-mdb-ripple-init>寄通知信</button>
                     </div>
                 </div>
                 <div class="text-center mt-3" id="saveButtonContainer" style="display: none;">
@@ -229,7 +226,7 @@ permalink: /manage/
                     <option value="尚未繳費" ${info.status === '尚未繳費' ? 'selected' : ''}>尚未繳費</option>
                     <option value="預約成功" ${info.status === '預約成功' ? 'selected' : ''}>預約成功</option>
                     <option value="繳費逾期" ${info.status === '繳費逾期' ? 'selected' : ''}>繳費逾期</option>
-                    <option value="已經取消" ${info.status === '已經取消' ? 'selected' : ''}>已經取消</option>
+                    <option value="已經取消" ${info.status === '已經取消' ? 'selected' : ''}>取消預約</option>
                 </select>
             `);
             $('#detailsItem').html(`<input type="text" class="form-control form-control-sm" id="editItem" value="${info.item || ''}">`);
