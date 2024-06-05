@@ -152,7 +152,7 @@ $(document).ready(function () {
         rentInfoList.push(newRentInfo);
         localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
 
-        clearData(['step1Item', 'step2phone', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
+        clearData(['step1Item', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
         window.location.href = '/payment?time=' + encodeURIComponent(date);
     }
 
