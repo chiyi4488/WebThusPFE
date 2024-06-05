@@ -26,71 +26,85 @@ permalink: /manage/
     </div>
 
     <div class="col-lg-12" id="detailsCol" style="display: none;">
-        <button type="button" class="btn btn-dark mb-3" id="backButton" data-mdb-ripple-init><span
-                style="font-size: large;"><i class="bi bi-arrow-left-circle"></i></span></button>
+        <div class="row">
+            <div class="col-2 mb-3 d-grid">
+                <button type="button" class="btn btn-dark" id="backButton" data-mdb-ripple-init>
+                    <span style="font-size:large;">
+                        <i class="bi bi-arrow-left-circle"></i>
+                    </span>
+                </button>
 
-        <div class="card" id="detailsCard">
-            <div class="card-body">
-                <h5 class="card-title">詳細資訊</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">項目</th>
-                            <th scope="col">內容</th>
-                        </tr>
-                    </thead>
-                    <tbody id="detailsTableBody">
-                        <tr>
-                            <td>姓名</td>
-                            <td id="detailsName">王大明</td>
-                        </tr>
-                        <tr>
-                            <td>教師／學生證號</td>
-                            <td id="detailsID">412401000</td>
-                        </tr>
-                        <tr>
-                            <td>聯絡電話</td>
-                            <td id="detailsPhone">0900000000</td>
-                        </tr>
-                        <tr>
-                            <td>狀態</td>
-                            <td id="detailsStatus"><span class="badge badge-primary"
-                                    style="font-size: 14px;">預約成功</span></td>
-                        </tr>
-                        <tr>
-                            <td>租借日期</td>
-                            <td id="detailsDate">2024-05-25</td>
-                        </tr>
-                        <tr>
-                            <td>租借時間</td>
-                            <td id="detailsTime">09:00-10:00, 10:00-11:00</td>
-                        </tr>
-                        <tr>
-                            <td>租借項目</td>
-                            <td id="detailsItem">高階13色流式細胞儀</td>
-                        </tr>
-                        <tr>
-                            <td>租借事由</td>
-                            <td id="detailsReason">做實驗。</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <div class="text-center d-grid">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning btn-lg" id="editButton"
-                            data-mdb-ripple-init>編輯資訊</button>
-                    </div>
+            </div>
+            <div class="col-10 mb-3" id="saveButtonContainer" style="display: none;">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary btn-lg" id="saveButton" data-mdb-ripple-init>儲存</button>
                 </div>
-                <div class="text-center mt-3" id="saveButtonContainer" style="display: none;">
-                    <div class="d-grid">
-                        <button type="button" class="btn btn-primary btn-lg" id="saveButton"
-                            data-mdb-ripple-init>儲存</button>
+            </div>
+            <div class="col-10 mb-3" id="editButtonContainer">
+                <div class="d-grid">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-warning btn-lg" id="editButton" data-mdb-ripple-init>編輯資訊</button>
                     </div>
-
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card" id="detailsCard">
+                    <div class="card-body">
+                        <h5 class="card-title">詳細資訊</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">項目</th>
+                                    <th scope="col">內容</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detailsTableBody">
+                                <tr>
+                                    <td>姓名</td>
+                                    <td id="detailsName">王大明</td>
+                                </tr>
+                                <tr>
+                                    <td>教師／學生證號</td>
+                                    <td id="detailsID">412401000</td>
+                                </tr>
+                                <tr>
+                                    <td>聯絡電話</td>
+                                    <td id="detailsPhone">0900000000</td>
+                                </tr>
+                                <tr>
+                                    <td>狀態</td>
+                                    <td id="detailsStatus"><span class="badge badge-primary"
+                                            style="font-size: 14px;">預約成功</span></td>
+                                </tr>
+                                <tr>
+                                    <td>租借日期</td>
+                                    <td id="detailsDate">2024-05-25</td>
+                                </tr>
+                                <tr>
+                                    <td>租借時間</td>
+                                    <td id="detailsTime">09:00-10:00, 10:00-11:00</td>
+                                </tr>
+                                <tr>
+                                    <td>租借項目</td>
+                                    <td id="detailsItem">高階13色流式細胞儀</td>
+                                </tr>
+                                <tr>
+                                    <td>租借事由</td>
+                                    <td id="detailsReason">做實驗。</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -230,7 +244,7 @@ permalink: /manage/
                 </select>
             `);
             $('#detailsItem').html(`<input type="text" class="form-control form-control-sm" id="editItem" value="${info.item || ''}">`);
-            $('.btn-group').hide();
+            $('#editButtonContainer').hide();
             $('#saveButtonContainer').show();
 
             $('#backButton').prop('disabled', true);
@@ -259,7 +273,7 @@ permalink: /manage/
                 loadRentInfo();
                 viewDetails(currentEditIndex);
                 $('#saveButtonContainer').hide();
-                $('.btn-group').show();
+                $('#editButtonContainer').show();
                 $('#backButton').prop('disabled', false);
             }
         }
