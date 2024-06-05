@@ -112,7 +112,6 @@ $(document).ready(function () {
 
 
 // step-3
-// step-3
 $(document).ready(function () {
     const name = localStorage.getItem('loginName');
     const idNumber = localStorage.getItem('loginID');
@@ -277,17 +276,17 @@ $(document).ready(function () {
     });
 });
 
-// login.html
+// login
 $(document).ready(function () {
     $('#loginForm').on('submit', function (e) {
         e.preventDefault();
-        const email = $('#email').val();
+        const idNumber = $('#idNumber').val();
         const password = $('#password').val();
 
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
             const userData = JSON.parse(storedUserData);
-            if (userData.email === email && userData.password === password) {
+            if (userData.idNumber === idNumber && userData.password === password) {
                 alert('登入成功');
                 saveData("loginName", userData.name);
                 saveData("loginID", userData.idNumber);
