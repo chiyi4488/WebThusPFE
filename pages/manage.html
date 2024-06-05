@@ -8,7 +8,7 @@ permalink: /manage/
     <hr>
 </h3>
 <div class="row justify-content-center">
-    <div class="col-lg-6">
+    <div class="col-lg-12" id="rentTableCol">
         <table class="table">
             <thead>
                 <tr>
@@ -25,8 +25,11 @@ permalink: /manage/
         </table>
     </div>
 
-    <div class="col-lg-6">
-        <div class="card">
+    <div class="col-lg-12" id="detailsCol" style="display: none;">
+        <button type="button" class="btn btn-dark mb-3" id="backButton" data-mdb-ripple-init><span
+                style="font-size: large;"><i class="bi bi-arrow-left-circle"></i></span></button>
+
+        <div class="card" id="detailsCard">
             <div class="card-body">
                 <h5 class="card-title">詳細資訊</h5>
                 <table class="table">
@@ -50,6 +53,10 @@ permalink: /manage/
                             <td id="detailsPhone">0900000000</td>
                         </tr>
                         <tr>
+                            <td>狀態</td>
+                            <td id="detailsStatus"><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
+                        </tr>
+                        <tr>
                             <td>租借日期</td>
                             <td id="detailsDate">2024-05-25</td>
                         </tr>
@@ -58,9 +65,14 @@ permalink: /manage/
                             <td id="detailsTime">09:00-10:00, 10:00-11:00</td>
                         </tr>
                         <tr>
+                            <td>租借項目</td>
+                            <td id="detailsItem">高階13色流式細胞儀</td>
+                        </tr>
+                        <tr>
                             <td>租借事由</td>
                             <td id="detailsReason">做實驗。</td>
                         </tr>
+
                     </tbody>
                 </table>
                 <div class="text-center">
@@ -77,7 +89,6 @@ permalink: /manage/
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function () {
@@ -143,7 +154,12 @@ permalink: /manage/
             $('#detailsDate').text(info.date);
             $('#detailsTime').text(info.timeSlots.join(', '));
             $('#detailsReason').text(info.reason || 'N/A');
+            $('#detailsStatus').html(getStatusBadge(info.status, info.date));
+            $('#detailsItem').text(info.item || 'N/A');
             currentEditIndex = index;
+
+            $('#rentTableCol').hide();
+            $('#detailsCol').fadeIn();
 
             $('#cancelReservationButton').off('click').on('click', function () {
                 if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。確定要繼續執行嗎？')) {
@@ -156,6 +172,20 @@ permalink: /manage/
             $('#editButton').off('click').on('click', function () {
                 editDetails(info);
             });
+
+            $('#backButton').off('click').on('click', function () {
+                if (!isEditing) {
+                    $('#detailsCol').fadeOut(function () {
+                        $('#rentTableCol').fadeIn();
+                    });
+                }
+            });
+
+            if (isEditing) {
+                $('#backButton').prop('disabled', true);
+            } else {
+                $('#backButton').prop('disabled', false);
+            }
         };
 
         function editDetails(info) {
@@ -163,7 +193,7 @@ permalink: /manage/
             $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${info.name || ''}">`);
             $('#detailsID').html(`<input type="text" class="form-control form-control-sm" id="editID" value="${info.id || ''}">`);
             $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${info.phone || ''}">`);
-            $('#detailsDate').html(`<input type="text" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
+            $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
             $('#detailsTime').html(`
                 <select class="form-control form-control-sm" id="editTime" multiple>
                     <option value="06:00-07:00" ${info.timeSlots.includes('06:00-07:00') ? 'selected' : ''}>06:00-07:00</option>
@@ -187,8 +217,19 @@ permalink: /manage/
                 </select>
             `);
             $('#detailsReason').html(`<input type="text" class="form-control form-control-sm" id="editReason" value="${info.reason || ''}">`);
+            $('#detailsStatus').html(`
+                <select class="form-control form-control-sm" id="editStatus">
+                    <option value="尚未繳費" ${info.status === '尚未繳費' ? 'selected' : ''}>尚未繳費</option>
+                    <option value="預約成功" ${info.status === '預約成功' ? 'selected' : ''}>預約成功</option>
+                    <option value="繳費逾期" ${info.status === '繳費逾期' ? 'selected' : ''}>繳費逾期</option>
+                    <option value="已經取消" ${info.status === '已經取消' ? 'selected' : ''}>已經取消</option>
+                </select>
+            `);
+            $('#detailsItem').html(`<input type="text" class="form-control form-control-sm" id="editItem" value="${info.item || ''}">`);
             $('.btn-group').hide();
             $('#saveButtonContainer').show();
+
+            $('#backButton').prop('disabled', true);
 
             loadRentInfo();  // Disable all view buttons
 
@@ -206,6 +247,8 @@ permalink: /manage/
                 rentInfoList[currentEditIndex].date = $('#editDate').val();
                 rentInfoList[currentEditIndex].timeSlots = $('#editTime').val();
                 rentInfoList[currentEditIndex].reason = $('#editReason').val();
+                rentInfoList[currentEditIndex].status = $('#editStatus').val();
+                rentInfoList[currentEditIndex].item = $('#editItem').val();
 
                 localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
                 isEditing = false;
@@ -213,6 +256,7 @@ permalink: /manage/
                 viewDetails(currentEditIndex);
                 $('#saveButtonContainer').hide();
                 $('.btn-group').show();
+                $('#backButton').prop('disabled', false);
             }
         }
 
