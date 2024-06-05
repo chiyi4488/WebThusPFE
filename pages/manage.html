@@ -54,7 +54,8 @@ permalink: /manage/
                         </tr>
                         <tr>
                             <td>狀態</td>
-                            <td id="detailsStatus"><span class="badge badge-primary" style="font-size: 14px;">預約成功</span></td>
+                            <td id="detailsStatus"><span class="badge badge-primary"
+                                    style="font-size: 14px;">預約成功</span></td>
                         </tr>
                         <tr>
                             <td>租借日期</td>
@@ -75,15 +76,21 @@ permalink: /manage/
 
                     </tbody>
                 </table>
-                <div class="text-center">
+                <div class="text-center d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-danger" id="cancelReservationButton" data-mdb-ripple-init>取消預約</button>
-                        <button type="button" class="btn btn-warning" id="editButton" data-mdb-ripple-init>編輯資訊</button>
-                        <button type="button" class="btn btn-primary" data-mdb-ripple-init>寄通知信</button>
+                        <button type="button" class="btn btn-danger btn-lg" id="cancelReservationButton"
+                            data-mdb-ripple-init>取消預約</button>
+                        <button type="button" class="btn btn-warning btn-lg" id="editButton"
+                            data-mdb-ripple-init>編輯資訊</button>
+                        <button type="button" class="btn btn-primary btn-lg" data-mdb-ripple-init>寄通知信</button>
                     </div>
                 </div>
                 <div class="text-center mt-3" id="saveButtonContainer" style="display: none;">
-                    <button type="button" class="btn btn-success" id="saveButton" data-mdb-ripple-init>儲存</button>
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary btn-lg" id="saveButton"
+                            data-mdb-ripple-init>儲存</button>
+                    </div>
+
                 </div>
             </div>
         </div>
