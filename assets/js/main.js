@@ -18,6 +18,21 @@ function clearData(keys) {
     keys.forEach(key => localStorage.removeItem(key));
 }
 
+// navbar
+$(document).ready(function () {
+    const loginID = localStorage.getItem('loginID');
+    const dynamicButton = $('#dynamicButton');
+    if (loginID) {
+        dynamicButton.text('檢視預約');
+        dynamicButton.attr('href', '/order/');
+        dynamicButton.addClass('btn-secondary').removeClass('btn-outline-dark');
+    } else {
+        dynamicButton.text('註冊');
+        dynamicButton.attr('href', '/register/');
+        dynamicButton.addClass('btn-warning').removeClass('btn-secondary');
+    }
+});
+
 // step-1
 function step1Chosen(id) {
     saveData("step1Item", id);

@@ -6,39 +6,52 @@ permalink: /register/
 <h3 style="font-weight: 700;">註冊
     <hr>
 </h3>
-<div class="container my-5">
-    <div class="register-form" data-mdb-input-init>
-        <form id="registerForm">
-            <div class="mb-3">
-                <label for="name" class="form-label">姓名</label>
-                <input type="text" class="form-control" id="name" required>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-8 col-lg-6 text-left">
+            <div class="row justify-content-left align-items-center">
+                <div class="col-10">
+                    <div class="register-form" data-mdb-input-init>
+                        <form id="registerForm">
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="text" class="form-control form-control-lg" id="name" required>
+                                <label for="name" class="form-label">姓名</label>
+                            </div>
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="text" class="form-control form-control-lg" id="idNumber" required>
+                                <label for="idNumber" class="form-label">教師／學生證號</label>
+                            </div>
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="email" class="form-control form-control-lg" id="email" required>
+                                <label for="email" class="form-label">電子郵件</label>
+                            </div>
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="tel" class="form-control form-control-lg" id="phone" required>
+                                <label for="phone" class="form-label">聯絡電話</label>
+                            </div>
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="password" class="form-control form-control-lg" id="password" required>
+                                <label for="password" class="form-label">密碼</label>
+                            </div>
+                            <div class="form-outline mb-3" data-mdb-input-init>
+                                <input type="password" class="form-control form-control-lg" id="confirmPassword"
+                                    required>
+                                <label for="confirmPassword" class="form-label">確認密碼</label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">註冊</button>
+                            </div>
+                        </form>
+                        <p class="text-center mt-3">
+                            已經有帳號了嗎？ <span class="badge badge-warning" style="font-size: 14px;"><a class="link-warning"
+                                    href="/">登入</a></span>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="idNumber" class="form-label">教師／學生證號</label>
-                <input type="text" class="form-control" id="idNumber" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">電子郵件</label>
-                <input type="email" class="form-control" id="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="phone" class="form-label">聯絡電話</label>
-                <input type="tel" class="form-control" id="phone" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">密碼</label>
-                <input type="password" class="form-control" id="password" required>
-            </div>
-            <div class="mb-3">
-                <label for="confirmPassword" class="form-label">確認密碼</label>
-                <input type="password" class="form-control" id="confirmPassword" required>
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">註冊</button>
-            </div>
-        </form>
-        <p class="text-center mt-3">
-            已經有帳號了嗎？ <a href="/">登入</a>
-        </p>
+        </div>
+        <div class="col-4 col-lg-6 d-none d-lg-inline">
+            <img class="img-fluid mx-auto d-block my-5" src="/assets/img/site_icon_1.png" width="35%">
+        </div>
     </div>
 </div>
