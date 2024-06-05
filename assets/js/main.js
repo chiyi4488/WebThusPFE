@@ -1,3 +1,11 @@
+// // 初始化所有tooltips
+// $(document).ready(function () {
+//     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));
+//     tooltipTriggerList.map(function (tooltipTriggerEl) {
+//         return new mdb.Tooltip(tooltipTriggerEl);
+//     });
+// });
+
 // 儲存資料到 localStorage
 function saveData(key, value) {
     if (value) {

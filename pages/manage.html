@@ -14,6 +14,7 @@ permalink: /manage/
                 <tr>
                     <th scope="col">租借日期</th>
                     <th scope="col">租借時段</th>
+                    <th scope="col">申請人</th>
                     <th scope="col">項目</th>
                     <th scope="col">狀態</th>
                     <th scope="col">操作</th>
@@ -95,11 +96,8 @@ permalink: /manage/
                                     <td>租借事由</td>
                                     <td id="detailsReason">做實驗。</td>
                                 </tr>
-
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>
@@ -123,14 +121,19 @@ permalink: /manage/
                 const actionButton = getActionButton(info.status, index);
                 const row = `
                     <tr data-index="${index}">
-                        <td>${info.date}</td>
-                        <td>${info.timeSlots.join(', ')}</td>
-                        <td>${info.item}</td>
+                        <td class="text-overflow">${info.date || 'N/A'}</td>
+                        <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.timeSlots.join(', ')}">${info.timeSlots.join(', ') || 'N/A'}</span></td>
+                        <td class="text-overflow">${info.name || 'N/A'}</td>
+                        <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.item || 'N/A'}">${info.item || 'N/A'}</span></td>
                         <td>${statusBadge}</td>
                         <td>${actionButton}</td>
                     </tr>
                 `;
                 tbody.append(row);
+            });
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new mdb.Tooltip(tooltipTriggerEl);
             });
         }
 

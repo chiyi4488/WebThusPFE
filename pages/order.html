@@ -15,6 +15,7 @@ permalink: /order/
                     <th scope="col">租借日期</th>
                     <th scope="col">租借時段</th>
                     <th scope="col">項目</th>
+                    <th scope="col">租借事由</th>
                     <th scope="col">狀態</th>
                     <th scope="col">操作</th>
                 </tr>
@@ -37,16 +38,23 @@ permalink: /order/
             rentInfoList.forEach((info, index) => {
                 const statusBadge = getStatusBadge(info.status, info.date);
                 const actionButton = getActionButton(info.status, info.date, index);
+                const timeSlots = info.timeSlots.join(', ');
                 const row = `
                 <tr data-index="${index}">
                     <td>${info.date}</td>
-                    <td>${info.timeSlots.join(', ')}</td>
-                    <td>${info.item}</td>
-                    <td>${statusBadge}</td>
+                    <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${timeSlots}">${timeSlots}</span></td>
+                    <td><span data-mdb-toggle="tooltip" title="${info.item}">${info.item}</span></td>
+                    <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.reason}">${info.reason}</span></td>
+                    <td class="text-overflow">${statusBadge}</td>
                     <td>${actionButton}</td>
                 </tr>
             `;
                 tbody.append(row);
+            });
+            // 初始化所有tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new mdb.Tooltip(tooltipTriggerEl);
             });
         }
 
