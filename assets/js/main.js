@@ -168,7 +168,7 @@ $(document).ready(function () {
         console.log(orderIndex)
         if (orderIndex !== -1) {
             const order = rentInfoList[orderIndex];
-            if (order.status === '尚未繳費') {
+            if (order.status === '尚未繳費' || order.status === '繳費逾期') {
                 let totalPrice = 0;
                 order.timeSlots.forEach(timeSlot => {
                     const row = `
