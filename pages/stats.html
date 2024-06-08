@@ -3,10 +3,9 @@ layout: page
 title: 統計資訊
 permalink: /stats/
 ---
-
 <div class="container">
     <div class="row mt-5">
-        <div class="col-md-6"">
+        <div class="col-md-6">
             <h4>用戶註冊數量</h4>
             <div id="user-registration-chart" style="width: 100%; height: 400px;"></div>
         </div>
@@ -28,123 +27,141 @@ permalink: /stats/
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script>
-    // 加载 Google Charts 库
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawCharts);
+    <script>
+        // 加载 Google Charts 库
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
 
-    function drawCharts() {
-        drawUserRegistrationChart();
-        drawRentStatusChart();
-        drawTimeSlotDistributionChart();
-        drawItemRentCountChart();
-    }
-
-    function drawUserRegistrationChart() {
-        const userData = JSON.parse(localStorage.getItem('userData')) || [];
-        const registrationData = {};
-
-        userData.forEach(user => {
-            const registrationDate = new Date(user.registrationDate).toLocaleDateString();
-            registrationData[registrationDate] = (registrationData[registrationDate] || 0) + 1;
-        });
-
-        const data = new google.visualization.DataTable();
-        data.addColumn('string', '日期');
-        data.addColumn('number', '註冊數量');
-        for (const [date, count] of Object.entries(registrationData)) {
-            data.addRow([date, count]);
+        function drawCharts() {
+            drawUserRegistrationChart();
+            drawRentStatusChart();
+            drawTimeSlotDistributionChart();
+            drawItemRentCountChart();
         }
 
-        const options = {
-            title: '每日用戶註冊數量',
-            hAxis: {title: '日期'},
-            vAxis: {title: '註冊數量'}
-        };
+        function drawUserRegistrationChart() {
+            const userData = JSON.parse(localStorage.getItem('userData')) || [];
+            const registrationData = {};
 
-        const chart = new google.visualization.ColumnChart(document.getElementById('user-registration-chart'));
-        chart.draw(data, options);
-    }
-
-    function drawRentStatusChart() {
-        const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
-        const statusCount = {
-            '尚未繳費': 0,
-            '預約成功': 0,
-            '繳費逾期': 0,
-            '已經取消': 0
-        };
-
-        rentInfoList.forEach(info => {
-            statusCount[info.status] = (statusCount[info.status] || 0) + 1;
-        });
-
-        const data = google.visualization.arrayToDataTable([
-            ['狀態', '數量'],
-            ['尚未繳費', statusCount['尚未繳費']],
-            ['預約成功', statusCount['預約成功']],
-            ['繳費逾期', statusCount['繳費逾期']],
-            ['已經取消', statusCount['已經取消']]
-        ]);
-
-        const options = {
-            title: '租借狀況',
-            pieHole: 0.4
-        };
-
-        const chart = new google.visualization.PieChart(document.getElementById('rent-status-chart'));
-        chart.draw(data, options);
-    }
-
-    function drawTimeSlotDistributionChart() {
-        const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
-        const timeSlotCount = {};
-
-        rentInfoList.forEach(info => {
-            info.timeSlots.forEach(slot => {
-                timeSlotCount[slot] = (timeSlotCount[slot] || 0) + 1;
+            userData.forEach(user => {
+                const registrationDate = new Date(user.registrationDate).toLocaleDateString();
+                registrationData[registrationDate] = (registrationData[registrationDate] || 0) + 1;
             });
-        });
 
-        const data = new google.visualization.DataTable();
-        data.addColumn('string', '時段');
-        data.addColumn('number', '租借數量');
-        for (const [slot, count] of Object.entries(timeSlotCount)) {
-            data.addRow([slot, count]);
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', '日期');
+            data.addColumn('number', '註冊數量');
+            for (const [date, count] of Object.entries(registrationData)) {
+                data.addRow([date, count]);
+            }
+
+            const options = {
+                title: '每日用戶註冊數量',
+                hAxis: {title: '日期'},
+                vAxis: {title: '註冊數量'},
+                curveType: 'function', // 平滑曲線
+                legend: { position: 'bottom' }
+            };
+
+            const chart = new google.visualization.LineChart(document.getElementById('user-registration-chart'));
+            chart.draw(data, options);
+
+            window.addEventListener('resize', () => {
+                chart.draw(data, options);
+            });
         }
 
-        const options = {
-            title: '租借時段分佈',
-            hAxis: {title: '時段'},
-            vAxis: {title: '租借數量'}
-        };
+        function drawRentStatusChart() {
+            const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
+            const statusCount = {
+                '尚未繳費': 0,
+                '預約成功': 0,
+                '繳費逾期': 0,
+                '已經取消': 0
+            };
 
-        const chart = new google.visualization.ColumnChart(document.getElementById('time-slot-distribution-chart'));
-        chart.draw(data, options);
-    }
+            rentInfoList.forEach(info => {
+                statusCount[info.status] = (statusCount[info.status] || 0) + 1;
+            });
 
-    function drawItemRentCountChart() {
-        const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
-        const itemCount = {};
+            const data = google.visualization.arrayToDataTable([
+                ['狀態', '數量'],
+                ['尚未繳費', statusCount['尚未繳費']],
+                ['預約成功', statusCount['預約成功']],
+                ['繳費逾期', statusCount['繳費逾期']],
+                ['已經取消', statusCount['已經取消']]
+            ]);
 
-        rentInfoList.forEach(info => {
-            itemCount[info.item] = (itemCount[info.item] || 0) + 1;
-        });
+            const options = {
+                title: '租借狀況',
+                pieHole: 0.4
+            };
 
-        const data = new google.visualization.DataTable();
-        data.addColumn('string', '項目');
-        data.addColumn('number', '租借數量');
-        for (const [item, count] of Object.entries(itemCount)) {
-            data.addRow([item, count]);
+            const chart = new google.visualization.PieChart(document.getElementById('rent-status-chart'));
+            chart.draw(data, options);
+
+            window.addEventListener('resize', () => {
+                chart.draw(data, options);
+            });
         }
 
-        const options = {
-            title: '租借項目數量',
-            hAxis: {title: '項目'},
-            vAxis: {title: '租借數量'}
-        };
+        function drawTimeSlotDistributionChart() {
+            const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
+            const timeSlotCount = {};
 
-        const chart = new google.visualization.ColumnChart(document.getElementById('item-rent-count-chart'));
-        chart.draw(data, options);
-    }
-</script>
+            rentInfoList.forEach(info => {
+                info.timeSlots.forEach(slot => {
+                    timeSlotCount[slot] = (timeSlotCount[slot] || 0) + 1;
+                });
+            });
+
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', '時段');
+            data.addColumn('number', '租借數量');
+            for (const [slot, count] of Object.entries(timeSlotCount)) {
+                data.addRow([slot, count]);
+            }
+
+            const options = {
+                title: '租借時段分佈',
+                hAxis: {title: '時段'},
+                vAxis: {title: '租借數量'}
+            };
+
+            const chart = new google.visualization.ColumnChart(document.getElementById('time-slot-distribution-chart'));
+            chart.draw(data, options);
+
+            window.addEventListener('resize', () => {
+                chart.draw(data, options);
+            });
+        }
+
+        function drawItemRentCountChart() {
+            const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
+            const itemCount = {};
+
+            rentInfoList.forEach(info => {
+                itemCount[info.item] = (itemCount[info.item] || 0) + 1;
+            });
+
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', '項目');
+            data.addColumn('number', '租借次數');
+            for (const [item, count] of Object.entries(itemCount)) {
+                data.addRow([item, count]);
+            }
+
+            const options = {
+                title: '租借項目排名',
+                hAxis: {title: '項目'},
+                vAxis: {title: '租借次數'}
+            };
+
+            const chart = new google.visualization.ColumnChart(document.getElementById('item-rent-count-chart'));
+            chart.draw(data, options);
+
+            window.addEventListener('resize', () => {
+                chart.draw(data, options);
+            });
+        }
+    </script>
