@@ -1,0 +1,93 @@
+---
+layout: page
+title: 個人資料編輯
+permalink: /profile/
+---
+
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <form id="profileForm">
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="text" value="載入中..." id="name" class="form-control" />
+                <label class="form-label" for="name">姓名</label>
+            </div>
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="text" value="載入中..." id="idNumber" class="form-control" />
+                <label class="form-label" for="idNumber">教師／學生證號</label>
+            </div>
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="email" value="載入中..." id="email" class="form-control" />
+                <label class="form-label" for="email">電子郵件</label>
+            </div>
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="text" value="載入中..." id="phone" class="form-control" />
+                <label class="form-label" for="phone">聯絡電話</label>
+            </div>
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="password" id="password" class="form-control" />
+                <label class="form-label" for="password">密碼</label>
+            </div>
+            <div class="form-outline mb-4" data-mdb-input-init>
+                <input type="password" id="confirmPassword" class="form-control" />
+                <label class="form-label" for="confirmPassword">確認密碼</label>
+            </div>
+            <div class="text-center d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const loginID = localStorage.getItem('loginID');
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+
+        if (!Array.isArray(userData)) {
+            userData = [userData];
+        }
+
+        let currentUser = userData.find(user => user.idNumber === loginID);
+
+        if (currentUser) {
+            $('#name').val(currentUser.name);
+            $('#idNumber').val(currentUser.idNumber);
+            $('#email').val(currentUser.email);
+            $('#phone').val(currentUser.phone);
+        } else {
+            alert('找不到使用者資料');
+        }
+
+        $('#profileForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const newName = $('#name').val();
+            const newIdNumber = $('#idNumber').val();
+            const newEmail = $('#email').val();
+            const newPhone = $('#phone').val();
+            const newPassword = $('#password').val();
+            const confirmPassword = $('#confirmPassword').val();
+
+            if (newPassword !== confirmPassword) {
+                alert('密碼與確認密碼不符');
+                return;
+            }
+
+            // 更新 currentUser 資料
+            currentUser.name = newName;
+            currentUser.idNumber = newIdNumber;
+            currentUser.email = newEmail;
+            currentUser.phone = newPhone;
+            currentUser.password = newPassword;
+
+            // 將更新後的 userData 存回 localStorage
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            // 更新 loginID
+            localStorage.setItem('loginID', newIdNumber);
+
+            alert('個人資料已更新');
+        });
+    });
+</script>

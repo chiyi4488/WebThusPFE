@@ -33,8 +33,16 @@ permalink: /order/
             const tbody = $('#rentInfoTableBody');
             tbody.empty();
             rentInfoList.forEach((info, index) => {
-                const statusBadge = getStatusBadge(info.status, info.date);
-                const actionButton = getActionButton(info.status, info.date, index);
+                // 檢查並更新狀態
+                const currentDate = new Date();
+                const rentDate = new Date(info.date);
+                if (info.status === '尚未繳費' && rentDate < currentDate.setDate(currentDate.getDate() - 1)) {
+                    info.status = '繳費逾期';
+                    // 保存更新後的狀態
+                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                }
+                const statusBadge = getStatusBadge(info.status, info.submitTime);
+                const actionButton = getActionButton(info.status, info.submitTime, index);
                 const timeSlots = info.timeSlots.join(', ');
                 const row = `
                 <tr data-index="${index}">
@@ -46,7 +54,10 @@ permalink: /order/
                     <td class="text-overflow">${actionButton}</td>
                 </tr>
             `;
+            const loginID = localStorage.getItem('loginID');
+            if (info.id == loginID) {
                 tbody.append(row);
+            }
             });
             // 初始化所有tooltips
             const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));

@@ -40,11 +40,29 @@
                     </li> -->
                 </ul>
                 <form class="d-flex" role="search">
-                    <a href="/manage/" data-mdb-ripple-init type="button" class="btn btn-outline-dark me-3">
-                        租借控制台
-                    </a>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark me-3 dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+                            管理控制台
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="/manage/">租借管理</a></li>
+                            <li><a class="dropdown-item" href="/manageUsers/">使用者管理</a></li>
+                        </ul>
+                    </div>
+                    <div id="userOperationDropdown" class="dropdown" style="display: none;">
+                        <button class="btn btn-secondary me-3 dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+                            使用者操作
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="/profile/">個人資料編輯</a></li>
+                            <li><a class="dropdown-item" href="/order/">檢視租借資訊</a></li>
+                        </ul>
+                    </div>
                     <a href="#" id="dynamicButton" data-mdb-ripple-init type="button" class="btn me-3"></a>
-                    <button id="dynamicLogout" onclick="logout()" data-mdb-ripple-init type="button" class="btn btn-warning me-3">登出</button>
+                    <button id="dynamicLogout" onclick="logout()" data-mdb-ripple-init type="button"
+                        class="btn btn-warning me-3">登出</button>
                 </form>
             </div>
         </div>

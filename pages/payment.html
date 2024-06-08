@@ -4,25 +4,22 @@ title: 繳費
 permalink: /payment/
 ---
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">項目</th>
-                        <th scope="col" style="text-align: right;">價格</th>
-                    </tr>
-                </thead>
-                <tbody id="paymentTableBody">
-                    <!-- 訂單資訊將在這裡顯示 -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col center mx-auto">
-            <button class="btn btn-success btn-lg mt-4" id="paymentButton" data-mdb-ripple-init>立即繳費</button>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">項目</th>
+                    <th scope="col">金額</th>
+                </tr>
+            </thead>
+            <tbody id="paymentTableBody">
+                <!-- 租借項目和金額會顯示在這裡 -->
+            </tbody>
+        </table>
+        <p id="submitTimeText"></p>
+        <div class="d-grid">
+            <button id="paymentButton" class="btn btn-success btn-lg mt-4" data-mdb-ripple-init>立即繳費</button>
         </div>
     </div>
 </div>

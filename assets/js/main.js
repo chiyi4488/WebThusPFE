@@ -13,8 +13,8 @@ function saveData(key, value) {
     }
 }
 
-function logout(){
-    clearData(['loginName', 'loginID', 'step2phone']);
+function logout() {
+    clearData(['loginID']);
     alert("登出成功");
     window.location.href = '/';
 }
@@ -29,16 +29,18 @@ $(document).ready(function () {
     const loginID = localStorage.getItem('loginID');
     const dynamicButton = $('#dynamicButton');
     const dynamicLogout = $('#dynamicLogout');
+    const userOperationDropdown = $('#userOperationDropdown');
+
     if (loginID) {
-        dynamicButton.text('檢視預約');
-        dynamicButton.attr('href', '/order/');
-        dynamicButton.addClass('btn-secondary').removeClass('btn-outline-dark');
+        dynamicButton.hide();
         dynamicLogout.show();
+        userOperationDropdown.show();
     } else {
         dynamicButton.text('註冊');
         dynamicButton.attr('href', '/register/');
         dynamicButton.addClass('btn-warning').removeClass('btn-secondary');
         dynamicLogout.hide();
+        userOperationDropdown.hide();
     }
 });
 
@@ -50,9 +52,12 @@ function step1Chosen(id) {
 
 // step-2
 $(document).ready(function () {
-    const name = localStorage.getItem('loginName');
-    const phone = localStorage.getItem('step2phone');
-    const idNumber = localStorage.getItem('loginID');
+    const loginID = localStorage.getItem('loginID');
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    const currentUser = userData.find(user => user.idNumber === loginID);
+    const name = currentUser ? currentUser.name : '';
+    const phone = currentUser ? currentUser.phone : '';
+
     let isTimeSlotVisible = false;
 
     if (name) {
@@ -61,16 +66,16 @@ $(document).ready(function () {
     if (phone) {
         $('#phone').val(phone);
     }
-    if (idNumber) {
-        $('#idNumber').val(idNumber);
+    if (loginID) {
+        $('#idNumber').val(loginID);
     }
 
     $('#rentDate').change(function () {
         const selectedDate = $('#rentDate').val();
         localStorage.setItem('step2Date', selectedDate);
 
-        // 隨機選取三個時段設置為 disabled
-        disableRandomTimeSlots();
+        // 根據當天租借狀態禁用已被租借的時段
+        disableOccupiedTimeSlots(selectedDate);
 
         // 顯示租借時段，並淡入效果，僅第一次輸入時
         if (!isTimeSlotVisible) {
@@ -88,7 +93,7 @@ $(document).ready(function () {
     timeSlots.forEach(slot => {
         slot.addEventListener('click', function (event) {
             event.preventDefault();
-            if (!this.classList.contains('disabled')) {
+            if (!this.hasAttribute('disabled')) {
                 this.classList.toggle('active');
                 saveSelectedTimeSlots();
             }
@@ -103,28 +108,67 @@ $(document).ready(function () {
         localStorage.setItem('step2Time', JSON.stringify(selectedSlots));
     }
 
-    function disableRandomTimeSlots() {
-        const timeSlots = $('#timeSlotList .list-group-item');
-        timeSlots.removeAttr('disabled'); // 先移除所有disabled屬性
-        const randomSlots = [];
-        while (randomSlots.length < 3) {
-            const randomIndex = Math.floor(Math.random() * timeSlots.length);
-            if (!randomSlots.includes(randomIndex)) {
-                randomSlots.push(randomIndex);
-            }
-        }
-        randomSlots.forEach(index => {
-            timeSlots.eq(index).attr('disabled', 'disabled');
+    function disableOccupiedTimeSlots(date) {
+        const rentInfoList = JSON.parse(localStorage.getItem('rentInfoList')) || [];
+        const occupiedTimeSlots = rentInfoList.filter(info => info.date === date).flatMap(info => info.timeSlots);
+
+        const timeSlotsArray = Array.from(timeSlots);
+        let hasOccupiedSlots = false;
+
+        // 清除之前的 disabled 狀態
+        timeSlotsArray.forEach(slot => {
+            slot.removeAttribute('disabled');
         });
+
+        // 禁用已被租借的時段
+        timeSlotsArray.forEach(slot => {
+            if (occupiedTimeSlots.includes(slot.textContent.trim())) {
+                slot.setAttribute('disabled', 'disabled');
+                hasOccupiedSlots = true;
+            }
+        });
+
+        // 如果當天完全沒有租借，隨機禁用三個時段
+        if (!hasOccupiedSlots) {
+            disableRandomTimeSlots();
+        }
     }
+
+    function disableRandomTimeSlots() {
+        const timeSlotsArray = Array.from(timeSlots);
+        // 清除之前的 disabled 狀態
+        timeSlotsArray.forEach(slot => {
+            slot.removeAttribute('disabled');
+        });
+
+        // 隨機選取三個時段
+        for (let i = 0; i < 3; i++) {
+            const randomIndex = Math.floor(Math.random() * timeSlotsArray.length);
+            const selectedSlot = timeSlotsArray.splice(randomIndex, 1)[0];
+            selectedSlot.setAttribute('disabled', 'disabled');
+        }
+    }
+
+    $('#nextStepButton').click(function (e) {
+        e.preventDefault();
+
+        // 檢查所有必填欄位是否已填寫
+        if ($('#rentDate').val() && $('#rentReason').val() && localStorage.getItem('step2Time')) {
+            window.location.href = '/step-3';
+        } else {
+            alert('請填寫所有必填欄位並選擇至少一個租借時段');
+        }
+    });
 });
 
 
 // step-3
 $(document).ready(function () {
-    const name = localStorage.getItem('loginName');
-    const idNumber = localStorage.getItem('loginID');
-    const contactPhone = localStorage.getItem('step2phone');
+    const loginID = localStorage.getItem('loginID');
+    let userData = JSON.parse(localStorage.getItem('userData')) || [];
+    const currentUser = userData.find(user => user.idNumber === loginID);
+    const name = currentUser ? currentUser.name : '';
+    const contactPhone = currentUser ? currentUser.phone : '';
     const selectedRentDate = localStorage.getItem('step2Date');
     const rentReason = localStorage.getItem('step2Reason');
     const rentItem = localStorage.getItem('step1Item');
@@ -133,8 +177,8 @@ $(document).ready(function () {
     if (name) {
         $('#nameCell').text(name);
     }
-    if (idNumber) {
-        $('#idNumberCell').text(idNumber);
+    if (loginID) {
+        $('#idNumberCell').text(loginID);
     }
     if (contactPhone) {
         $('#contactPhoneCell').text(contactPhone);
@@ -156,11 +200,12 @@ $(document).ready(function () {
         const selectedRentDate = $('#rentDateCell').text();
         const selectedTimeSlots = $('#timeSlotsCell').text().split(', ');
         const rentReason = $('#rentReasonCell').text();
-        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, idNumber, contactPhone, name, rentItem);
+        const submitTime = new Date().toISOString();
+        saveRentInfo(selectedRentDate, selectedTimeSlots, rentReason, loginID, contactPhone, name, rentItem, submitTime);
     });
 
     const rentInfoKey = 'rentInfoList';
-    function saveRentInfo(date, timeSlots, reason, idNumber, phone, name, item) {
+    function saveRentInfo(date, timeSlots, reason, idNumber, phone, name, item, submitTime) {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const newRentInfo = {
             date: date,
@@ -168,15 +213,14 @@ $(document).ready(function () {
             item: item, // 租借項目
             status: '尚未繳費', // 預設狀態
             id: idNumber,
-            name: name,
-            phone: phone,
-            reason: reason
+            reason: reason,
+            submitTime: submitTime // 送出時間
         };
         rentInfoList.push(newRentInfo);
         localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
 
         clearData(['step1Item', 'step2Date', 'step2Reason', 'step2Time', 'step2IDNumber']);
-        window.location.href = '/payment?time=' + encodeURIComponent(date);
+        window.location.href = '/payment?time=' + submitTime;
     }
 
     function clearData(keys) {
@@ -189,14 +233,12 @@ $(document).ready(function () {
 // payment
 $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const timeParam = urlParams.get('time');
+    const submitTimeParam = urlParams.get('time');
     const tableBody = $('#paymentTableBody');
-
-    if (timeParam) {
+    if (submitTimeParam) {
         const rentInfoKey = 'rentInfoList';
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const orderIndex = rentInfoList.findIndex(info => info.date === timeParam);
-        console.log(orderIndex)
+        const orderIndex = rentInfoList.findIndex(info => info.submitTime === submitTimeParam);
         if (orderIndex !== -1) {
             const order = rentInfoList[orderIndex];
             if (order.status === '尚未繳費' || order.status === '繳費逾期') {
@@ -246,7 +288,7 @@ $(document).ready(function () {
     } else {
         const row = `
             <tr>
-                <td colspan="2" style="text-align: center; font-weight: bold;">缺少時間參數</td>
+                <td colspan="2" style="text-align: center; font-weight: bold;">缺少提交時間參數</td>
             </tr>
         `;
         tableBody.append(row);
@@ -270,7 +312,7 @@ $(document).ready(function () {
             return;
         }
 
-        const userData = {
+        const newUser = {
             name: name,
             idNumber: idNumber,
             email: email,
@@ -278,7 +320,16 @@ $(document).ready(function () {
             password: password
         };
 
-        // 將userData存儲到localStorage中（僅為示範，請勿在實際應用中使用此方法儲存密碼）
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+
+        // 檢查是否已存在相同的 idNumber
+        const existingUser = userData.find(user => user.idNumber === idNumber);
+        if (existingUser) {
+            alert('該教師／學生證號已經註冊過，請使用不同的證號。');
+            return;
+        }
+
+        userData.push(newUser);
         localStorage.setItem('userData', JSON.stringify(userData));
         alert('註冊成功');
         window.location.href = '/';
@@ -287,29 +338,34 @@ $(document).ready(function () {
 
 // login
 $(document).ready(function () {
+    if (window.location.pathname === '/') {
+        // 初始检查，如果loginID存在，则跳转到/step-0
+        if (localStorage.getItem('loginID')) {
+            window.location.href = '/step-0';
+        }
+    }
     $('#loginForm').on('submit', function (e) {
         e.preventDefault();
         const idNumber = $('#idNumber').val();
         const password = $('#password').val();
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
 
-        const storedUserData = localStorage.getItem('userData');
-        if (storedUserData) {
-            const userData = JSON.parse(storedUserData);
-            if (userData.idNumber === idNumber && userData.password === password) {
-                alert('登入成功');
-                saveData("loginName", userData.name);
-                saveData("loginID", userData.idNumber);
-                saveData("step2phone", userData.phone);
-                // 可以在此處重定向到儀器預約系統的首頁
-                window.location.href = '/step-0';
-            } else {
-                alert('教師／學生證號或密碼不正確');
-            }
-        } else {
-            alert('沒有找到註冊資料，請先註冊');
+        if (!Array.isArray(userData)) {
+            userData = [userData];
         }
+
+        const user = userData.find(user => user.idNumber === idNumber && user.password === password);
+        if (user) {
+            alert('登入成功');
+            saveData("loginID", user.idNumber);
+            window.location.href = '/step-0';
+        } else {
+            alert('教師／學生證號或密碼不正確');
+        }
+
     });
 });
+
 // document.addEventListener('DOMContentLoaded', function () {
 //     var calendarEl = document.getElementById('calendar');
 

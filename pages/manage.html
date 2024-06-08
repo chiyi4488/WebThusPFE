@@ -31,7 +31,6 @@ permalink: /manage/
                         <i class="bi bi-arrow-left-circle"></i>
                     </span>
                 </button>
-
             </div>
             <div class="col mb-3" id="saveButtonContainer" style="display: none;">
                 <div class="d-grid">
@@ -42,7 +41,7 @@ permalink: /manage/
                 <div class="d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-warning btn-lg" id="editButton" data-mdb-ripple-init>編輯資料</button>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,36 +61,39 @@ permalink: /manage/
                             <tbody id="detailsTableBody">
                                 <tr>
                                     <td>姓名</td>
-                                    <td id="detailsName">王大明</td>
+                                    <td id="detailsName">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>教師／學生證號</td>
-                                    <td id="detailsID">412401000</td>
+                                    <td id="detailsID">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>聯絡電話</td>
-                                    <td id="detailsPhone">0900000000</td>
+                                    <td id="detailsPhone">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>狀態</td>
-                                    <td id="detailsStatus"><span class="badge badge-primary"
-                                            style="font-size: 14px;">預約成功</span></td>
+                                    <td id="detailsStatus"><span class="badge badge-primary" style="font-size: 14px;">載入中...</span></td>
+                                </tr>
+                                <tr>
+                                    <td>申請日期</td>
+                                    <td id="submitTime">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>租借日期</td>
-                                    <td id="detailsDate">2024-05-25</td>
+                                    <td id="detailsDate">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>租借時間</td>
-                                    <td id="detailsTime">09:00-10:00, 10:00-11:00</td>
+                                    <td id="detailsTime">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>租借項目</td>
-                                    <td id="detailsItem">高階13色流式細胞儀</td>
+                                    <td id="detailsItem">載入中...</td>
                                 </tr>
                                 <tr>
                                     <td>租借事由</td>
-                                    <td id="detailsReason">做實驗。</td>
+                                    <td id="detailsReason">載入中...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,21 +108,36 @@ permalink: /manage/
 <script>
     $(document).ready(function () {
         const rentInfoKey = 'rentInfoList';
+        const userDataKey = 'userData';
         let currentEditIndex = null;
         let isEditing = false;
 
         function loadRentInfo() {
+            
             const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
             const tbody = $('#rentInfoTableBody');
             tbody.empty();
             rentInfoList.forEach((info, index) => {
-                const statusBadge = getStatusBadge(info.status, info.date);
+                // 檢查並更新狀態
+                const currentDate = new Date();
+                const rentDate = new Date(info.date);
+                if (info.status === '尚未繳費' && rentDate < currentDate.setDate(currentDate.getDate() - 1)) {
+                    info.status = '繳費逾期';
+                    // 保存更新後的狀態
+                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                }
+                
+                const user = userDataList.find(user => user.idNumber === info.id);
+                const name = user ? user.name : 'N/A';
+                const phone = user ? user.phone : 'N/A';
+                const statusBadge = getStatusBadge(info.status, info.submitTime);
                 const actionButton = getActionButton(info.status, index);
                 const row = `
                     <tr data-index="${index}">
                         <td class="text-overflow">${info.date || 'N/A'}</td>
                         <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.timeSlots.join(', ')}">${info.timeSlots.join(', ') || 'N/A'}</span></td>
-                        <td class="text-overflow">${info.name || 'N/A'}</td>
+                        <td class="text-overflow">${name}</td>
                         <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.item || 'N/A'}">${info.item || 'N/A'}</span></td>
                         <td>${statusBadge}</td>
                         <td>${actionButton}</td>
@@ -165,10 +182,13 @@ permalink: /manage/
 
         window.viewDetails = function (index) {
             const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
             const info = rentInfoList[index];
-            $('#detailsName').text(info.name || 'N/A');
+            const user = userDataList.find(user => user.idNumber === info.id);
+            $('#detailsName').text(user ? user.name : 'N/A');
             $('#detailsID').text(info.id || 'N/A');
-            $('#detailsPhone').text(info.phone || 'N/A');
+            $('#detailsPhone').text(user ? user.phone : 'N/A');
+            $('#submitTime').text(info.submitTime);
             $('#detailsDate').text(info.date);
             $('#detailsTime').text(info.timeSlots.join(', '));
             $('#detailsReason').text(info.reason || 'N/A');
@@ -179,16 +199,8 @@ permalink: /manage/
             $('#rentTableCol').hide();
             $('#detailsCol').fadeIn();
 
-            $('#cancelReservationButton').off('click').on('click', function () {
-                if (confirm('點選 [確定取消] 後，系統即會撤銷您的預約，並依照付款方式進行退費。如未付款，則逕行取消。確定要繼續執行嗎？')) {
-                    rentInfoList[index].status = '已經取消';
-                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-                    loadRentInfo();
-                }
-            });
-
             $('#editButton').off('click').on('click', function () {
-                editDetails(info);
+                editDetails(info, user);
             });
 
             $('#backButton').off('click').on('click', function () {
@@ -206,11 +218,14 @@ permalink: /manage/
             }
         };
 
-        function editDetails(info) {
+        function editDetails(info, user) {
             isEditing = true;
-            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${info.name || ''}">`);
-            $('#detailsID').html(`<input type="text" class="form-control form-control-sm" id="editID" value="${info.id || ''}">`);
-            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${info.phone || ''}">`);
+            let userDataList = JSON.parse(localStorage.getItem('userData')) || [];
+            let options = userDataList.map(user => `<option value="${user.idNumber}" ${user.idNumber === info.id ? 'selected' : ''}>${user.idNumber}</option>`).join('');
+            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user.name || ''}" disabled>`);
+            $('#detailsID').html(`<select class="form-control form-control-sm" id="editID">${options}</select>`);
+            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user.phone || ''}" disabled>`);
+            $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime}">`);
             $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
             $('#detailsTime').html(`
                 <select class="form-control form-control-sm" id="editTime" multiple>
@@ -237,9 +252,8 @@ permalink: /manage/
             $('#detailsReason').html(`<input type="text" class="form-control form-control-sm" id="editReason" value="${info.reason || ''}">`);
             $('#detailsStatus').html(`
                 <select class="form-control form-control-sm" id="editStatus">
-                    <option value="尚未繳費" ${info.status === '尚未繳費' ? 'selected' : ''}>尚未繳費</option>
+                    <option value="尚未繳費" ${info.status === '尚未繳費' || info.status === '繳費逾期' ? 'selected' : ''}>尚未繳費</option>
                     <option value="預約成功" ${info.status === '預約成功' ? 'selected' : ''}>預約成功</option>
-                    <option value="繳費逾期" ${info.status === '繳費逾期' ? 'selected' : ''}>繳費逾期</option>
                     <option value="已經取消" ${info.status === '已經取消' ? 'selected' : ''}>取消預約</option>
                 </select>
             `);
@@ -254,14 +268,21 @@ permalink: /manage/
             $('#saveButton').off('click').on('click', function () {
                 saveDetails();
             });
+
+            $('#editID').on('change', function () {
+                const selectedID = $(this).val();
+                const selectedUser = userDataList.find(user => user.idNumber === selectedID);
+                if (selectedUser) {
+                    $('#editName').val(selectedUser.name);
+                    $('#editPhone').val(selectedUser.phone);
+                }
+            });
         }
 
         function saveDetails() {
             const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
             if (currentEditIndex !== null) {
-                rentInfoList[currentEditIndex].name = $('#editName').val();
                 rentInfoList[currentEditIndex].id = $('#editID').val();
-                rentInfoList[currentEditIndex].phone = $('#editPhone').val();
                 rentInfoList[currentEditIndex].date = $('#editDate').val();
                 rentInfoList[currentEditIndex].timeSlots = $('#editTime').val();
                 rentInfoList[currentEditIndex].reason = $('#editReason').val();
