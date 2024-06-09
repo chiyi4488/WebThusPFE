@@ -34,15 +34,13 @@ permalink: /manage/
             </div>
             <div class="col mb-3" id="saveButtonContainer" style="display: none;">
                 <div class="d-grid">
-                    <button type="button" class="btn btn-primary btn-lg" id="saveButton"
-                        data-mdb-ripple-init>儲存</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="saveButton" data-mdb-ripple-init>儲存</button>
                 </div>
             </div>
             <div class="col mb-3" id="editButtonContainer">
                 <div class="d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning btn-lg" id="editButton"
-                            data-mdb-ripple-init>編輯資料</button>
+                        <button type="button" class="btn btn-warning btn-lg" id="editButton" data-mdb-ripple-init>編輯資料</button>
                     </div>
                 </div>
             </div>
@@ -75,8 +73,7 @@ permalink: /manage/
                                 </tr>
                                 <tr>
                                     <td>狀態</td>
-                                    <td id="detailsStatus"><span class="badge badge-primary"
-                                            style="font-size: 14px;">載入中...</span></td>
+                                    <td id="detailsStatus"><span class="badge badge-primary" style="font-size: 14px;">載入中...</span></td>
                                 </tr>
                                 <tr>
                                     <td>申請日期</td>
@@ -97,6 +94,10 @@ permalink: /manage/
                                 <tr>
                                     <td>租借事由</td>
                                     <td id="detailsReason">載入中...</td>
+                                </tr>
+                                <tr>
+                                    <td>逾期繳費</td>
+                                    <td id="detailsOverdue">載入中...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -127,7 +128,6 @@ permalink: /manage/
         let isEditing = false;
 
         function loadRentInfo() {
-
             const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
             const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
             const tbody = $('#rentInfoTableBody');
@@ -208,6 +208,7 @@ permalink: /manage/
             $('#detailsReason').text(info.reason || 'N/A');
             $('#detailsStatus').html(getStatusBadge(info.status, info.date));
             $('#detailsItem').text(info.item || 'N/A');
+            $('#detailsOverdue').text(info.status === '繳費逾期' ? '是' : '否');
             currentEditIndex = index;
 
             $('#rentTableCol').hide();
@@ -236,9 +237,9 @@ permalink: /manage/
             isEditing = true;
             let userDataList = JSON.parse(localStorage.getItem('userData')) || [];
             let options = userDataList.map(user => `<option value="${user.idNumber}" ${user.idNumber === info.id ? 'selected' : ''}>${user.idNumber}</option>`).join('');
-            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user.name || ''}" disabled>`);
+            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user ? user.name : ''}" disabled>`);
             $('#detailsID').html(`<select class="form-control form-control-sm" id="editID">${options}</select>`);
-            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user.phone || ''}" disabled>`);
+            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user ? user.phone : ''}" disabled>`);
             $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime.split('T')[0]}">`);
             $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
             $('#detailsTime').html(`
