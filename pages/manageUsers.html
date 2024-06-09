@@ -43,6 +43,8 @@ permalink: /manageUsers/
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-warning btn-lg" id="editButton"
                             data-mdb-ripple-init>編輯資料</button>
+                        <button type="button" class="btn btn-danger btn-lg" id="deleteButton"
+                            data-mdb-ripple-init>刪除使用者</button>
                     </div>
                 </div>
             </div>
@@ -161,6 +163,10 @@ permalink: /manageUsers/
                 editDetails(info);
             });
 
+            $('#deleteButton').off('click').on('click', function () {
+                deleteUser(index);
+            });
+
             $('#backButton').off('click').on('click', function () {
                 if (!isEditing) {
                     $('#detailsCol').fadeOut(function () {
@@ -211,13 +217,31 @@ permalink: /manageUsers/
                 $('#saveButtonContainer').hide();
                 $('#editButtonContainer').show();
                 $('#backButton').prop('disabled', false);
-                const toastLiveExample = $('#liveToast');
-                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
-                toastBootstrap.show()
-                setTimeout(function () {
-                    toastBootstrap.fadeOut();
-                }, 5000);
+                showToast('已更新個人資料。');
             }
+        }
+
+        function deleteUser(index) {
+            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+            if (index !== null) {
+                userDataList.splice(index, 1);
+                localStorage.setItem(userDataKey, JSON.stringify(userDataList));
+                loadUserInfo();
+                $('#detailsCol').fadeOut(function () {
+                    $('#userTableCol').fadeIn();
+                });
+                showToast('已刪除使用者。');
+            }
+        }
+
+        function showToast(message) {
+            const toastLiveExample = $('#liveToast');
+            toastLiveExample.find('.toast-body').text(message);
+            const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+            toastBootstrap.show();
+            setTimeout(function () {
+                toastBootstrap.hide();
+            }, 5000);
         }
 
         loadUserInfo();
