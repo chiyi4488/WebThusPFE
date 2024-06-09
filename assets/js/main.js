@@ -24,6 +24,13 @@ function clearData(keys) {
     keys.forEach(key => localStorage.removeItem(key));
 }
 
+function resetSystem() {
+    if (confirm("點選 [確認] 後，將刪除本機端所有已儲存的資料（包括借閱資料、使用者資料），並且回復至初始示範資料。\n\n確定要繼續嗎？") == true) {
+        localStorage.clear();
+        window.location.href = '/';
+    }
+}
+
 // OOBE
 $(document).ready(function () {
     const OOBE_STATUS = localStorage.getItem('OOBE_STATUS') || false;
