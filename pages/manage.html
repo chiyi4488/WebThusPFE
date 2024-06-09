@@ -249,7 +249,7 @@ permalink: /manage/
                     <option value="23:00-24:00" ${info.timeSlots.includes('23:00-24:00') ? 'selected' : ''}>23:00-24:00</option>
                 </select>
             `);
-            $('#detailsReason').html(`<input type="text" class="form-control form-control-sm" id="editReason" value="${info.reason || ''}">`);
+            $('#detailsReason').html(`<textarea type="text" class="form-control form-control-sm" id="editReason">${info.reason || ''}</textarea>`);
             $('#detailsStatus').html(`
                 <select class="form-control form-control-sm" id="editStatus">
                     <option value="尚未繳費" ${info.status === '尚未繳費' || info.status === '繳費逾期' ? 'selected' : ''}>尚未繳費</option>
