@@ -13,6 +13,7 @@ permalink: /manageUsers/
                     <th scope="col">教師／學生證號</th>
                     <th scope="col">電子郵件</th>
                     <th scope="col">聯絡電話</th>
+                    <th scope="col">逾期繳費狀態</th>
                     <th scope="col">操作</th>
                 </tr>
             </thead>
@@ -33,13 +34,15 @@ permalink: /manageUsers/
             </div>
             <div class="col mb-3" id="saveButtonContainer" style="display: none;">
                 <div class="d-grid">
-                    <button type="button" class="btn btn-primary btn-lg" id="saveButton" data-mdb-ripple-init>儲存</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="saveButton"
+                        data-mdb-ripple-init>儲存</button>
                 </div>
             </div>
             <div class="col mb-3" id="editButtonContainer">
                 <div class="d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning btn-lg" id="editButton" data-mdb-ripple-init>編輯資料</button>
+                        <button type="button" class="btn btn-warning btn-lg" id="editButton"
+                            data-mdb-ripple-init>編輯資料</button>
                     </div>
                 </div>
             </div>
@@ -78,6 +81,10 @@ permalink: /manageUsers/
                                     <td>密碼</td>
                                     <td id="detailsPassword">載入中...</td>
                                 </tr>
+                                <tr>
+                                    <td>逾期繳費狀態</td>
+                                    <td id="detailsOverdue">載入中...</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -91,21 +98,31 @@ permalink: /manageUsers/
 <script>
     $(document).ready(function () {
         const userDataKey = 'userData';
+        const rentInfoKey = 'rentInfoList';
         let currentEditIndex = null;
         let isEditing = false;
 
         function loadUserInfo() {
             const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
             const tbody = $('#userInfoTableBody');
             tbody.empty();
             userDataList.forEach((info, index) => {
+                const overdueCount = rentInfoList.filter(rent => rent.id === info.idNumber && rent.status === '繳費逾期').length;
                 const row = `
                     <tr data-index="${index}">
                         <td class="text-overflow">${info.name || 'N/A'}</td>
                         <td class="text-overflow">${info.idNumber || 'N/A'}</td>
                         <td class="text-overflow">${info.email || 'N/A'}</td>
                         <td class="text-overflow">${info.phone || 'N/A'}</td>
-                        <td><button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${isEditing ? 'disabled' : ''}><i class="bi bi-eye-fill"></i></button></td>
+                        <td class="text-overflow">
+                            ${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">全數已繳</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${isEditing ? 'disabled' : ''}>
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </td>
                     </tr>
                 `;
                 tbody.append(row);
@@ -114,12 +131,15 @@ permalink: /manageUsers/
 
         window.viewDetails = function (index) {
             const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
             const info = userDataList[index];
+            const overdueCount = rentInfoList.filter(rent => rent.id === info.idNumber && rent.status === '繳費逾期').length;
             $('#detailsName').text(info.name || 'N/A');
             $('#detailsID').text(info.idNumber || 'N/A');
             $('#detailsEmail').text(info.email || 'N/A');
             $('#detailsPhone').text(info.phone || 'N/A');
             $('#detailsPassword').text(info.password || 'N/A');
+            $('#detailsOverdue').html(`${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">全數已繳</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}`);
             currentEditIndex = index;
 
             $('#userTableCol').hide();
