@@ -58,6 +58,7 @@ $(document).ready(function () {
         { name: "鄭十", idNumber: "567891234", email: "zheng@example.com", phone: "0967890123", password: "55555" }
     ];
     if (OOBE_STATUS == false) {
+        localStorage.clear();
         saveData('OOBE_STATUS', true);
         saveData('rentInfoList', JSON.stringify(rentInfoList));
         saveData('userData', JSON.stringify(userData));
