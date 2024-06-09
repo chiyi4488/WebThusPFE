@@ -50,8 +50,8 @@ $(document).ready(function () {
         { id: "234567891", date: "2024-06-22", timeSlots: ["19:00-20:00", "20:00-21:00"], item: "離心機", reason: "細胞觀察", status: "尚未繳費", submitTime: "2024-06-13T10:00:00Z" },
         { id: "345678912", date: "2024-06-23", timeSlots: ["21:00-22:00", "22:00-23:00"], item: "電子顯微鏡", reason: "光學分析", status: "預約成功", submitTime: "2024-06-14T10:00:00Z" },
         { id: "456789123", date: "2024-05-24", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "光譜儀", reason: "材料分析", status: "繳費逾期", submitTime: "2024-06-15T10:00:00Z" },
-        { id: "846545648", date: "2024-06-28", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料分析", status: "預約成功", submitTime: "2024-06-15T10:00:00Z" },
-        { id: "846545648", date: "2024-06-30", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "離心機", reason: "生物實驗", status: "已經取消", submitTime: "2024-06-15T10:00:00Z" }
+        { id: "846545648", date: "2024-06-28", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料分析", status: "預約成功", submitTime: "2024-06-16T10:00:00Z" },
+        { id: "846545648", date: "2024-06-30", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "離心機", reason: "生物實驗", status: "已經取消", submitTime: "2024-06-17T10:00:00Z" }
 
     ];
     const userData = [
