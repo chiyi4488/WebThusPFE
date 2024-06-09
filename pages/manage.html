@@ -34,13 +34,15 @@ permalink: /manage/
             </div>
             <div class="col mb-3" id="saveButtonContainer" style="display: none;">
                 <div class="d-grid">
-                    <button type="button" class="btn btn-primary btn-lg" id="saveButton" data-mdb-ripple-init>儲存</button>
+                    <button type="button" class="btn btn-primary btn-lg" id="saveButton"
+                        data-mdb-ripple-init>儲存</button>
                 </div>
             </div>
             <div class="col mb-3" id="editButtonContainer">
                 <div class="d-grid">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning btn-lg" id="editButton" data-mdb-ripple-init>編輯資料</button>
+                        <button type="button" class="btn btn-warning btn-lg" id="editButton"
+                            data-mdb-ripple-init>編輯資料</button>
                     </div>
                 </div>
             </div>
@@ -73,7 +75,8 @@ permalink: /manage/
                                 </tr>
                                 <tr>
                                     <td>狀態</td>
-                                    <td id="detailsStatus"><span class="badge badge-primary" style="font-size: 14px;">載入中...</span></td>
+                                    <td id="detailsStatus"><span class="badge badge-primary"
+                                            style="font-size: 14px;">載入中...</span></td>
                                 </tr>
                                 <tr>
                                     <td>申請日期</td>
@@ -104,6 +107,17 @@ permalink: /manage/
 
     </div>
 </div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-success">
+            <strong class="me-auto">訊息通知</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-secondary">
+            已儲存成功。
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -113,7 +127,7 @@ permalink: /manage/
         let isEditing = false;
 
         function loadRentInfo() {
-            
+
             const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
             const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
             const tbody = $('#rentInfoTableBody');
@@ -127,7 +141,7 @@ permalink: /manage/
                     // 保存更新後的狀態
                     localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
                 }
-                
+
                 const user = userDataList.find(user => user.idNumber === info.id);
                 const name = user ? user.name : 'N/A';
                 const phone = user ? user.phone : 'N/A';
@@ -296,6 +310,12 @@ permalink: /manage/
                 $('#saveButtonContainer').hide();
                 $('#editButtonContainer').show();
                 $('#backButton').prop('disabled', false);
+                const toastLiveExample = $('#liveToast');
+                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+                toastBootstrap.show()
+                setTimeout(function() {
+                    toastBootstrap.fadeOut();
+                }, 5000);
             }
         }
 

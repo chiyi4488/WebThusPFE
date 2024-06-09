@@ -156,7 +156,12 @@ $(document).ready(function () {
         if ($('#rentDate').val() && $('#rentReason').val() && localStorage.getItem('step2Time')) {
             window.location.href = '/step-3';
         } else {
-            alert('請填寫所有必填欄位並選擇至少一個租借時段');
+            const toastLiveExample = $('#liveToast');
+            const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
         }
     });
 });
@@ -298,6 +303,8 @@ $(document).ready(function () {
 
 // register
 $(document).ready(function () {
+    const toastLiveExample = $('#liveToast');
+    const toastBootstrap = new bootstrap.Toast(toastLiveExample);
     $('#registerForm').on('submit', function (e) {
         e.preventDefault();
         const name = $('#name').val();
@@ -308,7 +315,13 @@ $(document).ready(function () {
         const confirmPassword = $('#confirmPassword').val();
 
         if (password !== confirmPassword) {
-            alert('密碼與確認密碼不符');
+            $('notify-head').removeClass('text-bg-success');
+            $('notify-head').addClass('text-bg-danger');
+            $('#notify-body').text('密碼與確認密碼不符')
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
             return;
         }
 
@@ -325,7 +338,13 @@ $(document).ready(function () {
         // 檢查是否已存在相同的 idNumber
         const existingUser = userData.find(user => user.idNumber === idNumber);
         if (existingUser) {
-            alert('該教師／學生證號已經註冊過，請使用不同的證號。');
+            $('notify-head').removeClass('text-bg-success');
+            $('notify-head').addClass('text-bg-danger');
+            $('#notify-body').text('該教師／學生證號已經註冊過，請使用不同的證號。')
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
             return;
         }
 
@@ -338,6 +357,9 @@ $(document).ready(function () {
 
 // login
 $(document).ready(function () {
+    const toastLiveExample = $('#liveToast');
+    const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+
     if (window.location.pathname === '/') {
         // 初始检查，如果loginID存在，则跳转到/step-0
         if (localStorage.getItem('loginID')) {
@@ -360,7 +382,11 @@ $(document).ready(function () {
             saveData("loginID", user.idNumber);
             window.location.href = '/step-0';
         } else {
-            alert('教師／學生證號或密碼不正確');
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
+            return;
         }
 
     });

@@ -38,6 +38,29 @@ permalink: /profile/
         </form>
     </div>
 </div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-success">
+            <strong class="me-auto">訊息通知</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-secondary">
+            已更新個人資料。
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToastDanger" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-danger">
+            <strong class="me-auto">訊息通知</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-secondary" id="notify-danger-body">
+            錯誤！
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -56,7 +79,13 @@ permalink: /profile/
             $('#email').val(currentUser.email);
             $('#phone').val(currentUser.phone);
         } else {
-            alert('找不到使用者資料');
+            const toastLiveExample = $('#liveToastDanger');
+            const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+            $('#notify-danger-body').text('找不到使用者資料');
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
         }
 
         $('#profileForm').on('submit', function (e) {
@@ -70,7 +99,13 @@ permalink: /profile/
             const confirmPassword = $('#confirmPassword').val();
 
             if (newPassword !== confirmPassword) {
-                alert('密碼與確認密碼不符');
+                const toastLiveExample = $('#liveToastDanger');
+                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+                $('#notify-danger-body').text('密碼與確認密碼不符');
+                toastBootstrap.show()
+                setTimeout(function () {
+                    toastBootstrap.fadeOut();
+                }, 5000);
                 return;
             }
 
@@ -79,7 +114,10 @@ permalink: /profile/
             currentUser.idNumber = newIdNumber;
             currentUser.email = newEmail;
             currentUser.phone = newPhone;
-            currentUser.password = newPassword;
+            if (newPassword != '') {
+                currentUser.password = newPassword;
+            }
+
 
             // 將更新後的 userData 存回 localStorage
             localStorage.setItem('userData', JSON.stringify(userData));
@@ -87,7 +125,12 @@ permalink: /profile/
             // 更新 loginID
             localStorage.setItem('loginID', newIdNumber);
 
-            alert('個人資料已更新');
+            const toastLiveExample = $('#liveToast');
+            const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+            toastBootstrap.show()
+            setTimeout(function () {
+                toastBootstrap.fadeOut();
+            }, 5000);
         });
     });
 </script>

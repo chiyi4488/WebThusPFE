@@ -95,6 +95,18 @@ permalink: /manageUsers/
     </div>
 </div>
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast " role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-success">
+            <strong class="me-auto">訊息通知</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-secondary">
+            已更新個人資料。
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         const userDataKey = 'userData';
@@ -199,6 +211,12 @@ permalink: /manageUsers/
                 $('#saveButtonContainer').hide();
                 $('#editButtonContainer').show();
                 $('#backButton').prop('disabled', false);
+                const toastLiveExample = $('#liveToast');
+                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+                toastBootstrap.show()
+                setTimeout(function () {
+                    toastBootstrap.fadeOut();
+                }, 5000);
             }
         }
 
