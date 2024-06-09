@@ -95,10 +95,6 @@ permalink: /manage/
                                     <td>租借事由</td>
                                     <td id="detailsReason">載入中...</td>
                                 </tr>
-                                <tr>
-                                    <td>逾期繳費</td>
-                                    <td id="detailsOverdue">載入中...</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -208,7 +204,6 @@ permalink: /manage/
             $('#detailsReason').text(info.reason || 'N/A');
             $('#detailsStatus').html(getStatusBadge(info.status, info.date));
             $('#detailsItem').text(info.item || 'N/A');
-            $('#detailsOverdue').text(info.status === '繳費逾期' ? '是' : '否');
             currentEditIndex = index;
 
             $('#rentTableCol').hide();

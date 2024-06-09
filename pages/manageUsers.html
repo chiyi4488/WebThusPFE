@@ -130,7 +130,7 @@ permalink: /manageUsers/
                         <td class="text-overflow">${info.email || 'N/A'}</td>
                         <td class="text-overflow">${info.phone || 'N/A'}</td>
                         <td class="text-overflow">
-                            ${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">全數已繳</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}
+                            ${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">未有逾期</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}
                         </td>
                         <td>
                             <button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${isEditing ? 'disabled' : ''}>
@@ -153,7 +153,7 @@ permalink: /manageUsers/
             $('#detailsEmail').text(info.email || 'N/A');
             $('#detailsPhone').text(info.phone || 'N/A');
             $('#detailsPassword').text(info.password || 'N/A');
-            $('#detailsOverdue').html(`${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">全數已繳</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}`);
+            $('#detailsOverdue').html(`${overdueCount === 0 ? '<span class="badge badge-success" style="font-size: 14px;">未有逾期</span>' : '<span class="badge badge-danger link-danger" style="font-size: 14px;">' + overdueCount + ' 項未繳</span>'}`);
             currentEditIndex = index;
 
             $('#userTableCol').hide();
