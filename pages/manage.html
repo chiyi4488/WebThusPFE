@@ -225,7 +225,7 @@ permalink: /manage/
             $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user.name || ''}" disabled>`);
             $('#detailsID').html(`<select class="form-control form-control-sm" id="editID">${options}</select>`);
             $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user.phone || ''}" disabled>`);
-            $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime}">`);
+            $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime.split('T')[0]}">`);
             $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
             $('#detailsTime').html(`
                 <select class="form-control form-control-sm" id="editTime" multiple>
