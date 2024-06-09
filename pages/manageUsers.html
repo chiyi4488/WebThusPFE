@@ -222,16 +222,19 @@ permalink: /manageUsers/
         }
 
         function deleteUser(index) {
-            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
-            if (index !== null) {
-                userDataList.splice(index, 1);
-                localStorage.setItem(userDataKey, JSON.stringify(userDataList));
-                loadUserInfo();
-                $('#detailsCol').fadeOut(function () {
-                    $('#userTableCol').fadeIn();
-                });
-                showToast('已刪除使用者。');
+            if (confirm('點選 [確認] 後，系統將逕行刪除該使用者的所有個人資料，且無法復原，惟租借記錄不會刪除。\n\n確定要繼續執行嗎？') == true) {
+                const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+                if (index !== null) {
+                    userDataList.splice(index, 1);
+                    localStorage.setItem(userDataKey, JSON.stringify(userDataList));
+                    loadUserInfo();
+                    $('#detailsCol').fadeOut(function () {
+                        $('#userTableCol').fadeIn();
+                    });
+                    showToast('已刪除使用者。');
+                }
             }
+
         }
 
         function showToast(message) {
