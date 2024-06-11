@@ -2,6 +2,68 @@
 layout: default
 title: 填寫申請事由
 permalink: /step-1/
+itemList: 
+- name: "高階13色流式細胞儀"
+  manager: "李曉婷"
+  extension: "2371"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "超導核磁共振儀"
+  manager: "王淑佳"
+  extension: "2289"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "電子顯微鏡"
+  manager: "陳大華"
+  extension: "1234"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "質譜儀"
+  manager: "李大偉"
+  extension: "5678"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "核磁共振波譜儀"
+  manager: "王小明"
+  extension: "9101"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "光譜儀"
+  manager: "林美麗"
+  extension: "1213"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "掃描電子顯微鏡"
+  manager: "張三"
+  extension: "1415"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "X射線衍射儀"
+  manager: "李四"
+  extension: "1617"
+  image: "https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp"
+- name: "拉曼光譜儀"
+  manager: "王五"
+  extension: "1819"
+  image: "https://example.com/images/equipment9.jpg"
+- name: "紅外光譜儀"
+  manager: "張六"
+  extension: "2021"
+  image: "https://example.com/images/equipment10.jpg"
+- name: "超高速離心機"
+  manager: "陳七"
+  extension: "2223"
+  image: "https://example.com/images/equipment11.jpg"
+- name: "液相色譜儀"
+  manager: "林八"
+  extension: "2425"
+  image: "https://example.com/images/equipment12.jpg"
+- name: "氣相色譜儀"
+  manager: "張九"
+  extension: "2627"
+  image: "https://example.com/images/equipment13.jpg"
+- name: "顆粒分析儀"
+  manager: "王十"
+  extension: "2829"
+  image: "https://example.com/images/equipment14.jpg"
+- name: "分光光度計"
+  manager: "李十一"
+  extension: "3031"
+  image: "https://example.com/images/equipment15.jpg"
+
 ---
 
 <h3 style="font-weight: 700;">步驟一：選取租借項目
@@ -10,35 +72,22 @@ permalink: /step-1/
 
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-5 col-lg-4 col-xl-3"><a onclick="step1Chosen('高階13色流式細胞儀')">
-            <div class="card text-center">
-                <div class="card-header">高階13色流式細胞儀</div>
-                <div class="hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
-                    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp" class="img-fluid" />
-                    
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    
-                </div>
-                <div class="card-body">
-                    <button  class="btn btn-primary" data-mdb-ripple-init>立即預約</button>
-                </div>
-                <div class="card-footer text-muted">管理人：李曉婷 分機：2371#22</div>
-            </div></a>
-        </div>
-        <div class="col-12 col-md-5 col-lg-4 col-xl-3">
-            <a onclick="step1Chosen('超導核磁共振儀')">
+        {% for equipment in page.itemList %}
+        <div class="col-12 col-md-5 col-lg-4 col-xl-3 mb-4">
+            <a onclick="step1Chosen('{{ equipment.name }}')">
                 <div class="card text-center">
-                    <div class="card-header">超導核磁共振儀</div>
+                    <div class="card-header">{{ equipment.name }}</div>
                     <div class="hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/112.webp" class="img-fluid" />
+                        <img src="{{ equipment.image }}" class="img-fluid" />
                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </div>
                     <div class="card-body">
                         <button class="btn btn-primary" data-mdb-ripple-init>立即預約</button>
                     </div>
-                    <div class="card-footer text-muted">管理人：王淑佳 分機：2289</div>
+                    <div class="card-footer text-muted">管理人：{{ equipment.manager }} 分機：{{ equipment.extension }}</div>
                 </div>
             </a>
         </div>
+        {% endfor %}
     </div>
 </div>

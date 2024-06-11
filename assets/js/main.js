@@ -34,24 +34,25 @@ function resetSystem() {
 // OOBE
 $(document).ready(function () {
     const OOBE_STATUS = localStorage.getItem('OOBE_STATUS') || false;
+    const today = new Date().toISOString().split('T')[0];
     const rentInfoList = [
-        { id: "846545648", date: "2024-06-10", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "顯微鏡", reason: "學術研究", status: "尚未繳費", submitTime: "2024-06-01T10:00:00Z" },
-        { id: "567890123", date: "2024-06-11", timeSlots: ["10:00-11:00", "11:00-12:00"], item: "光譜儀", reason: "化學實驗", status: "預約成功", submitTime: "2024-06-02T10:00:00Z" },
+        { id: "846545648", date: today, timeSlots: ["08:00-09:00", "09:00-10:00"], item: "高階13色流式細胞儀", reason: "學術研究", status: "尚未繳費", submitTime: "2024-06-01T10:00:00Z" },
+        { id: "567890123", date: "2024-06-11", timeSlots: ["10:00-11:00", "11:00-12:00"], item: "超導核磁共振儀", reason: "化學實驗", status: "預約成功", submitTime: "2024-06-02T10:00:00Z" },
         { id: "987654321", date: "2024-05-12", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料分析", status: "繳費逾期", submitTime: "2024-06-03T10:00:00Z" },
-        { id: "123456789", date: "2024-06-13", timeSlots: ["15:00-16:00", "16:00-17:00"], item: "電子秤", reason: "物理實驗", status: "已經取消", submitTime: "2024-06-04T10:00:00Z" },
-        { id: "234567891", date: "2024-06-14", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "離心機", reason: "生物實驗", status: "預約成功", submitTime: "2024-06-05T10:00:00Z" },
-        { id: "345678912", date: "2024-05-15", timeSlots: ["19:00-20:00", "20:00-21:00"], item: "顯微鏡", reason: "細胞觀察", status: "繳費逾期", submitTime: "2024-06-06T10:00:00Z" },
-        { id: "456789123", date: "2024-06-16", timeSlots: ["21:00-22:00", "22:00-23:00"], item: "光譜儀", reason: "光學分析", status: "尚未繳費", submitTime: "2024-06-07T10:00:00Z" },
-        { id: "567891234", date: "2024-06-17", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "電子顯微鏡", reason: "材料分析", status: "預約成功", submitTime: "2024-06-08T10:00:00Z" },
-        { id: "846545648", date: "2024-05-18", timeSlots: ["10:00-11:00", "11:00-12:00"], item: "離心機", reason: "生物實驗", status: "繳費逾期", submitTime: "2024-06-09T10:00:00Z" },
-        { id: "567890123", date: "2024-06-19", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子秤", reason: "化學實驗", status: "尚未繳費", submitTime: "2024-06-10T10:00:00Z" },
-        { id: "987654321", date: "2024-06-20", timeSlots: ["15:00-16:00", "16:00-17:00"], item: "光譜儀", reason: "物理實驗", status: "預約成功", submitTime: "2024-06-11T10:00:00Z" },
-        { id: "123456789", date: "2024-05-21", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "顯微鏡", reason: "學術研究", status: "已經取消", submitTime: "2024-06-12T10:00:00Z" },
-        { id: "234567891", date: "2024-06-22", timeSlots: ["19:00-20:00", "20:00-21:00"], item: "離心機", reason: "細胞觀察", status: "尚未繳費", submitTime: "2024-06-13T10:00:00Z" },
-        { id: "345678912", date: "2024-06-23", timeSlots: ["21:00-22:00", "22:00-23:00"], item: "電子顯微鏡", reason: "光學分析", status: "預約成功", submitTime: "2024-06-14T10:00:00Z" },
-        { id: "456789123", date: "2024-05-24", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "光譜儀", reason: "材料分析", status: "繳費逾期", submitTime: "2024-06-15T10:00:00Z" },
-        { id: "846545648", date: "2024-06-28", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料分析", status: "預約成功", submitTime: "2024-06-16T10:00:00Z" },
-        { id: "846545648", date: "2024-06-30", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "離心機", reason: "生物實驗", status: "已經取消", submitTime: "2024-06-17T10:00:00Z" }
+        { id: "123456789", date: "2024-09-13", timeSlots: ["15:00-16:00", "16:00-17:00"], item: "質譜儀", reason: "物理實驗", status: "已經取消", submitTime: "2024-06-04T10:00:00Z" },
+        { id: "234567891", date: "2024-09-14", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "核磁共振波譜儀", reason: "生物實驗", status: "預約成功", submitTime: "2024-06-05T10:00:00Z" },
+        { id: "345678912", date: "2024-05-15", timeSlots: ["19:00-20:00", "20:00-21:00"], item: "光譜儀", reason: "細胞觀察", status: "繳費逾期", submitTime: "2024-06-06T10:00:00Z" },
+        { id: "456789123", date: "2024-09-16", timeSlots: ["21:00-22:00", "22:00-23:00"], item: "掃描電子顯微鏡", reason: "光學分析", status: "尚未繳費", submitTime: "2024-06-07T10:00:00Z" },
+        { id: "567891234", date: "2024-09-17", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "X射線衍射儀", reason: "材料分析", status: "預約成功", submitTime: "2024-06-08T10:00:00Z" },
+        { id: "846545648", date: "2024-05-18", timeSlots: ["10:00-11:00", "11:00-12:00"], item: "拉曼光譜儀", reason: "生物實驗", status: "繳費逾期", submitTime: "2024-06-09T10:00:00Z" },
+        { id: "567890123", date: "2024-09-19", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "紅外光譜儀", reason: "化學實驗", status: "尚未繳費", submitTime: "2024-06-10T10:00:00Z" },
+        { id: "987654321", date: "2024-09-20", timeSlots: ["15:00-16:00", "16:00-17:00"], item: "超高速離心機", reason: "物理實驗", status: "預約成功", submitTime: "2024-06-11T10:00:00Z" },
+        { id: "123456789", date: "2024-05-21", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "液相色譜儀", reason: "學術研究", status: "已經取消", submitTime: "2024-06-12T10:00:00Z" },
+        { id: "234567891", date: "2024-09-22", timeSlots: ["19:00-20:00", "20:00-21:00"], item: "氣相色譜儀", reason: "細胞觀察", status: "尚未繳費", submitTime: "2024-06-13T10:00:00Z" },
+        { id: "345678912", date: "2024-09-23", timeSlots: ["21:00-22:00", "22:00-23:00"], item: "顆粒分析儀", reason: "光學分析", status: "預約成功", submitTime: "2024-06-14T10:00:00Z" },
+        { id: "456789123", date: "2024-05-24", timeSlots: ["08:00-09:00", "09:00-10:00"], item: "分光光度計", reason: "材料分析", status: "繳費逾期", submitTime: "2024-06-15T10:00:00Z" },
+        { id: "846545648", date: "2024-09-28", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料分析", status: "預約成功", submitTime: "2024-06-16T10:00:00Z" },
+        { id: "846545648", date: "2024-09-30", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "超高速離心機", reason: "生物實驗", status: "已經取消", submitTime: "2024-06-17T10:00:00Z" }
 
     ];
     const userData = [
