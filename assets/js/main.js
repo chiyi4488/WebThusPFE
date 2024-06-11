@@ -295,6 +295,7 @@ $(document).ready(function () {
         const orderIndex = rentInfoList.findIndex(info => info.submitTime === submitTimeParam);
         if (orderIndex !== -1) {
             const order = rentInfoList[orderIndex];
+            $('#paymentTitle').html(`${order.item}<span class="badge rounded-pill badge-secondary ms-3" style="font-size: 17px;">${order.date}</span>`);
             if (order.status === '尚未繳費' || order.status === '繳費逾期') {
                 let totalPrice = 0;
                 order.timeSlots.forEach(timeSlot => {
