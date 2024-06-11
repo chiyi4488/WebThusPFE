@@ -204,12 +204,18 @@ permalink: /manageUsers/
         function saveDetails() {
             const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
             if (currentEditIndex !== null) {
+                const loginID = localStorage.getItem('loginID');
+
                 userDataList[currentEditIndex].name = $('#editName').val();
                 userDataList[currentEditIndex].idNumber = $('#editID').val();
                 userDataList[currentEditIndex].email = $('#editEmail').val();
                 userDataList[currentEditIndex].phone = $('#editPhone').val();
                 userDataList[currentEditIndex].password = $('#editPassword').val();
 
+                if (loginID == userDataList[currentEditIndex].idNumber) {
+                    $('#navbarLoginName').html(`目前登入: ${userDataList[currentEditIndex].name}`)
+                }
+                
                 localStorage.setItem(userDataKey, JSON.stringify(userDataList));
                 isEditing = false;
                 loadUserInfo();

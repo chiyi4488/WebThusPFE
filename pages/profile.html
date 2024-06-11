@@ -118,6 +118,7 @@ permalink: /profile/
                 currentUser.password = newPassword;
             }
 
+            $('#navbarLoginName').text(`目前登入: ${newName}`)
 
             // 將更新後的 userData 存回 localStorage
             localStorage.setItem('userData', JSON.stringify(userData));
