@@ -2,68 +2,6 @@
 layout: default
 title: 填寫申請事由
 permalink: /step-1/
-itemList: 
-- name: "高階13色流式細胞儀"
-  manager: "莊幸恩"
-  extension: "2371"
-  image: "/assets/img/items/01.webp"
-- name: "超導核磁共振儀"
-  manager: "葛永和"
-  extension: "2289"
-  image: "/assets/img/items/02.webp"
-- name: "電子顯微鏡"
-  manager: "白家程"
-  extension: "1234"
-  image: "/assets/img/items/03.webp"
-- name: "質譜儀"
-  manager: "方威翔"
-  extension: "5678"
-  image: "/assets/img/items/04.webp"
-- name: "核磁共振波譜儀"
-  manager: "温子威"
-  extension: "9101"
-  image: "/assets/img/items/05.webp"
-- name: "光譜儀"
-  manager: "杜冠中"
-  extension: "1213"
-  image: "/assets/img/items/06.webp"
-- name: "掃描電子顯微鏡"
-  manager: "辜詩琳"
-  extension: "1415"
-  image: "/assets/img/items/07.webp"
-- name: "X射線衍射儀"
-  manager: "文俞廷"
-  extension: "1617"
-  image: "/assets/img/items/08.webp"
-- name: "拉曼光譜儀"
-  manager: "丁東昇"
-  extension: "1819"
-  image: "/assets/img/items/09.webp"
-- name: "紅外光譜儀"
-  manager: "涂健鴻"
-  extension: "2021"
-  image: "/assets/img/items/10.webp"
-- name: "超高速離心機"
-  manager: "李正偉"
-  extension: "2223"
-  image: "/assets/img/items/11.webp"
-- name: "液相色譜儀"
-  manager: "顏玟瑾"
-  extension: "2425"
-  image: "/assets/img/items/12.webp"
-- name: "氣相色譜儀"
-  manager: "熊愉萱"
-  extension: "2627"
-  image: "/assets/img/items/13.webp"
-- name: "顆粒分析儀"
-  manager: "歐美伊"
-  extension: "2829"
-  image: "/assets/img/items/14.webp"
-- name: "分光光度計"
-  manager: "翁勝翔"
-  extension: "3031"
-  image: "/assets/img/items/15.webp"
-
 ---
 
 <h3 style="font-weight: 700;">步驟一：選取租借項目
@@ -72,7 +10,7 @@ itemList:
 
 <div class="container">
     <div class="row">
-        {% for equipment in page.itemList %}
+        {% for equipment in site.itemList %}
         <div class="col-12 col-md-5 col-lg-4 col-xl-3 mb-4">
             <a onclick="step1Chosen('{{ equipment.name }}')">
                 <div class="card text-center">
