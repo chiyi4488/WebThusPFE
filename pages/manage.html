@@ -130,27 +130,27 @@ permalink: /manage/
         // 模擬設備項目數據
         const itemList = [{% for item in site.itemList %}"{{ item.name }}"{% if forloop.last == false %}, {% endif %} {% endfor %}];
 
-    function loadRentInfo() {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
-        const tbody = $('#rentInfoTableBody');
-        tbody.empty();
-        rentInfoList.forEach((info, index) => {
-            // 檢查並更新狀態
-            const currentDate = new Date();
-            const rentDate = new Date(info.date);
-            if (info.status === '尚未繳費' && rentDate < currentDate.setDate(currentDate.getDate() - 1)) {
-                info.status = '繳費逾期';
-                // 保存更新後的狀態
-                localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-            }
+        function loadRentInfo() {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+            const tbody = $('#rentInfoTableBody');
+            tbody.empty();
+            rentInfoList.forEach((info, index) => {
+                // 檢查並更新狀態
+                const currentDate = new Date();
+                const rentDate = new Date(info.date);
+                if (info.status === '尚未繳費' && rentDate < currentDate.setDate(currentDate.getDate() - 1)) {
+                    info.status = '繳費逾期';
+                    // 保存更新後的狀態
+                    localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                }
 
-            const user = userDataList.find(user => user.idNumber === info.id);
-            const name = user ? user.name : 'N/A';
-            const phone = user ? user.phone : 'N/A';
-            const statusBadge = getStatusBadge(info.status, info.submitTime);
-            const actionButton = getActionButton(info.status, index);
-            const row = `
+                const user = userDataList.find(user => user.idNumber === info.id);
+                const name = user ? user.name : 'N/A';
+                const phone = user ? user.phone : 'N/A';
+                const statusBadge = getStatusBadge(info.status, info.submitTime);
+                const actionButton = getActionButton(info.status, index);
+                const row = `
                     <tr data-index="${index}">
                         <td class="text-overflow">${info.date || 'N/A'}</td>
                         <td class="text-overflow"><span data-mdb-toggle="tooltip" title="${info.timeSlots.join(', ')}">${info.timeSlots.join(', ') || 'N/A'}</span></td>
@@ -160,91 +160,91 @@ permalink: /manage/
                         <td>${actionButton}</td>
                     </tr>
                 `;
-            tbody.append(row);
-        });
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new mdb.Tooltip(tooltipTriggerEl);
-        });
-    }
-
-    function getActionButton(status, index) {
-        const disabled = isEditing ? 'disabled' : '';
-        return `<button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${disabled}><i class="bi bi-eye-fill"></i></button>`;
-    }
-
-    function getStatusBadge(status, date) {
-        let badgeClass = '';
-        let badgeText = '';
-        switch (status) {
-            case '尚未繳費':
-                badgeClass = 'badge-warning';
-                badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
-                break;
-            case '預約成功':
-                badgeClass = 'badge-primary';
-                badgeText = '預約成功';
-                break;
-            case '繳費逾期':
-                badgeClass = 'badge-danger';
-                badgeText = `<a class="link-danger" href="/payment?time=${date}">繳費逾期</a>`;
-                break;
-            case '已經取消':
-                badgeClass = 'badge-secondary';
-                badgeText = '已經取消';
-                break;
+                tbody.append(row);
+            });
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-mdb-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new mdb.Tooltip(tooltipTriggerEl);
+            });
         }
-        return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
-    }
 
-    window.viewDetails = function (index) {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
-        const info = rentInfoList[index];
-        const user = userDataList.find(user => user.idNumber === info.id);
-        $('#detailsName').text(user ? user.name : 'N/A');
-        $('#detailsID').text(info.id || 'N/A');
-        $('#detailsPhone').text(user ? user.phone : 'N/A');
-        $('#submitTime').text(info.submitTime);
-        $('#detailsDate').text(info.date);
-        $('#detailsTime').text(info.timeSlots.join(', '));
-        $('#detailsReason').text(info.reason || 'N/A');
-        $('#detailsStatus').html(getStatusBadge(info.status, info.date));
-        $('#detailsItem').text(info.item || 'N/A');
-        currentEditIndex = index;
+        function getActionButton(status, index) {
+            const disabled = isEditing ? 'disabled' : '';
+            return `<button type="button" class="btn btn-secondary btn-sm" onclick="viewDetails(${index})" data-mdb-ripple-init ${disabled}><i class="bi bi-eye-fill"></i></button>`;
+        }
 
-        $('#rentTableCol').hide();
-        $('#detailsCol').fadeIn();
-
-        $('#editButton').off('click').on('click', function () {
-            editDetails(info, user);
-        });
-
-        $('#backButton').off('click').on('click', function () {
-            if (!isEditing) {
-                $('#detailsCol').fadeOut(function () {
-                    $('#rentTableCol').fadeIn();
-                });
+        function getStatusBadge(status, date) {
+            let badgeClass = '';
+            let badgeText = '';
+            switch (status) {
+                case '尚未繳費':
+                    badgeClass = 'badge-warning';
+                    badgeText = `<a class="link-warning" href="/payment?time=${date}">尚未繳費</a>`;
+                    break;
+                case '預約成功':
+                    badgeClass = 'badge-primary';
+                    badgeText = '預約成功';
+                    break;
+                case '繳費逾期':
+                    badgeClass = 'badge-danger';
+                    badgeText = `<a class="link-danger" href="/payment?time=${date}">繳費逾期</a>`;
+                    break;
+                case '已經取消':
+                    badgeClass = 'badge-secondary';
+                    badgeText = '已經取消';
+                    break;
             }
-        });
-
-        if (isEditing) {
-            $('#backButton').prop('disabled', true);
-        } else {
-            $('#backButton').prop('disabled', false);
+            return `<span class="badge ${badgeClass}" style="font-size: 14px;">${badgeText}</span>`;
         }
-    };
 
-    function editDetails(info, user) {
-        isEditing = true;
-        let userDataList = JSON.parse(localStorage.getItem('userData')) || [];
-        let options = userDataList.map(user => `<option value="${user.idNumber}" ${user.idNumber === info.id ? 'selected' : ''}>${user.idNumber}</option>`).join('');
-        $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user ? user.name : ''}" disabled>`);
-        $('#detailsID').html(`<select class="form-control form-control-sm" id="editID">${options}</select>`);
-        $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user ? user.phone : ''}" disabled>`);
-        $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime.split('T')[0]}">`);
-        $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
-        $('#detailsTime').html(`
+        window.viewDetails = function (index) {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            const userDataList = JSON.parse(localStorage.getItem(userDataKey)) || [];
+            const info = rentInfoList[index];
+            const user = userDataList.find(user => user.idNumber === info.id);
+            $('#detailsName').text(user ? user.name : 'N/A');
+            $('#detailsID').text(info.id || 'N/A');
+            $('#detailsPhone').text(user ? user.phone : 'N/A');
+            $('#submitTime').text(info.submitTime);
+            $('#detailsDate').text(info.date);
+            $('#detailsTime').text(info.timeSlots.join(', '));
+            $('#detailsReason').text(info.reason || 'N/A');
+            $('#detailsStatus').html(getStatusBadge(info.status, info.date));
+            $('#detailsItem').text(info.item || 'N/A');
+            currentEditIndex = index;
+
+            $('#rentTableCol').hide();
+            $('#detailsCol').fadeIn();
+
+            $('#editButton').off('click').on('click', function () {
+                editDetails(info, user);
+            });
+
+            $('#backButton').off('click').on('click', function () {
+                if (!isEditing) {
+                    $('#detailsCol').fadeOut(function () {
+                        $('#rentTableCol').fadeIn();
+                    });
+                }
+            });
+
+            if (isEditing) {
+                $('#backButton').prop('disabled', true);
+            } else {
+                $('#backButton').prop('disabled', false);
+            }
+        };
+
+        function editDetails(info, user) {
+            isEditing = true;
+            let userDataList = JSON.parse(localStorage.getItem('userData')) || [];
+            let options = userDataList.map(user => `<option value="${user.idNumber}" ${user.idNumber === info.id ? 'selected' : ''}>${user.idNumber}</option>`).join('');
+            $('#detailsName').html(`<input type="text" class="form-control form-control-sm" id="editName" value="${user ? user.name : ''}" disabled>`);
+            $('#detailsID').html(`<select class="form-control form-control-sm" id="editID">${options}</select>`);
+            $('#detailsPhone').html(`<input type="text" class="form-control form-control-sm" id="editPhone" value="${user ? user.phone : ''}" disabled>`);
+            $('#submitTime').html(`<input type="date" class="form-control form-control-sm" id="editsubmitTime" disabled value="${info.submitTime.split('T')[0]}">`);
+            $('#detailsDate').html(`<input type="date" class="form-control form-control-sm" id="editDate" value="${info.date}">`);
+            $('#detailsTime').html(`
                 <select class="form-control form-control-sm" id="editTime" multiple>
                     <option value="06:00-07:00" ${info.timeSlots.includes('06:00-07:00') ? 'selected' : ''}>06:00-07:00</option>
                     <option value="07:00-08:00" ${info.timeSlots.includes('07:00-08:00') ? 'selected' : ''}>07:00-08:00</option>
@@ -266,63 +266,63 @@ permalink: /manage/
                     <option value="23:00-24:00" ${info.timeSlots.includes('23:00-24:00') ? 'selected' : ''}>23:00-24:00</option>
                 </select>
             `);
-        $('#detailsReason').html(`<textarea type="text" class="form-control form-control-sm" id="editReason">${info.reason || ''}</textarea>`);
-        $('#detailsStatus').html(`
+            $('#detailsReason').html(`<textarea type="text" class="form-control form-control-sm" id="editReason">${info.reason || ''}</textarea>`);
+            $('#detailsStatus').html(`
                 <select class="form-control form-control-sm" id="editStatus">
                     <option value="尚未繳費" ${info.status === '尚未繳費' || info.status === '繳費逾期' ? 'selected' : ''}>尚未繳費</option>
                     <option value="預約成功" ${info.status === '預約成功' ? 'selected' : ''}>預約成功</option>
                     <option value="已經取消" ${info.status === '已經取消' ? 'selected' : ''}>取消預約</option>
                 </select>
             `);
-        let itemOptions = itemList.map(item => `<option value="${item}" ${item === info.item ? 'selected' : ''}>${item}</option>`).join('');
-        $('#detailsItem').html(`<select class="form-control form-control-sm" id="editItem">${itemOptions}</select>`);
-        $('#editButtonContainer').hide();
-        $('#saveButtonContainer').show();
+            let itemOptions = itemList.map(item => `<option value="${item}" ${item === info.item ? 'selected' : ''}>${item}</option>`).join('');
+            $('#detailsItem').html(`<select class="form-control form-control-sm" id="editItem">${itemOptions}</select>`);
+            $('#editButtonContainer').hide();
+            $('#saveButtonContainer').show();
 
-        $('#backButton').prop('disabled', true);
+            $('#backButton').prop('disabled', true);
 
-        loadRentInfo();  // Disable all view buttons
+            loadRentInfo();  // Disable all view buttons
 
-        $('#saveButton').off('click').on('click', function () {
-            saveDetails();
-        });
+            $('#saveButton').off('click').on('click', function () {
+                saveDetails();
+            });
 
-        $('#editID').on('change', function () {
-            const selectedID = $(this).val();
-            const selectedUser = userDataList.find(user => user.idNumber === selectedID);
-            if (selectedUser) {
-                $('#editName').val(selectedUser.name);
-                $('#editPhone').val(selectedUser.phone);
-            }
-        });
-    }
-
-    function saveDetails() {
-        const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
-        if (currentEditIndex !== null) {
-            rentInfoList[currentEditIndex].id = $('#editID').val();
-            rentInfoList[currentEditIndex].date = $('#editDate').val();
-            rentInfoList[currentEditIndex].timeSlots = $('#editTime').val();
-            rentInfoList[currentEditIndex].reason = $('#editReason').val();
-            rentInfoList[currentEditIndex].status = $('#editStatus').val();
-            rentInfoList[currentEditIndex].item = $('#editItem').val();
-
-            localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
-            isEditing = false;
-            loadRentInfo();
-            viewDetails(currentEditIndex);
-            $('#saveButtonContainer').hide();
-            $('#editButtonContainer').show();
-            $('#backButton').prop('disabled', false);
-            const toastLiveExample = $('#liveToast');
-            const toastBootstrap = new bootstrap.Toast(toastLiveExample);
-            toastBootstrap.show()
-            setTimeout(function () {
-                toastBootstrap.fadeOut();
-            }, 5000);
+            $('#editID').on('change', function () {
+                const selectedID = $(this).val();
+                const selectedUser = userDataList.find(user => user.idNumber === selectedID);
+                if (selectedUser) {
+                    $('#editName').val(selectedUser.name);
+                    $('#editPhone').val(selectedUser.phone);
+                }
+            });
         }
-    }
 
-    loadRentInfo();
+        function saveDetails() {
+            const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
+            if (currentEditIndex !== null) {
+                rentInfoList[currentEditIndex].id = $('#editID').val();
+                rentInfoList[currentEditIndex].date = $('#editDate').val();
+                rentInfoList[currentEditIndex].timeSlots = $('#editTime').val();
+                rentInfoList[currentEditIndex].reason = $('#editReason').val();
+                rentInfoList[currentEditIndex].status = $('#editStatus').val();
+                rentInfoList[currentEditIndex].item = $('#editItem').val();
+
+                localStorage.setItem(rentInfoKey, JSON.stringify(rentInfoList));
+                isEditing = false;
+                loadRentInfo();
+                viewDetails(currentEditIndex);
+                $('#saveButtonContainer').hide();
+                $('#editButtonContainer').show();
+                $('#backButton').prop('disabled', false);
+                const toastLiveExample = $('#liveToast');
+                const toastBootstrap = new bootstrap.Toast(toastLiveExample);
+                toastBootstrap.show()
+                setTimeout(function () {
+                    toastBootstrap.fadeOut();
+                }, 5000);
+            }
+        }
+
+        loadRentInfo();
     });
 </script>
