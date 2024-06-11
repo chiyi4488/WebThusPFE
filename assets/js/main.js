@@ -79,7 +79,7 @@ $(document).ready(function () {
     const dynamicButton = $('#dynamicButton');
     const dynamicLogout = $('#dynamicLogout');
     const userOperationDropdown = $('#userOperationDropdown');
-
+    $('#navbarLoginName').hide();
     if (loginID) {
         dynamicButton.hide();
         dynamicLogout.show();
