@@ -54,7 +54,7 @@ $(document).ready(function () {
         { id: "846545648", date: "2024-09-28", timeSlots: ["13:00-14:00", "14:00-15:00"], item: "電子顯微鏡", reason: "材料表面形貌分析", status: "預約成功", submitTime: "2024-06-16T10:00:00Z" },
         { id: "846545648", date: "2024-09-30", timeSlots: ["17:00-18:00", "18:00-19:00"], item: "超高速離心機", reason: "大分子分離", status: "已經取消", submitTime: "2024-06-17T10:00:00Z" }
     ];
-    
+
     const userData = [
         { name: "齋一", idNumber: "846545648", email: "jimmy@example.com", phone: "0968558215", password: "00000" },
         { name: "李四", idNumber: "567890123", email: "lee@example.com", phone: "0987654321", password: "12345" },
@@ -289,13 +289,14 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(window.location.search);
     const submitTimeParam = urlParams.get('time');
     const tableBody = $('#paymentTableBody');
+    $('#paymentTitle').text(`繳費`);
     if (submitTimeParam) {
         const rentInfoKey = 'rentInfoList';
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
         const orderIndex = rentInfoList.findIndex(info => info.submitTime === submitTimeParam);
         if (orderIndex !== -1) {
             const order = rentInfoList[orderIndex];
-            $('#paymentTitle').html(`${order.item}<span class="badge rounded-pill badge-secondary ms-3" style="font-size: 17px;">${order.date}</span>`);
+            $('#paymentTitle').html(`現正繳費：${order.item}<span class="badge rounded-pill badge-secondary ms-3" style="font-size: 17px;">${order.date}</span>`);
             if (order.status === '尚未繳費' || order.status === '繳費逾期') {
                 let totalPrice = 0;
                 order.timeSlots.forEach(timeSlot => {
