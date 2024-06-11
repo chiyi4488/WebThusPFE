@@ -16,7 +16,7 @@ permalink: /step-1/
                 <div class="card text-center">
                     <div class="card-header">{{ equipment.name }}</div>
                     <div class="hover-overlay" data-mdb-ripple-init data-mdb-ripple-color="light">
-                        <img src="{{ equipment.image }}" class="img-fluid" />
+                        <img src="{{ equipment.image }}" class="img-fluid" alt="{{ equipment.name }}">
                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </div>
                     <div class="card-body">
@@ -29,3 +29,4 @@ permalink: /step-1/
         {% endfor %}
     </div>
 </div>
+

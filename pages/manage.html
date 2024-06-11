@@ -128,7 +128,7 @@ permalink: /manage/
 
 
         // 模擬設備項目數據
-        const itemList = [{% for item in site.itemList %}"{{ item.name }}"{% if forloop.last == false %}, {% endif %}{% endfor %}];
+        const itemList = [{% for item in site.itemList %}"{{ item.name }}"{% if forloop.last == false %}, {% endif %} {% endfor %}];
 
     function loadRentInfo() {
         const rentInfoList = JSON.parse(localStorage.getItem(rentInfoKey)) || [];
