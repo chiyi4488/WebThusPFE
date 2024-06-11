@@ -87,6 +87,7 @@ $(document).ready(function () {
         let userData = JSON.parse(localStorage.getItem('userData')) || [];
         const currentUser = userData.find(user => user.idNumber === loginID);
         const name = currentUser ? currentUser.name : '';
+        $('#navbarLoginName').show();
         $('#navbarLoginName').text(`目前登入: ${name}`)
 
     } else {
