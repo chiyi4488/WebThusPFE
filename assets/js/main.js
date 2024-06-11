@@ -84,6 +84,11 @@ $(document).ready(function () {
         dynamicButton.hide();
         dynamicLogout.show();
         userOperationDropdown.show();
+        let userData = JSON.parse(localStorage.getItem('userData')) || [];
+        const currentUser = userData.find(user => user.idNumber === loginID);
+        const name = currentUser ? currentUser.name : '';
+        $('#navbarLoginName').text(`目前登入: ${name}`)
+
     } else {
         dynamicButton.text('註冊');
         dynamicButton.attr('href', '/register/');
